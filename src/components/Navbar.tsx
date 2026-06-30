@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { IconArrowUpRight } from "@/components/icons";
 import { LogoMark } from "@/components/Logo";
+import { MegaMenu } from "@/components/MegaMenu";
 import { Magnetic } from "@/components/primitives";
 import { LiveClock } from "@/components/flourishes";
 import { CommandPalette } from "@/components/CommandPalette";
@@ -38,10 +39,13 @@ export function Navbar() {
     <>
       <header className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${scrolled ? "bg-paper/85 backdrop-blur-md border-b border-line" : "border-b border-transparent"}`}>
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
-          <Link to="/" data-cursor-label="HOME" className="flex items-center gap-2.5 group">
-            <LogoMark size={34} className="text-navy group-hover:rotate-[8deg] transition-transform duration-300" />
-            <span className="display text-[19px] font-semibold leading-none">WebDev<span className="text-kraft">.</span>NY</span>
-          </Link>
+          <div className="flex items-center gap-5">
+            <Link to="/" data-cursor-label="HOME" className="flex items-center gap-2.5 group">
+              <LogoMark size={34} className="text-navy group-hover:rotate-[8deg] transition-transform duration-300" />
+              <span className="display text-[19px] font-semibold leading-none">WebDev<span className="text-kraft">.</span>NY</span>
+            </Link>
+            <MegaMenu />
+          </div>
 
           {/* center: status */}
           <div className="hidden lg:flex items-center gap-4 mono-label text-ink-faint">

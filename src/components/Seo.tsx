@@ -5,6 +5,8 @@ import { postBySlug } from "@/data/journal";
 import { industryBySlug } from "@/data/industries";
 
 const BASE = "WebDev NY";
+const SITE = "https://chowdhurysamer-coder.github.io/WebDevNY";
+const DEFAULT_OG = `${SITE}/og.png`;
 
 const staticMeta: Record<string, { t: string; d: string }> = {
   "/": { t: "WebDev NY — Websites New York actually clicks with.", d: "Custom web design & development for New York businesses. Fast, distinctive, conversion-focused — one flat fee, live in about two weeks." },
@@ -29,6 +31,7 @@ export function Seo() {
   const { pathname } = useLocation();
   useEffect(() => {
     let meta = staticMeta[pathname];
+    let ogImage = DEFAULT_OG;
     if (!meta) {
       if (pathname.startsWith("/work/")) {
         const c = caseBySlug(pathname.split("/")[2]);
@@ -37,8 +40,9 @@ export function Seo() {
         const p = postBySlug(pathname.split("/")[2]);
         if (p) meta = { t: `${p.title} — ${BASE}`, d: p.excerpt };
       } else if (pathname.startsWith("/for/")) {
-        const i = industryBySlug(pathname.split("/")[2]);
-        if (i) meta = { t: `${i.eyebrow} — ${BASE}`, d: i.sub };
+        const slug = pathname.split("/")[2];
+        const i = industryBySlug(slug);
+        if (i) { meta = { t: `${i.eyebrow} — ${BASE}`, d: i.sub }; ogImage = `${SITE}/og/${slug}.png`; }
       }
     }
     if (!meta) meta = { t: `Page Not Found — ${BASE}`, d: "This page got lost in shipping." };
@@ -47,8 +51,10 @@ export function Seo() {
     setMeta("description", meta.d);
     setMeta("og:title", meta.t, "property");
     setMeta("og:description", meta.d, "property");
+    setMeta("og:image", ogImage, "property");
     setMeta("twitter:title", meta.t);
     setMeta("twitter:description", meta.d);
+    setMeta("twitter:image", ogImage);
   }, [pathname]);
   return null;
 }

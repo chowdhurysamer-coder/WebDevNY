@@ -19,6 +19,7 @@ export function CookieConsent() {
 
   const decide = (v: "all" | "essential") => {
     try { localStorage.setItem(KEY, v); } catch { /* ignore */ }
+    window.dispatchEvent(new Event("webdevny:consent"));
     sfx.tick();
     setShow(false);
   };

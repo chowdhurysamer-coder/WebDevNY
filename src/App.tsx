@@ -25,6 +25,7 @@ import Industry from "@/pages/Industry";
 import Privacy from "@/pages/Privacy";
 import NotFound from "@/pages/NotFound";
 import { CookieConsent } from "@/components/CookieConsent";
+import { Analytics as GAnalytics } from "@/components/Analytics";
 import { ConfettiLayer } from "@/components/Confetti";
 import { EasterEggs } from "@/components/EasterEggs";
 import { Seo } from "@/components/Seo";
@@ -71,6 +72,7 @@ function SiteLayout() {
     <div className="min-h-screen bg-paper flex flex-col">
       <ScrollTop />
       <Seo />
+      <GAnalytics />
       <RouteCurtain />
       <Navbar />
       <FloatingDock />

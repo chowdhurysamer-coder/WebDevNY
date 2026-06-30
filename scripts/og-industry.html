@@ -1,0 +1,56 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { width:1200px; height:630px; overflow:hidden; font-family:'Inter',sans-serif; }
+  .stage { width:1200px; height:630px; position:relative; background:#F8F4ED; padding:64px 72px; color:#211B15; }
+  .dot { position:absolute; inset:0; background-image:radial-gradient(rgba(33,27,21,.09) 1.5px, transparent 1.5px); background-size:30px 30px; }
+  .blob { position:absolute; right:-120px; top:-120px; width:560px; height:560px; border-radius:50%; opacity:.16; filter:blur(10px); }
+  .row { position:relative; display:flex; align-items:center; gap:14px; }
+  .brand { font-family:'Fraunces',serif; font-size:30px; font-weight:600; letter-spacing:-.02em; }
+  .kr { color:#C66E22; }
+  .pill { position:relative; display:inline-flex; align-items:center; gap:10px; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:.18em; font-size:15px; padding:10px 18px; border:2px solid; margin-top:96px; }
+  .dotc { width:9px; height:9px; border-radius:50%; }
+  h1 { position:relative; font-family:'Fraunces',serif; font-weight:600; font-size:104px; line-height:.92; letter-spacing:-.04em; margin-top:26px; max-width:980px; }
+  .it { font-style:italic; }
+  .foot { position:absolute; left:72px; right:72px; bottom:58px; display:flex; align-items:center; justify-content:space-between; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:.18em; font-size:15px; color:#5A5044; }
+  .cta { color:#fff; padding:12px 22px; box-shadow:5px 5px 0 #211B15; }
+</style></head>
+<body>
+  <div class="stage" id="stage">
+    <div class="dot"></div>
+    <div class="blob" id="blob"></div>
+    <div class="row">
+      <svg width="50" height="50" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#16335C" stroke-width="1" opacity="0.85"/>
+        <g fill="#16335C"><circle cx="50" cy="5" r="2.6"/><circle cx="81.8" cy="18.2" r="2.6"/><circle cx="95" cy="50" r="2.6"/><circle cx="81.8" cy="81.8" r="2.6"/><circle cx="50" cy="95" r="2.6"/><circle cx="18.2" cy="81.8" r="2.6"/><circle cx="5" cy="50" r="2.6"/><circle cx="18.2" cy="18.2" r="2.6"/></g>
+        <path d="M50 20 C61 20 70 29 70 40 C70 49 65 53 61.5 58 L38.5 58 C35 53 30 49 30 40 C30 29 39 20 50 20 Z" fill="#16335C"/>
+        <rect x="40" y="59.5" width="20" height="3.6" rx="1.8" fill="#16335C"/><rect x="41" y="64.5" width="18" height="3.6" rx="1.8" fill="#16335C"/><rect x="42" y="69.5" width="16" height="3.6" rx="1.8" fill="#16335C"/>
+        <path d="M44.5 74.5 L55.5 74.5 L52 80 L48 80 Z" fill="#16335C"/>
+        <g transform="rotate(-13 50 39)" stroke="#F8F4ED" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M47 28 L41 39 L47 50"/><path d="M53 28 L59 39 L53 50"/></g>
+      </svg>
+      <div class="brand">WebDev<span class="kr">.</span>NY</div>
+    </div>
+
+    <div class="pill" id="pill"><span class="dotc" id="dotc"></span><span id="eyebrow">WEBSITES FOR NYC</span></div>
+    <h1><span id="l1">Headline</span><br><span class="it" id="l2">accent.</span></h1>
+
+    <div class="foot">
+      <span>WebDev NY · New York</span>
+      <span class="cta" id="cta">Get a free quote ↗</span>
+    </div>
+  </div>
+  <script>
+    var q = new URLSearchParams(location.search);
+    var accent = '#' + (q.get('accent') || 'C66E22');
+    document.getElementById('eyebrow').textContent = q.get('eyebrow') || 'WEBSITES FOR NYC';
+    document.getElementById('l1').textContent = q.get('l1') || '';
+    document.getElementById('l2').textContent = q.get('l2') || '';
+    document.getElementById('l2').style.color = accent;
+    document.getElementById('pill').style.color = accent;
+    document.getElementById('pill').style.borderColor = accent;
+    document.getElementById('dotc').style.background = accent;
+    document.getElementById('blob').style.background = accent;
+    document.getElementById('cta').style.background = accent;
+  </script>
+</body></html>

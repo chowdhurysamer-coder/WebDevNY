@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Magnetic } from "@/components/primitives";
+import { BoxCatchGame } from "@/components/BoxCatchGame";
 import { IconArrowUpRight, IconArrow } from "@/components/icons";
 
 export default function NotFound() {
   return (
-    <div className="bg-paper min-h-screen flex items-center justify-center px-5 pt-16 relative overflow-hidden">
+    <div className="bg-paper min-h-screen flex flex-col items-center justify-center px-5 pt-24 pb-16 relative overflow-hidden">
       <div className="absolute inset-0 dotgrid opacity-40" />
       <div className="relative text-center max-w-lg">
         {/* lost package */}
@@ -37,6 +38,11 @@ export default function NotFound() {
             <IconArrow size={15} className="rotate-180" /> See the work
           </Link>
         </div>
+      </div>
+
+      {/* mini-game */}
+      <div className="relative w-full max-w-xl mt-14">
+        <BoxCatchGame />
       </div>
     </div>
   );

@@ -22,8 +22,22 @@ const reviews = [
   { name: "Tony R.", biz: "IronWorks Gym", text: "Our site finally looks as good as our gym. Sign-ups doubled in 60 days. Worth every single penny." },
 ];
 
+const SORTS = ["Newest", "Oldest", "A–Z"] as const;
+type Sort = typeof SORTS[number];
+
 export default function Portfolio() {
   const [active, setActive] = useState<typeof projects[0] | null>(null);
+  const [cat, setCat] = useState<string>("All");
+  const [sort, setSort] = useState<Sort>("Newest");
+
+  const cats = ["All", ...Array.from(new Set(projects.map((p) => p.cat)))];
+  const shown = projects
+    .filter((p) => cat === "All" || p.cat === cat)
+    .sort((a, b) => {
+      if (sort === "A–Z") return a.name.localeCompare(b.name);
+      const ay = +a.year.replace(/\D/g, ""), by = +b.year.replace(/\D/g, "");
+      return sort === "Newest" ? by - ay || +b.id - +a.id : ay - by || +a.id - +b.id;
+    });
 
   return (
     <div className="bg-paper pt-16">
@@ -38,12 +52,40 @@ export default function Portfolio() {
         </p>
       </section>
 
+      {/* filter + sort bar */}
+      <section className="max-w-[1400px] mx-auto px-5 sm:px-8 pt-10">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <div className="flex flex-wrap gap-2">
+            {cats.map((c) => (
+              <button key={c} onClick={() => setCat(c)} data-cursor-label="FILTER"
+                className={`mono-label px-4 py-2 border transition-all ${cat === c ? "bg-ink text-paper border-ink" : "border-line hover:border-ink text-ink-soft"}`}>
+                {c}
+              </button>
+            ))}
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="mono-label text-ink-faint">Sort</span>
+            {SORTS.map((s) => (
+              <button key={s} onClick={() => setSort(s)} data-cursor-label="SORT"
+                className={`mono-label px-3 py-2 border transition-all ${sort === s ? "bg-kraft text-paper border-kraft" : "border-line hover:border-ink text-ink-soft"}`}>
+                {s}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="mono-label text-ink-faint mt-4">{shown.length} project{shown.length !== 1 ? "s" : ""}</div>
+      </section>
+
       {/* catalog grid */}
-      <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-16">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((p, i) => (
-            <FadeUp key={p.id} delay={(i % 3) * 0.08}>
-              <button onClick={() => setActive(p)} data-cursor-label="VIEW" className="group text-left w-full">
+      <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-12">
+        <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AnimatePresence mode="popLayout">
+            {shown.map((p) => (
+              <motion.button
+                key={p.id} layout
+                initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                onClick={() => setActive(p)} data-cursor-label="VIEW" className="group text-left w-full">
                 <div className="card-paper press overflow-hidden">
                   <SiteMock variant={p.v} className="w-full" />
                   <div className="flex items-center justify-between px-4 py-3 border-t border-line">
@@ -55,10 +97,10 @@ export default function Portfolio() {
                   <h3 className="display text-xl font-semibold group-hover:text-kraft transition-colors">{p.name}</h3>
                   <span className="mono-label text-ink-faint">{p.id} — {p.year}</span>
                 </div>
-              </button>
-            </FadeUp>
-          ))}
-        </div>
+              </motion.button>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </section>
 
       {/* reviews */}
