@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { CardboardBox } from "@/components/CardboardBox";
 import { Navbar } from "@/components/Navbar";
@@ -70,7 +70,7 @@ export default function App() {
   };
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <AnimatePresence mode="wait">
         {phase === "box" && (
           <motion.div key="box" exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
@@ -109,6 +109,6 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
