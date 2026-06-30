@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { IconArrowUpRight, IconBox } from "@/components/icons";
 import { Magnetic } from "@/components/primitives";
+import { LiveClock } from "@/components/flourishes";
 
 const links = [
   { label: "Index", to: "/", n: "00" },
@@ -40,9 +41,13 @@ export function Navbar() {
           </Link>
 
           {/* center: status */}
-          <div className="hidden lg:flex items-center gap-2 mono-label text-ink-faint">
-            <span className="w-1.5 h-1.5 rounded-full bg-kraft animate-pulse" />
-            Booking Q3 — NYC
+          <div className="hidden lg:flex items-center gap-4 mono-label text-ink-faint">
+            <span className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-kraft animate-pulse" />
+              Booking Q3
+            </span>
+            <span className="h-3 w-px bg-line" />
+            <span className="flex items-center gap-1.5">NYC <LiveClock /></span>
           </div>
 
           <div className="flex items-center gap-3">

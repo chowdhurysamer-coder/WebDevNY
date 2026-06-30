@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Reveal, FadeUp, SectionLabel, Magnetic } from "@/components/primitives";
+import { ScrollTimeline } from "@/components/flourishes";
 import { SiteMock } from "@/components/SiteMock";
 import { IconArrowUpRight, IconCode, IconPen, IconBolt, IconShield, IconChart, IconPhone } from "@/components/icons";
 
@@ -67,15 +68,7 @@ export default function WebDesign() {
               <Reveal as="h2" text="Four steps. No surprises." className="display text-[clamp(30px,5vw,64px)] font-semibold" />
             </div>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line">
-            {process.map((p, i) => (
-              <FadeUp key={p.n} delay={i * 0.1} className="bg-paper p-7 min-h-[260px] flex flex-col group hover:bg-paper-3 transition-colors">
-                <span className="display text-kraft text-6xl font-semibold mb-6">{p.n}</span>
-                <h3 className="display text-xl font-semibold mb-3">{p.t}</h3>
-                <p className="text-ink-soft text-sm leading-relaxed">{p.d}</p>
-              </FadeUp>
-            ))}
-          </div>
+          <ScrollTimeline steps={process} />
         </div>
       </section>
 

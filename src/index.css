@@ -107,5 +107,23 @@ body {
   background-size: 26px 26px;
 }
 
+/* spins */
+@keyframes spin360 { to { transform: rotate(360deg); } }
+.spin-slow { animation: spin360 20s linear infinite; }
+.spin-rev { animation: spin360 26s linear infinite reverse; }
+
+/* tape strip */
+.tape {
+  background: repeating-linear-gradient(45deg, rgba(240,220,174,0.85) 0 10px, rgba(232,210,160,0.85) 10px 20px);
+  box-shadow: 0 2px 8px rgba(33,27,21,0.18);
+}
+.tape::before, .tape::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 8px;
+  background-image: radial-gradient(circle at 0 50%, transparent 4px, rgba(240,220,174,0.85) 4px);
+}
+
+/* torn paper edge */
+.torn-top { clip-path: polygon(0 8px,3% 0,7% 7px,12% 1px,17% 8px,23% 2px,29% 9px,35% 1px,41% 8px,47% 2px,53% 9px,59% 1px,65% 8px,71% 2px,77% 9px,83% 1px,89% 8px,94% 2px,100% 8px,100% 100%,0 100%); }
+
 @media (pointer: fine) { .cursor-none-fine { cursor: none; } }
 @media (prefers-reduced-motion: reduce) { .box-float, .marquee, .text-sunset, .grain { animation: none !important; } }

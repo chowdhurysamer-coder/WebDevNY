@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Aurora } from "@/components/Aurora";
 import { SiteMock } from "@/components/SiteMock";
 import { Reveal, FadeUp, SectionLabel, Marquee, Magnetic, Counter, Parallax, TiltCard } from "@/components/primitives";
+import { RotatingStamp, WordmarkMarquee, TapeStrip } from "@/components/flourishes";
 import { IconArrowUpRight, IconArrow } from "@/components/icons";
 
 const stats = [
@@ -68,6 +69,14 @@ export default function Home() {
           className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
           <motion.span animate={{ y: [0, 8, 0] }} transition={{ duration: 1.6, repeat: Infinity }} className="w-px h-10 bg-ink/40" />
         </motion.div>
+
+        {/* floating rotating stamp */}
+        <motion.div initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1, duration: 0.6 }}
+          className="absolute right-6 sm:right-12 top-28 sm:top-32 text-ink/70 hidden sm:block">
+          <RotatingStamp size={120} text="WEBDEV NY · EST. 2024 · NEW YORK · ">
+            <span className="w-11 h-11 rounded-full bg-ink text-paper grid place-items-center"><IconArrow size={18} className="-rotate-45" /></span>
+          </RotatingStamp>
+        </motion.div>
       </section>
 
       {/* ───────── MARQUEE ───────── */}
@@ -85,6 +94,14 @@ export default function Home() {
             <div className="mono-label text-ink-faint mt-3">{s.label}</div>
           </FadeUp>
         ))}
+      </section>
+
+      {/* ───────── TRUSTED BY ───────── */}
+      <section className="py-12 border-b border-line overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-5 sm:px-8 mb-6">
+          <SectionLabel index="·">Trusted by New York businesses</SectionLabel>
+        </div>
+        <WordmarkMarquee />
       </section>
 
       {/* ───────── SERVICES ───────── */}
@@ -112,8 +129,9 @@ export default function Home() {
       </section>
 
       {/* ───────── SELECTED WORK (light) ───────── */}
-      <section className="py-24 overflow-hidden border-y border-line bg-paper-2">
-        <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
+      <section className="py-24 overflow-hidden border-y border-line bg-paper-2 relative">
+        <TapeStrip label="SELECTED WORK · 2024–25" className="absolute top-6 left-1/2 -translate-x-1/2" />
+        <div className="max-w-[1400px] mx-auto px-5 sm:px-8 mt-6">
           <div className="flex items-end justify-between mb-12">
             <div>
               <SectionLabel index="02" className="mb-5">Selected work</SectionLabel>
@@ -166,6 +184,11 @@ export default function Home() {
         <div className="card-paper-kraft p-10 sm:p-16 text-center relative overflow-hidden">
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)", backgroundSize: "32px 32px" }} />
           <div className="relative">
+            <div className="absolute -top-2 right-2 sm:right-8 text-paper/90 hidden sm:block">
+              <RotatingStamp size={108} text="GET A QUOTE · BOOK A CALL · " reverse>
+                <span className="w-9 h-9 rounded-full bg-paper text-kraft grid place-items-center"><IconArrowUpRight size={16} /></span>
+              </RotatingStamp>
+            </div>
             <SectionLabel index="→" className="justify-center text-paper/80 mb-6">Ready when you are</SectionLabel>
             <Reveal as="h2" text="Let's put your business in a box worth opening." className="display text-[clamp(32px,5.5vw,76px)] font-semibold justify-center text-center max-w-3xl mx-auto" />
             <Magnetic className="mt-10 inline-block">

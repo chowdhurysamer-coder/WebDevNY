@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Reveal, FadeUp, SectionLabel } from "@/components/primitives";
+import { Reveal, FadeUp, SectionLabel, TiltCard } from "@/components/primitives";
 import { SiteMock } from "@/components/SiteMock";
 import { IconArrowUpRight, IconEye, IconPlay } from "@/components/icons";
 
@@ -20,11 +20,8 @@ function Card({ t, i }: { t: typeof templates[0]; i: number }) {
   const [hover, setHover] = useState(false);
   return (
     <FadeUp delay={(i % 3) * 0.08}>
-      <div
-        onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
-        className="card-paper press overflow-hidden"
-        data-cursor-label="DEMO"
-      >
+      <TiltCard className="card-paper overflow-hidden">
+        <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} data-cursor-label="DEMO">
         <div className="relative">
           <SiteMock variant={t.v} className="w-full" />
           <motion.div animate={{ opacity: hover ? 1 : 0 }} className="absolute inset-0 bg-ink/55 flex items-center justify-center gap-3">
@@ -46,7 +43,8 @@ function Card({ t, i }: { t: typeof templates[0]; i: number }) {
             ))}
           </div>
         </div>
-      </div>
+        </div>
+      </TiltCard>
     </FadeUp>
   );
 }
