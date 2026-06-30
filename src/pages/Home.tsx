@@ -20,14 +20,22 @@ const services = [
   { n: "04", t: "Analytics", d: "We instrument everything, then read the numbers back to you in plain English.", to: "/analytics" },
 ];
 
-const niches = ["Restaurants", "Dental", "Fitness", "Salons", "Legal", "Real Estate", "Medical", "E-commerce", "Home Services", "Hospitality"];
+const niches: { label: string; to?: string }[] = [
+  { label: "Restaurants", to: "/for/restaurants" },
+  { label: "Dental", to: "/for/dentists" },
+  { label: "Fitness", to: "/for/gyms" },
+  { label: "Salons", to: "/for/salons" },
+  { label: "Legal", to: "/for/lawyers" },
+  { label: "Real Estate", to: "/for/real-estate" },
+  { label: "Medical" }, { label: "E-commerce" }, { label: "Home Services" }, { label: "Hospitality" },
+];
 
 export default function Home() {
   return (
     <div className="bg-paper">
       {/* ───────── HERO ───────── */}
       <section className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden">
-        <Aurora className="absolute inset-0 w-full h-full" />
+        <Aurora className="aurora absolute inset-0 w-full h-full" />
         <div className="absolute inset-0 dotgrid opacity-40 pointer-events-none" />
         <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(248,244,237,0.5) 0%, transparent 25%, transparent 60%, rgba(248,244,237,0.85) 100%)" }} />
 
@@ -167,11 +175,16 @@ export default function Home() {
         <SectionLabel index="03" className="mb-6">Industries we know cold</SectionLabel>
         <div className="flex flex-wrap gap-3">
           {niches.map((n, i) => (
-            <motion.span key={n}
-              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.04 }}
-              className="card-paper press px-5 py-3 mono-label cursor-default">
-              {n}
-            </motion.span>
+            <motion.div key={n.label}
+              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.04 }}>
+              {n.to ? (
+                <Link to={n.to} data-cursor-label="OPEN" className="card-paper press px-5 py-3 mono-label flex items-center gap-2 group">
+                  {n.label} <IconArrowUpRight size={13} className="opacity-40 group-hover:opacity-100 group-hover:text-kraft transition-all" />
+                </Link>
+              ) : (
+                <span className="card-paper px-5 py-3 mono-label inline-block opacity-70 cursor-default">{n.label}</span>
+              )}
+            </motion.div>
           ))}
         </div>
         <p className="text-ink-soft max-w-lg mt-8">

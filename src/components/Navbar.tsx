@@ -5,7 +5,7 @@ import { IconArrowUpRight, IconBox } from "@/components/icons";
 import { Magnetic } from "@/components/primitives";
 import { LiveClock } from "@/components/flourishes";
 import { CommandPalette } from "@/components/CommandPalette";
-import { SoundToggle } from "@/components/Controls";
+import { SoundToggle, ThemeToggle } from "@/components/Controls";
 import { sfx } from "@/lib/sfx";
 
 const links = [
@@ -56,6 +56,7 @@ export function Navbar() {
 
           <div className="flex items-center gap-2.5">
             <CommandPalette />
+            <ThemeToggle />
             <SoundToggle />
             <Magnetic>
               <Link to="/contact" data-cursor-label="GO" className="hidden sm:flex items-center gap-2 bg-ink text-paper px-4 py-2.5 mono-label hover:bg-kraft transition-colors">

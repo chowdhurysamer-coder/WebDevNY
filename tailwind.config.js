@@ -1,6 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+const rgb = (v) => `rgb(var(${v}) / <alpha-value>)`;
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
@@ -9,18 +11,18 @@ export default {
         mono: ["'JetBrains Mono'", "ui-monospace", "monospace"],
       },
       colors: {
-        paper: "#F8F4ED",
-        "paper-2": "#F1EBDF",
-        "paper-3": "#E8DFCE",
-        ink: "#211B15",
-        "ink-soft": "#5A5044",
-        "ink-faint": "#988B79",
-        kraft: "#C66E22",
-        "kraft-deep": "#9A4F16",
-        "kraft-soft": "#E8A765",
-        sky: "#4E86A8",
-        blush: "#D98B6A",
-        line: "rgba(33,27,21,0.12)",
+        paper: rgb("--c-paper"),
+        "paper-2": rgb("--c-paper-2"),
+        "paper-3": rgb("--c-paper-3"),
+        ink: rgb("--c-ink"),
+        "ink-soft": rgb("--c-ink-soft"),
+        "ink-faint": rgb("--c-ink-faint"),
+        kraft: rgb("--c-kraft"),
+        "kraft-deep": rgb("--c-kraft-deep"),
+        "kraft-soft": rgb("--c-kraft-soft"),
+        sky: rgb("--c-sky"),
+        blush: rgb("--c-blush"),
+        line: "var(--line)",
       },
       letterSpacing: { tightest: "-0.05em" },
     },

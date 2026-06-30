@@ -20,7 +20,10 @@ import Plans from "@/pages/Plans";
 import Contact from "@/pages/Contact";
 import Journal from "@/pages/Journal";
 import JournalPost from "@/pages/JournalPost";
+import Industry from "@/pages/Industry";
 import NotFound from "@/pages/NotFound";
+import { ConfettiLayer } from "@/components/Confetti";
+import { EasterEggs } from "@/components/EasterEggs";
 
 const STORAGE_KEY = "webdevny_unboxed";
 
@@ -64,6 +67,7 @@ function SiteLayout() {
       <ScrollTop />
       <Navbar />
       <FloatingDock />
+      <EasterEggs />
       <main className="flex-1">
         <PageTransition>
           <Routes location={location}>
@@ -78,6 +82,7 @@ function SiteLayout() {
             <Route path="/plans" element={<Plans />} />
             <Route path="/journal" element={<Journal />} />
             <Route path="/journal/:slug" element={<JournalPost />} />
+            <Route path="/for/:slug" element={<Industry />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
@@ -103,6 +108,7 @@ export default function App() {
     <HashRouter>
       <div className="grain" />
       <CustomCursor />
+      <ConfettiLayer />
       {phase === "site" && <ScrollProgress />}
 
       <AnimatePresence>

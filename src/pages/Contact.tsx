@@ -2,6 +2,12 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Reveal, SectionLabel, Magnetic } from "@/components/primitives";
 import { IconMail, IconPhone, IconPin, IconArrowUpRight, IconCheck } from "@/components/icons";
+import { burstConfetti } from "@/components/Confetti";
+import { sfx } from "@/lib/sfx";
+
+// Set VITE_FORMSPREE_ID to your Formspree form id (e.g. "xmyzabcd") to receive submissions.
+const FORMSPREE_ID = (import.meta.env.VITE_FORMSPREE_ID as string) || "";
+const ENDPOINT = FORMSPREE_ID ? `https://formspree.io/f/${FORMSPREE_ID}` : "";
 
 const info = [
   { icon: IconMail, label: "Email", value: "hello@webdevny.com", href: "mailto:hello@webdevny.com" },
@@ -13,7 +19,35 @@ const steps = ["You send the brief", "We review your project", "Free 30-min stra
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState({ name: "", email: "", business: "", budget: "", message: "" });
+
+  const succeed = () => {
+    setSent(true);
+    sfx.chime();
+    burstConfetti(window.innerWidth / 2, window.innerHeight * 0.35);
+  };
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    if (!ENDPOINT) { succeed(); return; } // no backend configured → optimistic success
+    setSending(true);
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ ...form, _subject: `New project inquiry — ${form.business || form.name}` }),
+      });
+      if (res.ok) succeed();
+      else { const d = await res.json().catch(() => ({})); setError(d?.errors?.[0]?.message || "Something went wrong. Please email us directly."); }
+    } catch {
+      setError("Network error. Please email hello@webdevny.com directly.");
+    } finally {
+      setSending(false);
+    }
+  };
 
   const field = "w-full bg-paper-2 border border-line px-4 py-3 text-sm outline-none focus:border-ink transition-colors placeholder:text-ink-faint";
 
@@ -65,7 +99,7 @@ export default function Contact() {
               <p className="text-ink-soft max-w-xs">We'll be in touch within 24 hours. Keep an eye on your inbox.</p>
             </div>
           ) : (
-            <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="flex flex-col gap-5">
+            <form onSubmit={submit} className="flex flex-col gap-5">
               <div className="grid sm:grid-cols-2 gap-4">
                 <label className="block">
                   <span className="mono-label text-ink-faint block mb-2">Name *</span>
@@ -94,11 +128,13 @@ export default function Contact() {
                 <span className="mono-label text-ink-faint block mb-2">Project details *</span>
                 <textarea required rows={5} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className={`${field} resize-none`} placeholder="What do you need? What's working, what isn't? Who's your customer?" />
               </label>
+              {error && <div className="mono-label text-red-700 bg-red-500/10 border border-red-500/30 px-4 py-3">{error}</div>}
               <Magnetic>
-                <button type="submit" data-cursor-label="SEND" className="card-paper-kraft press w-full flex items-center justify-center gap-2 py-4 mono-label">
-                  Send the brief <IconArrowUpRight size={15} />
+                <button type="submit" disabled={sending} data-cursor-label="SEND" className="card-paper-kraft press w-full flex items-center justify-center gap-2 py-4 mono-label disabled:opacity-60">
+                  {sending ? "Sending…" : <>Send the brief <IconArrowUpRight size={15} /></>}
                 </button>
               </Magnetic>
+              <p className="mono-label text-ink-faint text-center" style={{ fontSize: 9 }}>We reply within 24 hours · or email hello@webdevny.com</p>
             </form>
           )}
         </div>

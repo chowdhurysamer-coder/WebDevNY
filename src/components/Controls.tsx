@@ -2,8 +2,27 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { sfx } from "@/lib/sfx";
-import { IconSound, IconMute, IconArrowUpRight } from "@/components/icons";
+import { IconSound, IconMute, IconArrowUpRight, IconSun, IconMoon } from "@/components/icons";
 import { Magnetic } from "@/components/primitives";
+
+export function ThemeToggle() {
+  const [dark, setDark] = useState(() => document.documentElement.classList.contains("dark"));
+  const toggle = () => {
+    const v = !dark;
+    setDark(v);
+    document.documentElement.classList.toggle("dark", v);
+    try { localStorage.setItem("webdevny_theme", v ? "dark" : "light"); } catch { /* ignore */ }
+    sfx.tick();
+  };
+  return (
+    <button onClick={toggle} data-cursor-label={dark ? "LIGHT" : "DARK"} aria-label="Toggle theme"
+      className="w-9 h-9 flex items-center justify-center border border-line hover:border-ink transition-colors text-ink-soft hover:text-ink">
+      <motion.span key={dark ? "m" : "s"} initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} transition={{ duration: 0.3 }}>
+        {dark ? <IconSun size={16} /> : <IconMoon size={16} />}
+      </motion.span>
+    </button>
+  );
+}
 
 export function SoundToggle() {
   const [on, setOn] = useState(sfx.enabled);
