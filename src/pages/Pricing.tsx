@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Reveal, FadeUp, SectionLabel, Magnetic } from "@/components/primitives";
+import { Estimator } from "@/components/Estimator";
 import { IconCheck, IconArrowUpRight, IconArrow } from "@/components/icons";
 
 const plans = [
@@ -69,6 +70,20 @@ export default function Pricing() {
           ))}
         </div>
         <p className="text-center mono-label text-ink-faint mt-10">All prices in USD · Payment plans available · Custom quotes for enterprise</p>
+      </section>
+
+      {/* ESTIMATOR */}
+      <section className="bg-paper-2 border-y border-line py-24">
+        <div className="max-w-[1200px] mx-auto px-5 sm:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+            <div>
+              <SectionLabel index="·" className="mb-5">Build your estimate</SectionLabel>
+              <Reveal as="h2" text="Price it out in 30 seconds." className="display text-[clamp(28px,4.5vw,56px)] font-semibold" />
+            </div>
+            <p className="text-ink-soft max-w-xs">Drag, toggle, and watch the number move. No email wall — just a real ballpark before we talk.</p>
+          </div>
+          <FadeUp><Estimator /></FadeUp>
+        </div>
       </section>
 
       {/* FAQ */}

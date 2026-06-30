@@ -3,17 +3,17 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Reveal, FadeUp, SectionLabel } from "@/components/primitives";
 import { SiteMock } from "@/components/SiteMock";
-import { IconArrowUpRight, IconStar, IconArrow } from "@/components/icons";
+import { IconArrowUpRight, IconStar } from "@/components/icons";
 
 type V = "restaurant" | "dental" | "gym" | "salon" | "legal" | "realestate";
 
-const projects: { id: string; v: V; name: string; cat: string; year: string; blurb: string; result: string }[] = [
-  { id: "01", v: "restaurant", name: "Trattoria Bella", cat: "Restaurant", year: "'25", blurb: "Menu-led design with one-tap reservations and a story-driven scroll.", result: "+40% online bookings in month one" },
-  { id: "02", v: "dental", name: "BrightSmile Dental", cat: "Dental", year: "'25", blurb: "Patient-first layout with online intake forms and a before/after gallery.", result: "6 hrs/week saved on paperwork" },
-  { id: "03", v: "gym", name: "IronWorks Gym", cat: "Fitness", year: "'24", blurb: "Class booking, membership tiers, and a video-forward hero that sells the room.", result: "2× membership sign-ups in 60 days" },
-  { id: "04", v: "salon", name: "Maison Salon", cat: "Beauty", year: "'25", blurb: "Booking-forward design with a stylist portfolio and editorial photography slots.", result: "Fully booked 3 weeks out" },
-  { id: "05", v: "legal", name: "Park Ave Legal", cat: "Legal", year: "'24", blurb: "Authority-building layout with practice areas, results, and attorney bios.", result: "+31% qualified consultations" },
-  { id: "06", v: "realestate", name: "Hudson Realty", cat: "Real Estate", year: "'25", blurb: "MLS-integrated listings, neighborhood guides, and agent lead capture.", result: "7.2% lead conversion rate" },
+const projects: { id: string; slug: string; v: V; name: string; cat: string; year: string; blurb: string; result: string }[] = [
+  { id: "01", slug: "trattoria-bella", v: "restaurant", name: "Trattoria Bella", cat: "Restaurant", year: "'25", blurb: "Menu-led design with one-tap reservations and a story-driven scroll.", result: "+40% online bookings in month one" },
+  { id: "02", slug: "brightsmile-dental", v: "dental", name: "BrightSmile Dental", cat: "Dental", year: "'25", blurb: "Patient-first layout with online intake forms and a before/after gallery.", result: "6 hrs/week saved on paperwork" },
+  { id: "03", slug: "ironworks-gym", v: "gym", name: "IronWorks Gym", cat: "Fitness", year: "'24", blurb: "Class booking, membership tiers, and a video-forward hero that sells the room.", result: "2× membership sign-ups in 60 days" },
+  { id: "04", slug: "maison-salon", v: "salon", name: "Maison Salon", cat: "Beauty", year: "'25", blurb: "Booking-forward design with a stylist portfolio and editorial photography slots.", result: "Fully booked 3 weeks out" },
+  { id: "05", slug: "park-ave-legal", v: "legal", name: "Park Ave Legal", cat: "Legal", year: "'24", blurb: "Authority-building layout with practice areas, results, and attorney bios.", result: "+31% qualified consultations" },
+  { id: "06", slug: "hudson-realty", v: "realestate", name: "Hudson Realty", cat: "Real Estate", year: "'25", blurb: "MLS-integrated listings, neighborhood guides, and agent lead capture.", result: "7.2% lead conversion rate" },
 ];
 
 const reviews = [
@@ -112,8 +112,8 @@ export default function Portfolio() {
                     <div className="mono-label text-paper/80 mb-1">Outcome</div>
                     <div className="display text-2xl font-semibold">{active.result}</div>
                   </div>
-                  <Link to="/contact" className="mt-8 inline-flex items-center gap-2 mono-label hover:text-kraft transition-colors link-draw">
-                    Want results like this? <IconArrow size={15} />
+                  <Link to={`/work/${active.slug}`} data-cursor-label="OPEN" className="mt-8 card-paper-kraft press inline-flex items-center gap-2 px-5 py-3 mono-label">
+                    Read the full case study <IconArrowUpRight size={15} />
                   </Link>
                 </div>
               </div>
