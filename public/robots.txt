@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://chowdhurysamer-coder.github.io/WebDevNY/sitemap.xml

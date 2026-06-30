@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Reveal, SectionLabel, Magnetic } from "@/components/primitives";
 import { IconMail, IconPhone, IconPin, IconArrowUpRight, IconCheck } from "@/components/icons";
@@ -17,11 +18,25 @@ const info = [
 
 const steps = ["You send the brief", "We review your project", "Free 30-min strategy call", "Proposal within 24 hours"];
 
+interface Quote { tier: string; pages: number; addons: string[]; total: number; days: number }
+
 export default function Contact() {
+  const quote = (useLocation().state as { quote?: Quote } | null)?.quote;
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
-  const [form, setForm] = useState({ name: "", email: "", business: "", budget: "", message: "" });
+  const [form, setForm] = useState(() => {
+    if (quote) {
+      const addons = quote.addons.length ? `\nAdd-ons: ${quote.addons.join(", ")}` : "";
+      const budgetMap: Record<string, string> = { Starter: "$2,499 — Starter", Growth: "$4,999 — Growth", Elite: "$9,999 — Elite" };
+      return {
+        name: "", email: "", business: "",
+        budget: budgetMap[quote.tier] || "Custom / Enterprise",
+        message: `I built an estimate on your site:\n\nPackage: ${quote.tier}\nPages: ${quote.pages}${addons}\nEstimated total: $${quote.total.toLocaleString()}\nEstimated timeline: ~${quote.days} days\n\nA bit about my project: `,
+      };
+    }
+    return { name: "", email: "", business: "", budget: "", message: "" };
+  });
 
   const succeed = () => {
     setSent(true);
@@ -100,6 +115,16 @@ export default function Contact() {
             </div>
           ) : (
             <form onSubmit={submit} className="flex flex-col gap-5">
+              {quote && (
+                <div className="card-paper-kraft p-5">
+                  <div className="mono-label text-paper/80 mb-2">Your estimate — carried over</div>
+                  <div className="flex items-baseline gap-3">
+                    <span className="display text-3xl font-semibold">${quote.total.toLocaleString()}</span>
+                    <span className="mono-label text-paper/80">{quote.tier} · {quote.pages} pages · ~{quote.days} days</span>
+                  </div>
+                  {quote.addons.length > 0 && <div className="mono-label text-paper/70 mt-2">+ {quote.addons.join(" · ")}</div>}
+                </div>
+              )}
               <div className="grid sm:grid-cols-2 gap-4">
                 <label className="block">
                   <span className="mono-label text-ink-faint block mb-2">Name *</span>

@@ -3,6 +3,7 @@ import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import Lenis from "lenis";
 import { BeamReveal } from "@/components/BeamReveal";
+import { LogoLoader } from "@/components/LogoLoader";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CustomCursor } from "@/components/CustomCursor";
@@ -24,6 +25,7 @@ import Industry from "@/pages/Industry";
 import NotFound from "@/pages/NotFound";
 import { ConfettiLayer } from "@/components/Confetti";
 import { EasterEggs } from "@/components/EasterEggs";
+import { Seo } from "@/components/Seo";
 
 const STORAGE_KEY = "webdevny_unboxed";
 
@@ -65,6 +67,7 @@ function SiteLayout() {
   return (
     <div className="min-h-screen bg-paper flex flex-col">
       <ScrollTop />
+      <Seo />
       <Navbar />
       <FloatingDock />
       <EasterEggs />
@@ -94,7 +97,7 @@ function SiteLayout() {
 }
 
 export default function App() {
-  const [phase, setPhase] = useState<"intro" | "site">(() => (sessionStorage.getItem(STORAGE_KEY) ? "site" : "intro"));
+  const [phase, setPhase] = useState<"intro" | "loader" | "site">(() => (sessionStorage.getItem(STORAGE_KEY) ? "loader" : "intro"));
   const [unblind, setUnblind] = useState(false);
   useLenis(phase === "site");
 
@@ -117,6 +120,7 @@ export default function App() {
             <BeamReveal onComplete={handleComplete} />
           </motion.div>
         )}
+        {phase === "loader" && <LogoLoader key="loader" onDone={() => setPhase("site")} />}
       </AnimatePresence>
 
       {phase === "site" && <SiteLayout />}

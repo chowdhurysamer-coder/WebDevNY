@@ -122,7 +122,13 @@ export function Estimator() {
             </motion.div>
           </div>
           <Magnetic className="mt-6 block">
-            <Link to="/contact" data-cursor-label="GO" className="press inline-flex items-center justify-center gap-2 w-full py-3.5 bg-kraft text-paper mono-label">
+            <Link to="/contact" data-cursor-label="GO"
+              state={{ quote: {
+                tier, pages,
+                addons: addons.filter((a) => selected.includes(a.id)).map((a) => a.label),
+                total, days,
+              } }}
+              className="press inline-flex items-center justify-center gap-2 w-full py-3.5 bg-kraft text-paper mono-label">
               Lock in this quote <IconArrowUpRight size={14} />
             </Link>
           </Magnetic>
