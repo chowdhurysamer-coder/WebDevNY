@@ -54,17 +54,17 @@ export default function Analytics() {
       </section>
 
       {/* dashboard */}
-      <section className="bg-ink text-paper py-24">
+      <section className="bg-paper-2 border-y border-line py-24">
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
-          <SectionLabel index="·" className="text-paper/60 mb-8">A look inside the dashboard</SectionLabel>
-          <div className="border border-paper/15 p-6 sm:p-8">
+          <SectionLabel index="·" className="mb-8">A look inside the dashboard</SectionLabel>
+          <div className="card-paper p-6 sm:p-8">
             <div className="flex items-center justify-between mb-8">
               <div>
-                <div className="display text-2xl font-semibold text-paper">Site Performance</div>
-                <div className="mono-label text-paper/40 mt-1">Last 30 days</div>
+                <div className="display text-2xl font-semibold">Site Performance</div>
+                <div className="mono-label text-ink-faint mt-1">Last 30 days</div>
               </div>
               <div className="flex gap-2">
-                <span className="mono-label border border-paper/20 px-3 py-1.5 text-paper/50">Weekly</span>
+                <span className="mono-label border border-line px-3 py-1.5 text-ink-faint">Weekly</span>
                 <span className="mono-label bg-kraft text-paper px-3 py-1.5">Monthly</span>
               </div>
             </div>
@@ -75,15 +75,15 @@ export default function Analytics() {
                   initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true }}
                   transition={{ delay: i * 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                   style={{ height: `${h}%`, originY: 1 }}
-                  className="flex-1 bg-kraft"
+                  className="flex-1 bg-gradient-to-t from-kraft to-kraft-soft"
                 />
               ))}
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-paper/10 border border-paper/10">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border border-line">
               {[["Sessions", "12,481", "+24%"], ["Conversions", "423", "+41%"], ["Revenue", "$18,200", "+67%"], ["Bounce", "28%", "−12%"]].map(([l, v, c]) => (
-                <div key={l} className="bg-ink p-5">
-                  <div className="mono-label text-paper/40 mb-2">{l}</div>
-                  <div className="display text-2xl font-semibold text-paper">{v}</div>
+                <div key={l} className="bg-paper p-5">
+                  <div className="mono-label text-ink-faint mb-2">{l}</div>
+                  <div className="display text-2xl font-semibold">{v}</div>
                   <div className="mono-label text-kraft mt-1">{c}</div>
                 </div>
               ))}

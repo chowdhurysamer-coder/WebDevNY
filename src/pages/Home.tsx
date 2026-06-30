@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { PlotterField } from "@/components/PlotterField";
+import { Aurora } from "@/components/Aurora";
 import { SiteMock } from "@/components/SiteMock";
-import { Reveal, FadeUp, SectionLabel, Marquee, Magnetic, Counter, Parallax } from "@/components/primitives";
+import { Reveal, FadeUp, SectionLabel, Marquee, Magnetic, Counter, Parallax, TiltCard } from "@/components/primitives";
 import { IconArrowUpRight, IconArrow } from "@/components/icons";
 
 const stats = [
@@ -26,30 +26,29 @@ export default function Home() {
     <div className="bg-paper">
       {/* ───────── HERO ───────── */}
       <section className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden">
-        <PlotterField className="absolute inset-0 w-full h-full" />
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(120% 80% at 50% 0%, transparent 40%, rgba(239,233,221,0.7) 100%)" }} />
+        <Aurora className="absolute inset-0 w-full h-full" />
+        <div className="absolute inset-0 dotgrid opacity-40 pointer-events-none" />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(248,244,237,0.5) 0%, transparent 25%, transparent 60%, rgba(248,244,237,0.85) 100%)" }} />
 
         <div className="relative max-w-[1400px] w-full mx-auto px-5 sm:px-8 pb-14 pt-32">
           <div className="flex items-center justify-between mb-8">
             <SectionLabel index="00">Web studio · New York</SectionLabel>
-            <span className="mono-label text-ink-faint hidden sm:block">Est. 2024 — 40.7° N, 74.0° W</span>
+            <span className="mono-label text-ink-soft hidden sm:block">Est. 2024 — 40.7° N, 74.0° W</span>
           </div>
 
           <h1 className="display text-[clamp(48px,12vw,180px)] font-semibold tracking-tightest">
             <Reveal text="Websites New York" />
             <span className="flex flex-wrap items-baseline">
               <Reveal text="actually" delay={0.15} />
-              <span className="italic text-kraft ml-[0.22em]">
+              <span className="italic text-sunset ml-[0.22em]">
                 <Reveal text="clicks with." delay={0.25} />
               </span>
             </span>
           </h1>
 
           <div className="mt-10 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
-            <motion.p
-              initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.7 }}
-              className="text-ink-soft text-lg max-w-md leading-relaxed"
-            >
+            <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.7 }}
+              className="text-ink-soft text-lg max-w-md leading-relaxed">
               We design and build custom websites for New York businesses — fast, distinctive, and engineered to turn a click into a customer.
             </motion.p>
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85, duration: 0.7 }} className="flex items-center gap-4">
@@ -64,10 +63,15 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
+
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.3 }}
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+          <motion.span animate={{ y: [0, 8, 0] }} transition={{ duration: 1.6, repeat: Infinity }} className="w-px h-10 bg-ink/40" />
+        </motion.div>
       </section>
 
       {/* ───────── MARQUEE ───────── */}
-      <section className="border-y border-ink bg-ink text-paper py-5">
+      <section className="border-y border-ink bg-kraft text-paper py-5">
         <Marquee items={["Design", "Development", "SEO", "Analytics", "Branding", "Maintenance"]} />
       </section>
 
@@ -107,28 +111,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ───────── SELECTED WORK ───────── */}
-      <section className="bg-ink text-paper py-24 overflow-hidden">
+      {/* ───────── SELECTED WORK (light) ───────── */}
+      <section className="py-24 overflow-hidden border-y border-line bg-paper-2">
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
           <div className="flex items-end justify-between mb-12">
             <div>
-              <SectionLabel index="02" className="text-paper/60 mb-5">Selected work</SectionLabel>
-              <Reveal as="h2" text="Built for real businesses." className="display text-[clamp(30px,5vw,64px)] font-semibold text-paper" />
+              <SectionLabel index="02" className="mb-5">Selected work</SectionLabel>
+              <Reveal as="h2" text="Built for real businesses." className="display text-[clamp(30px,5vw,64px)] font-semibold" />
             </div>
-            <Link to="/portfolio" className="hidden sm:inline-flex items-center gap-2 mono-label text-paper hover:text-kraft transition-colors">
+            <Link to="/portfolio" className="hidden sm:inline-flex items-center gap-2 mono-label text-ink hover:text-kraft transition-colors">
               All projects <IconArrowUpRight size={15} />
             </Link>
           </div>
         </div>
 
-        <Parallax speed={0.15}>
+        <Parallax speed={0.12}>
           <div className="flex gap-6 px-5 sm:px-8 overflow-x-auto pb-4 max-w-[1400px] mx-auto" style={{ scrollbarWidth: "none" }}>
             {(["restaurant", "dental", "gym", "legal"] as const).map((v, i) => (
               <FadeUp key={v} delay={i * 0.1} className="shrink-0 w-[300px] sm:w-[380px]">
-                <div className="border border-paper/15 overflow-hidden card-hover">
-                  <SiteMock variant={v} className="w-full" />
-                </div>
-                <div className="flex items-center justify-between mt-3 mono-label text-paper/50">
+                <TiltCard>
+                  <div className="card-paper overflow-hidden">
+                    <SiteMock variant={v} className="w-full" />
+                  </div>
+                </TiltCard>
+                <div className="flex items-center justify-between mt-4 mono-label text-ink-soft">
                   <span>{["Trattoria", "BrightSmile", "IronWorks", "Park Ave Legal"][i]}</span>
                   <span>0{i + 1}</span>
                 </div>
@@ -143,11 +149,9 @@ export default function Home() {
         <SectionLabel index="03" className="mb-6">Industries we know cold</SectionLabel>
         <div className="flex flex-wrap gap-3">
           {niches.map((n, i) => (
-            <motion.span
-              key={n}
+            <motion.span key={n}
               initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.04 }}
-              className="card-paper press px-5 py-3 mono-label cursor-default"
-            >
+              className="card-paper press px-5 py-3 mono-label cursor-default">
               {n}
             </motion.span>
           ))}

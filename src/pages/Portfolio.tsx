@@ -62,16 +62,16 @@ export default function Portfolio() {
       </section>
 
       {/* reviews */}
-      <section className="bg-ink text-paper py-24">
+      <section className="bg-paper-2 border-y border-line py-24">
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
-          <SectionLabel index="·" className="text-paper/60 mb-6">What clients say</SectionLabel>
-          <Reveal as="h2" text="Don't take our word for it." className="display text-[clamp(30px,5vw,64px)] font-semibold text-paper mb-12" />
-          <div className="grid md:grid-cols-3 gap-px bg-paper/10 border border-paper/10">
+          <SectionLabel index="·" className="mb-6">What clients say</SectionLabel>
+          <Reveal as="h2" text="Don't take our word for it." className="display text-[clamp(30px,5vw,64px)] font-semibold mb-12" />
+          <div className="grid md:grid-cols-3 gap-6">
             {reviews.map((r, i) => (
-              <FadeUp key={r.name} delay={i * 0.1} className="bg-ink p-8">
+              <FadeUp key={r.name} delay={i * 0.1} className="card-paper p-8">
                 <div className="flex gap-1 text-kraft mb-5">{[...Array(5)].map((_, j) => <IconStar key={j} size={15} />)}</div>
-                <p className="text-paper/80 leading-relaxed mb-6 display text-lg italic">"{r.text}"</p>
-                <div className="mono-label text-paper/50">{r.name} · {r.biz}</div>
+                <p className="text-ink-soft leading-relaxed mb-6 display text-lg italic">"{r.text}"</p>
+                <div className="mono-label text-ink-faint">{r.name} · {r.biz}</div>
               </FadeUp>
             ))}
           </div>

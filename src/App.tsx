@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { CardboardBox } from "@/components/CardboardBox";
+import Lenis from "lenis";
+import { BeamReveal } from "@/components/BeamReveal";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CustomCursor } from "@/components/CustomCursor";
+import { ScrollProgress } from "@/components/primitives";
 import Home from "@/pages/Home";
 import WebDesign from "@/pages/WebDesign";
 import Capabilities from "@/pages/Capabilities";
@@ -17,24 +19,33 @@ import Contact from "@/pages/Contact";
 
 const STORAGE_KEY = "webdevny_unboxed";
 
+function useLenis(active: boolean) {
+  const ref = useRef<Lenis | null>(null);
+  useEffect(() => {
+    if (!active) return;
+    const lenis = new Lenis({ duration: 1.15, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
+    ref.current = lenis;
+    let raf = 0;
+    const loop = (time: number) => { lenis.raf(time); raf = requestAnimationFrame(loop); };
+    raf = requestAnimationFrame(loop);
+    return () => { cancelAnimationFrame(raf); lenis.destroy(); ref.current = null; };
+  }, [active]);
+  return ref;
+}
+
 function ScrollTop() {
   const { pathname } = useLocation();
-  if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
-  return <span data-path={pathname} className="hidden" />;
+  useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior }); }, [pathname]);
+  return null;
 }
 
 function PageTransition({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   return (
     <AnimatePresence mode="wait">
-      <motion.div
-        key={location.pathname}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.25 }}
-      >
-        <ScrollTop />
+      <motion.div key={location.pathname}
+        initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}>
         {children}
       </motion.div>
     </AnimatePresence>
@@ -45,6 +56,7 @@ function SiteLayout() {
   const location = useLocation();
   return (
     <div className="min-h-screen bg-paper flex flex-col">
+      <ScrollTop />
       <Navbar />
       <main className="flex-1">
         <PageTransition>
@@ -67,53 +79,44 @@ function SiteLayout() {
 }
 
 export default function App() {
-  const [phase, setPhase] = useState<"box" | "reveal" | "site">(() =>
-    sessionStorage.getItem(STORAGE_KEY) ? "site" : "box"
-  );
+  const [phase, setPhase] = useState<"intro" | "site">(() => (sessionStorage.getItem(STORAGE_KEY) ? "site" : "intro"));
+  const [unblind, setUnblind] = useState(false);
+  useLenis(phase === "site");
 
-  const handleBoxOpen = () => {
-    setPhase("reveal");
+  const handleComplete = () => {
     sessionStorage.setItem(STORAGE_KEY, "1");
-    setTimeout(() => setPhase("site"), 1100);
+    setUnblind(true);     // white overlay starts opaque
+    setPhase("site");     // mount the site underneath
   };
 
   return (
     <HashRouter>
       <div className="grain" />
       <CustomCursor />
+      {phase === "site" && <ScrollProgress />}
 
-      <AnimatePresence mode="wait">
-        {phase === "box" && (
-          <motion.div key="box" exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
-            <CardboardBox onOpen={handleBoxOpen} />
+      <AnimatePresence>
+        {phase === "intro" && (
+          <motion.div key="intro" exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+            <BeamReveal onComplete={handleComplete} />
           </motion.div>
         )}
+      </AnimatePresence>
 
-        {phase === "reveal" && (
+      {phase === "site" && <SiteLayout />}
+
+      {/* the "un-blinding": full white fades away to reveal the site */}
+      <AnimatePresence>
+        {unblind && (
           <motion.div
-            key="reveal"
-            className="fixed inset-0 z-[90] bg-ink flex items-center justify-center overflow-hidden"
-            exit={{ y: "-100%" }}
-            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-          >
-            <motion.div
-              initial={{ scale: 0.4, opacity: 0, rotate: -4 }}
-              animate={{ scale: 1, opacity: 1, rotate: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="text-center"
-            >
-              <div className="mono-label text-kraft mb-4">Now unpacking</div>
-              <div className="display text-paper text-[clamp(48px,11vw,150px)] font-semibold leading-none">
-                WebDev<span className="text-kraft">.</span>NY
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-
-        {phase === "site" && (
-          <motion.div key="site" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-            <SiteLayout />
-          </motion.div>
+            key="unblind"
+            className="fixed inset-0 z-[95] pointer-events-none"
+            style={{ background: "radial-gradient(circle at 50% 45%, #ffffff 0%, #FFF7E8 60%, #FFFFFF 100%)" }}
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 0 }}
+            transition={{ duration: 1.1, ease: [0.4, 0, 0.2, 1] }}
+            onAnimationComplete={() => setUnblind(false)}
+          />
         )}
       </AnimatePresence>
     </HashRouter>

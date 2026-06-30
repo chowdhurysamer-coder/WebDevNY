@@ -1,6 +1,40 @@
 import * as React from "react";
-import { motion, useInView, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
+
+/* ---------------- 3D tilt card ---------------- */
+export function TiltCard({ children, className, max = 9 }: { children: React.ReactNode; className?: string; max?: number }) {
+  const ref = React.useRef<HTMLDivElement>(null);
+  const rx = useSpring(0, { stiffness: 220, damping: 18 });
+  const ry = useSpring(0, { stiffness: 220, damping: 18 });
+  const gx = useMotionValue(50);
+  const gy = useMotionValue(50);
+  const onMove = (e: React.MouseEvent) => {
+    const el = ref.current; if (!el) return;
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+    ry.set((px - 0.5) * max * 2);
+    rx.set(-(py - 0.5) * max * 2);
+    gx.set(px * 100); gy.set(py * 100);
+  };
+  const reset = () => { rx.set(0); ry.set(0); };
+  return (
+    <motion.div ref={ref} onMouseMove={onMove} onMouseLeave={reset}
+      style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d", transformPerspective: 900 }}
+      className={cn("relative", className)}>
+      <motion.div className="pointer-events-none absolute inset-0 z-10 opacity-0 hover:opacity-100 transition-opacity"
+        style={{ background: useTransform([gx, gy], ([x, y]) => `radial-gradient(420px circle at ${x}% ${y}%, rgba(255,255,255,0.35), transparent 60%)`) }} />
+      <div style={{ transform: "translateZ(40px)" }}>{children}</div>
+    </motion.div>
+  );
+}
+
+/* ---------------- Scroll progress bar ---------------- */
+export function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  const sx = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.3 });
+  return <motion.div className="fixed top-0 left-0 right-0 h-[3px] bg-kraft z-[60] progress-bar" style={{ scaleX: sx }} />;
+}
 
 /* ---------------- Section label (numbered, mono) ---------------- */
 export function SectionLabel({ index, children, className }: { index?: string; children: React.ReactNode; className?: string }) {

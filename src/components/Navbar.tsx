@@ -67,9 +67,10 @@ export function Navbar() {
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
             transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-40 bg-ink text-paper flex flex-col justify-center"
+            className="fixed inset-0 z-40 text-paper flex flex-col justify-center"
+            style={{ background: "linear-gradient(150deg, #D6802F 0%, #C66E22 55%, #9A4F16 100%)" }}
           >
-            <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)", backgroundSize: "48px 48px" }} />
+            <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)", backgroundSize: "48px 48px" }} />
             <nav className="relative max-w-[1400px] w-full mx-auto px-5 sm:px-8 pt-20">
               {links.map((l, i) => {
                 const active = location.pathname === l.to;
@@ -80,12 +81,12 @@ export function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.15 + i * 0.05 }}
                   >
-                    <Link to={l.to} className="group flex items-baseline gap-5 border-b border-paper/10 py-3 sm:py-4">
-                      <span className="mono-label text-paper/40 group-hover:text-kraft transition-colors">{l.n}</span>
-                      <span className={`display text-[clamp(34px,7vw,76px)] leading-none transition-colors ${active ? "text-kraft" : "text-paper group-hover:text-kraft"}`}>
+                    <Link to={l.to} className="group flex items-baseline gap-5 border-b border-paper/20 py-3 sm:py-4">
+                      <span className="mono-label text-paper/50 group-hover:text-ink transition-colors">{l.n}</span>
+                      <span className={`display text-[clamp(34px,7vw,76px)] leading-none transition-colors ${active ? "text-ink" : "text-paper group-hover:text-ink"}`}>
                         {l.label}
                       </span>
-                      <IconArrowUpRight size={26} className="ml-auto self-center opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-kraft" />
+                      <IconArrowUpRight size={26} className="ml-auto self-center opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-ink" />
                     </Link>
                   </motion.div>
                 );

@@ -59,20 +59,20 @@ export default function WebDesign() {
       </section>
 
       {/* process */}
-      <section className="bg-ink text-paper py-24">
+      <section className="bg-paper-2 border-y border-line py-24">
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
           <div className="flex items-end justify-between mb-14">
             <div>
-              <SectionLabel index="·" className="text-paper/60 mb-5">How it works</SectionLabel>
-              <Reveal as="h2" text="Four steps. No surprises." className="display text-[clamp(30px,5vw,64px)] font-semibold text-paper" />
+              <SectionLabel index="·" className="mb-5">How it works</SectionLabel>
+              <Reveal as="h2" text="Four steps. No surprises." className="display text-[clamp(30px,5vw,64px)] font-semibold" />
             </div>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-paper/10 border border-paper/10">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line">
             {process.map((p, i) => (
-              <FadeUp key={p.n} delay={i * 0.1} className="bg-ink p-7 min-h-[260px] flex flex-col">
+              <FadeUp key={p.n} delay={i * 0.1} className="bg-paper p-7 min-h-[260px] flex flex-col group hover:bg-paper-3 transition-colors">
                 <span className="display text-kraft text-6xl font-semibold mb-6">{p.n}</span>
-                <h3 className="display text-xl font-semibold mb-3 text-paper">{p.t}</h3>
-                <p className="text-paper/50 text-sm leading-relaxed">{p.d}</p>
+                <h3 className="display text-xl font-semibold mb-3">{p.t}</h3>
+                <p className="text-ink-soft text-sm leading-relaxed">{p.d}</p>
               </FadeUp>
             ))}
           </div>

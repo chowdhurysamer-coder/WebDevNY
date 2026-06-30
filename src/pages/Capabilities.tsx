@@ -61,19 +61,19 @@ export default function Capabilities() {
       </section>
 
       {/* verticals */}
-      <section className="bg-ink text-paper py-24">
+      <section className="bg-paper-2 border-y border-line py-24">
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
-          <SectionLabel index="·" className="text-paper/60 mb-6">Industry verticals</SectionLabel>
-          <Reveal as="h2" text="We go deep, not wide." className="display text-[clamp(30px,5vw,64px)] font-semibold text-paper mb-12" />
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-px bg-paper/10 border border-paper/10">
+          <SectionLabel index="·" className="mb-6">Industry verticals</SectionLabel>
+          <Reveal as="h2" text="We go deep, not wide." className="display text-[clamp(30px,5vw,64px)] font-semibold mb-12" />
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-px bg-line border border-line">
             {verticals.map((v, i) => (
               <motion.div
                 key={v}
                 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.03 }}
-                className="bg-ink px-5 py-6 flex items-center justify-between group hover:bg-kraft transition-colors cursor-default"
+                className="bg-paper px-5 py-6 flex items-center justify-between group hover:bg-kraft transition-colors cursor-default"
               >
-                <span className="text-sm group-hover:text-ink transition-colors">{v}</span>
-                <span className="mono-label text-paper/30 group-hover:text-ink transition-colors">{String(i + 1).padStart(2, "0")}</span>
+                <span className="text-sm group-hover:text-paper transition-colors">{v}</span>
+                <span className="mono-label text-ink-faint group-hover:text-paper transition-colors">{String(i + 1).padStart(2, "0")}</span>
               </motion.div>
             ))}
           </div>
