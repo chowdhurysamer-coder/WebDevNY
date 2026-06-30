@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/WebDevNY/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
     <title>WebDev NY — Custom Web Design & Development</title>
     <meta name="description" content="Custom web design and development for New York businesses. Fast, beautiful, conversion-focused websites — one flat fee, live in about two weeks." />
     <meta name="theme-color" content="#F8F4ED" />
@@ -41,6 +42,32 @@
     </script>
     <script>
       try { if (localStorage.getItem('webdevny_theme') === 'dark') document.documentElement.classList.add('dark'); } catch (e) {}
+    </script>
+    <!-- Self-heal: if a stale cached HTML points to a missing JS chunk, the app
+         never mounts. Detect the empty root and reload once with a cache-buster. -->
+    <script>
+      (function () {
+        function bust() {
+          try {
+            if (sessionStorage.getItem('wdny_recover')) return; // already tried once
+            sessionStorage.setItem('wdny_recover', '1');
+          } catch (e) {}
+          var u = location.pathname + '?v=' + Date.now() + location.hash;
+          location.replace(u);
+        }
+        // If any module/script fails to load (stale asset hash), recover.
+        window.addEventListener('error', function (e) {
+          var t = e && e.target;
+          if (t && (t.tagName === 'SCRIPT' || t.tagName === 'LINK')) bust();
+        }, true);
+        // Fallback: if the app hasn't mounted shortly after load, recover.
+        window.addEventListener('load', function () {
+          setTimeout(function () {
+            var root = document.getElementById('root');
+            if (root && root.childElementCount === 0) bust();
+          }, 4000);
+        });
+      })();
     </script>
   </head>
   <body>
