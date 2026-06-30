@@ -83,3 +83,15 @@ export const IconEye = ({ className, size }: P) => (
 export const IconCursor = ({ className, size }: P) => (
   <svg {...base(size)} className={className}><path d="M5 3l6 16 2-6 6-2L5 3z" /></svg>
 );
+export const IconSound = ({ className, size }: P) => (
+  <svg {...base(size)} className={className}><path d="M4 9v6h4l5 4V5L8 9H4z" /><path d="M16 8.5a4 4 0 0 1 0 7M18.5 6a7 7 0 0 1 0 12" /></svg>
+);
+export const IconMute = ({ className, size }: P) => (
+  <svg {...base(size)} className={className}><path d="M4 9v6h4l5 4V5L8 9H4z" /><path d="m16 9 5 5M21 9l-5 5" /></svg>
+);
+export const IconCommand = ({ className, size }: P) => (
+  <svg {...base(size)} className={className}><path d="M7 9V7a2 2 0 1 1 2 2H7zm0 6v2a2 2 0 1 0 2-2H7zm10-6V7a2 2 0 1 0-2 2h2zm0 6v2a2 2 0 1 1-2-2h2z" /><rect x="7" y="9" width="10" height="6" rx="1" /></svg>
+);
+export const IconBook = ({ className, size }: P) => (
+  <svg {...base(size)} className={className}><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z" /><path d="M19 17H6a2 2 0 0 0-2 2" /></svg>
+);

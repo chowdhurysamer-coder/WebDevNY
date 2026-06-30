@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { sfx } from "@/lib/sfx";
 
 /**
  * Unboxing intro:
@@ -13,7 +14,9 @@ export function BeamReveal({ onComplete }: { onComplete: () => void }) {
   const open = () => {
     if (phase !== "idle") return;
     setPhase("opening");
-    setTimeout(() => setPhase("beam"), 480);
+    sfx.pop();
+    setTimeout(() => { setPhase("beam"); sfx.whoosh(); }, 480);
+    setTimeout(() => sfx.chime(), 480 + 850);
     setTimeout(onComplete, 480 + 1500);
   };
 

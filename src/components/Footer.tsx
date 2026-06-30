@@ -27,7 +27,7 @@ export function Footer() {
 
           {[
             { h: "Studio", items: [["Index", "/"], ["Design & Dev", "/web-design"], ["Capabilities", "/capabilities"], ["Portfolio", "/portfolio"]] },
-            { h: "Work", items: [["Previews", "/previews"], ["Analytics", "/analytics"], ["Pricing", "/pricing"], ["Plans", "/plans"]] },
+            { h: "Work", items: [["Previews", "/previews"], ["Analytics", "/analytics"], ["Pricing", "/pricing"], ["Journal", "/journal"]] },
           ].map((col) => (
             <div key={col.h}>
               <div className="mono-label text-kraft mb-4">{col.h}</div>

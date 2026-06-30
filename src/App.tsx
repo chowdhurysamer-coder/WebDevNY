@@ -6,6 +6,7 @@ import { BeamReveal } from "@/components/BeamReveal";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CustomCursor } from "@/components/CustomCursor";
+import { FloatingDock } from "@/components/Controls";
 import { ScrollProgress } from "@/components/primitives";
 import Home from "@/pages/Home";
 import WebDesign from "@/pages/WebDesign";
@@ -17,6 +18,9 @@ import Analytics from "@/pages/Analytics";
 import Pricing from "@/pages/Pricing";
 import Plans from "@/pages/Plans";
 import Contact from "@/pages/Contact";
+import Journal from "@/pages/Journal";
+import JournalPost from "@/pages/JournalPost";
+import NotFound from "@/pages/NotFound";
 
 const STORAGE_KEY = "webdevny_unboxed";
 
@@ -59,6 +63,7 @@ function SiteLayout() {
     <div className="min-h-screen bg-paper flex flex-col">
       <ScrollTop />
       <Navbar />
+      <FloatingDock />
       <main className="flex-1">
         <PageTransition>
           <Routes location={location}>
@@ -71,7 +76,10 @@ function SiteLayout() {
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/plans" element={<Plans />} />
+            <Route path="/journal" element={<Journal />} />
+            <Route path="/journal/:slug" element={<JournalPost />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </PageTransition>
       </main>

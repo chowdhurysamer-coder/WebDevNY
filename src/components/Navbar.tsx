@@ -4,6 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { IconArrowUpRight, IconBox } from "@/components/icons";
 import { Magnetic } from "@/components/primitives";
 import { LiveClock } from "@/components/flourishes";
+import { CommandPalette } from "@/components/CommandPalette";
+import { SoundToggle } from "@/components/Controls";
+import { sfx } from "@/lib/sfx";
 
 const links = [
   { label: "Index", to: "/", n: "00" },
@@ -14,7 +17,8 @@ const links = [
   { label: "Analytics", to: "/analytics", n: "05" },
   { label: "Pricing", to: "/pricing", n: "06" },
   { label: "Plans", to: "/plans", n: "07" },
-  { label: "Contact", to: "/contact", n: "08" },
+  { label: "Journal", to: "/journal", n: "08" },
+  { label: "Contact", to: "/contact", n: "09" },
 ];
 
 export function Navbar() {
@@ -50,13 +54,15 @@ export function Navbar() {
             <span className="flex items-center gap-1.5">NYC <LiveClock /></span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
+            <CommandPalette />
+            <SoundToggle />
             <Magnetic>
               <Link to="/contact" data-cursor-label="GO" className="hidden sm:flex items-center gap-2 bg-ink text-paper px-4 py-2.5 mono-label hover:bg-kraft transition-colors">
                 Start a Project <IconArrowUpRight size={14} />
               </Link>
             </Magnetic>
-            <button onClick={() => setOpen(!open)} data-cursor-label={open ? "CLOSE" : "MENU"} className="flex flex-col gap-1.5 w-10 h-10 items-center justify-center border border-line hover:border-ink transition-colors">
+            <button onClick={() => { setOpen(!open); sfx.tick(); }} data-cursor-label={open ? "CLOSE" : "MENU"} className="flex flex-col gap-1.5 w-10 h-10 items-center justify-center border border-line hover:border-ink transition-colors">
               <motion.span animate={{ rotate: open ? 45 : 0, y: open ? 4 : 0 }} className="w-5 h-px bg-ink block" />
               <motion.span animate={{ rotate: open ? -45 : 0, y: open ? -3 : 0 }} className="w-5 h-px bg-ink block" />
             </button>

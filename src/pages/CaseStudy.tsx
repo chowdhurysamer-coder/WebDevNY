@@ -2,6 +2,7 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { caseBySlug, cases } from "@/data/cases";
 import { SiteMock } from "@/components/SiteMock";
+import { BeforeAfter } from "@/components/BeforeAfter";
 import { Reveal, FadeUp, SectionLabel, Magnetic, Parallax } from "@/components/primitives";
 import { IconArrow, IconArrowUpRight, IconCheck, IconStar } from "@/components/icons";
 
@@ -38,6 +39,15 @@ export default function CaseStudy() {
             <SiteMock variant={study.variant} className="w-full" />
           </motion.div>
         </Parallax>
+      </section>
+
+      {/* before / after */}
+      <section className="max-w-[1100px] mx-auto px-5 sm:px-8 pb-24">
+        <div className="flex items-end justify-between mb-6">
+          <SectionLabel index="·">The transformation</SectionLabel>
+          <span className="mono-label text-ink-faint hidden sm:block">drag to compare ⇄</span>
+        </div>
+        <BeforeAfter variant={study.variant} />
       </section>
 
       {/* overview */}
