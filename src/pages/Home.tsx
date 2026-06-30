@@ -1,239 +1,176 @@
-import { useRef } from "react";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Zap, Globe, TrendingUp, Star } from "lucide-react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { PlotterField } from "@/components/PlotterField";
+import { SiteMock } from "@/components/SiteMock";
+import { Reveal, FadeUp, SectionLabel, Marquee, Magnetic, Counter, Parallax } from "@/components/primitives";
+import { IconArrowUpRight, IconArrow } from "@/components/icons";
 
 const stats = [
-  { value: "150+", label: "Sites Launched" },
-  { value: "98%", label: "Client Retention" },
-  { value: "3×", label: "Avg Traffic Lift" },
-  { value: "<48h", label: "First Draft" },
+  { to: 150, suffix: "+", label: "Sites shipped" },
+  { to: 98, suffix: "%", label: "Client retention" },
+  { to: 3.2, suffix: "×", label: "Avg traffic lift" },
+  { to: 11, suffix: " days", label: "Avg time to launch" },
 ];
 
-const niches = [
-  { icon: "🍕", label: "Restaurants" },
-  { icon: "🦷", label: "Dentists" },
-  { icon: "💪", label: "Gyms & Fitness" },
-  { icon: "💅", label: "Salons & Spas" },
-  { icon: "⚖️", label: "Law Firms" },
-  { icon: "🏠", label: "Real Estate" },
-  { icon: "🏥", label: "Medical" },
-  { icon: "🎓", label: "Education" },
+const services = [
+  { n: "01", t: "Web Design", d: "Brand-led interfaces designed in-house, pixel by pixel. No themes, no page builders.", to: "/web-design" },
+  { n: "02", t: "Development", d: "Hand-written React. Fast, accessible, and built to outlast the next redesign.", to: "/web-design" },
+  { n: "03", t: "SEO Foundation", d: "Technical SEO, local search, schema — baked in from the first commit.", to: "/capabilities" },
+  { n: "04", t: "Analytics", d: "We instrument everything, then read the numbers back to you in plain English.", to: "/analytics" },
 ];
 
-function WordPullUp({ text, className }: { text: string; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true });
-  return (
-    <div ref={ref} className={`flex flex-wrap gap-x-[0.25em] ${className}`}>
-      {text.split(" ").map((w, i) => (
-        <motion.span
-          key={i}
-          initial={{ y: 30, opacity: 0 }}
-          animate={inView ? { y: 0, opacity: 1 } : {}}
-          transition={{ duration: 0.7, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-block"
-        >
-          {w}
-        </motion.span>
-      ))}
-    </div>
-  );
-}
+const niches = ["Restaurants", "Dental", "Fitness", "Salons", "Legal", "Real Estate", "Medical", "E-commerce", "Home Services", "Hospitality"];
 
 export default function Home() {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const yParallax = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const opacityFade = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-
-  const statsRef = useRef<HTMLDivElement>(null);
-  const statsInView = useInView(statsRef, { once: true });
-
   return (
-    <div className="bg-black text-white">
-      {/* HERO */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Video BG */}
-        <motion.div style={{ y: yParallax, opacity: opacityFade }} className="absolute inset-0">
-          <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-40">
-            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260228_065522_522e2295-ba22-457e-8fdb-fbcd68109c73.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black" />
-        </motion.div>
+    <div className="bg-paper">
+      {/* ───────── HERO ───────── */}
+      <section className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden">
+        <PlotterField className="absolute inset-0 w-full h-full" />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(120% 80% at 50% 0%, transparent 40%, rgba(239,233,221,0.7) 100%)" }} />
 
-        {/* Noise */}
-        <div className="noise-overlay absolute inset-0 pointer-events-none" />
+        <div className="relative max-w-[1400px] w-full mx-auto px-5 sm:px-8 pb-14 pt-32">
+          <div className="flex items-center justify-between mb-8">
+            <SectionLabel index="00">Web studio · New York</SectionLabel>
+            <span className="mono-label text-ink-faint hidden sm:block">Est. 2024 — 40.7° N, 74.0° W</span>
+          </div>
 
-        {/* Hero copy */}
-        <div className="relative z-10 text-center px-4 pt-28 max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-barlow text-white/70 mb-8 uppercase tracking-widest"
-          >
-            <Zap className="w-3 h-3 text-sky-400" />
-            Web Design Studio — New York
-          </motion.div>
+          <h1 className="display text-[clamp(48px,12vw,180px)] font-semibold tracking-tightest">
+            <Reveal text="Websites New York" />
+            <span className="flex flex-wrap items-baseline">
+              <Reveal text="actually" delay={0.15} />
+              <span className="italic text-kraft ml-[0.22em]">
+                <Reveal text="clicks with." delay={0.25} />
+              </span>
+            </span>
+          </h1>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display text-[clamp(42px,8vw,100px)] font-bold leading-[0.92] tracking-[-0.03em] mb-6"
-          >
-            <span className="text-white">We build websites</span>
-            <br />
-            <span className="gradient-text italic">that convert.</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            className="text-white/60 text-lg font-barlow max-w-xl mx-auto mb-10"
-          >
-            Custom-built sites for New York businesses. Fast, beautiful, and engineered to turn visitors into customers.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.55 }}
-            className="flex flex-wrap items-center justify-center gap-4"
-          >
-            <Link to="/contact" className="flex items-center gap-2 bg-white text-black px-7 py-3.5 rounded-full font-barlow font-semibold text-[15px] hover:bg-sky-100 transition-colors">
-              Start Your Project <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link to="/portfolio" className="flex items-center gap-2 glass px-7 py-3.5 rounded-full font-barlow font-medium text-[15px] text-white/80 hover:text-white hover:bg-white/10 transition-all">
-              View Our Work
-            </Link>
-          </motion.div>
-
-          {/* Scroll cue */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-          >
-            <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity }} className="w-0.5 h-12 bg-gradient-to-b from-white/40 to-transparent" />
-          </motion.div>
+          <div className="mt-10 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.7 }}
+              className="text-ink-soft text-lg max-w-md leading-relaxed"
+            >
+              We design and build custom websites for New York businesses — fast, distinctive, and engineered to turn a click into a customer.
+            </motion.p>
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85, duration: 0.7 }} className="flex items-center gap-4">
+              <Magnetic>
+                <Link to="/contact" data-cursor-label="GO" className="card-paper-kraft press inline-flex items-center gap-2 px-6 py-4 mono-label">
+                  Start a project <IconArrowUpRight size={15} />
+                </Link>
+              </Magnetic>
+              <Link to="/portfolio" className="inline-flex items-center gap-2 mono-label text-ink hover:text-kraft transition-colors link-draw">
+                See the work <IconArrow size={15} />
+              </Link>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* STATS */}
-      <section ref={statsRef} className="py-20 px-4">
-        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
-          {stats.map((s, i) => (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0, y: 30 }}
-              animate={statsInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="glass rounded-2xl p-6 text-center card-hover"
-            >
-              <div className="gradient-text font-display text-4xl font-bold mb-1">{s.value}</div>
-              <div className="text-white/50 text-sm font-barlow">{s.label}</div>
+      {/* ───────── MARQUEE ───────── */}
+      <section className="border-y border-ink bg-ink text-paper py-5">
+        <Marquee items={["Design", "Development", "SEO", "Analytics", "Branding", "Maintenance"]} />
+      </section>
+
+      {/* ───────── STATS ───────── */}
+      <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-20 grid grid-cols-2 lg:grid-cols-4 border-b border-line">
+        {stats.map((s, i) => (
+          <FadeUp key={s.label} delay={i * 0.08} className={`px-2 py-6 ${i !== 0 ? "lg:border-l border-line" : ""}`}>
+            <div className="display text-[clamp(44px,7vw,84px)] font-semibold leading-none">
+              <Counter to={s.to} suffix={s.suffix} />
+            </div>
+            <div className="mono-label text-ink-faint mt-3">{s.label}</div>
+          </FadeUp>
+        ))}
+      </section>
+
+      {/* ───────── SERVICES ───────── */}
+      <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-24">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+          <div>
+            <SectionLabel index="01" className="mb-5">What we do</SectionLabel>
+            <Reveal as="h2" text="A studio, not a factory." className="display text-[clamp(32px,5.5vw,72px)] font-semibold" />
+          </div>
+          <p className="text-ink-soft max-w-sm">Four disciplines, one team. Every project runs through all of them — no handoffs to strangers.</p>
+        </div>
+
+        <div className="border-t border-ink">
+          {services.map((s, i) => (
+            <motion.div key={s.n} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
+              <Link to={s.to} className="group grid grid-cols-1 md:grid-cols-[80px_1fr_1.2fr_auto] gap-4 md:gap-8 items-baseline border-b border-line py-7 hover:bg-paper-2 transition-colors -mx-3 px-3">
+                <span className="mono-label text-kraft">{s.n}</span>
+                <h3 className="display text-[clamp(28px,3.5vw,46px)] font-semibold group-hover:text-kraft transition-colors">{s.t}</h3>
+                <p className="text-ink-soft text-sm leading-relaxed max-w-md">{s.d}</p>
+                <IconArrowUpRight size={24} className="justify-self-end opacity-30 group-hover:opacity-100 group-hover:text-kraft group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
+              </Link>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* NICHES */}
-      <section className="py-20 px-4 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-14">
-            <WordPullUp text="We specialize in your industry." className="font-display text-[clamp(28px,4vw,48px)] font-bold justify-center text-white mb-4" />
-            <p className="text-white/50 font-barlow">Deep knowledge in verticals that matter to New York businesses.</p>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {niches.map((n, i) => (
-              <motion.div
-                key={n.label}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.06 }}
-                whileHover={{ y: -4 }}
-                className="glass rounded-2xl p-5 flex flex-col items-center gap-3 cursor-default card-hover"
-              >
-                <span className="text-3xl">{n.icon}</span>
-                <span className="text-white/80 font-barlow text-sm font-medium">{n.label}</span>
-              </motion.div>
-            ))}
+      {/* ───────── SELECTED WORK ───────── */}
+      <section className="bg-ink text-paper py-24 overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
+          <div className="flex items-end justify-between mb-12">
+            <div>
+              <SectionLabel index="02" className="text-paper/60 mb-5">Selected work</SectionLabel>
+              <Reveal as="h2" text="Built for real businesses." className="display text-[clamp(30px,5vw,64px)] font-semibold text-paper" />
+            </div>
+            <Link to="/portfolio" className="hidden sm:inline-flex items-center gap-2 mono-label text-paper hover:text-kraft transition-colors">
+              All projects <IconArrowUpRight size={15} />
+            </Link>
           </div>
         </div>
-      </section>
 
-      {/* SEO SECTION */}
-      <section className="py-24 px-4">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <WordPullUp text="Built to rank. Built to last." className="font-display text-[clamp(28px,4vw,48px)] font-bold text-white mb-6" />
-            <p className="text-white/60 font-barlow text-lg mb-8">
-              Every site we ship comes with structured data, Core Web Vitals optimization, and on-page SEO baked in — not bolted on.
-            </p>
-            <div className="flex flex-col gap-3">
-              {["Technical SEO foundation", "Google Business Profile integration", "Local SEO for NYC boroughs", "Monthly performance reports"].map((f, i) => (
-                <motion.div
-                  key={f}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="flex items-center gap-3 text-white/70 font-barlow"
-                >
-                  <Star className="w-4 h-4 text-sky-400 shrink-0" />
-                  {f}
-                </motion.div>
-              ))}
-            </div>
-          </div>
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="glass rounded-3xl overflow-hidden aspect-square relative"
-          >
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <Globe className="w-16 h-16 text-sky-400 mx-auto mb-4 opacity-60" />
-                <div className="font-display text-5xl font-bold gradient-text">SEO</div>
-                <div className="text-white/40 font-barlow text-sm mt-2">Search Engine Optimized</div>
-              </div>
-            </div>
-            {/* Orbital rings */}
-            {[1, 2, 3].map((r) => (
-              <motion.div
-                key={r}
-                className="absolute border border-sky-400/10 rounded-full"
-                style={{ inset: `${r * 15}%` }}
-                animate={{ rotate: 360 * (r % 2 === 0 ? 1 : -1) }}
-                transition={{ duration: 8 + r * 4, repeat: Infinity, ease: "linear" }}
-              />
+        <Parallax speed={0.15}>
+          <div className="flex gap-6 px-5 sm:px-8 overflow-x-auto pb-4 max-w-[1400px] mx-auto" style={{ scrollbarWidth: "none" }}>
+            {(["restaurant", "dental", "gym", "legal"] as const).map((v, i) => (
+              <FadeUp key={v} delay={i * 0.1} className="shrink-0 w-[300px] sm:w-[380px]">
+                <div className="border border-paper/15 overflow-hidden card-hover">
+                  <SiteMock variant={v} className="w-full" />
+                </div>
+                <div className="flex items-center justify-between mt-3 mono-label text-paper/50">
+                  <span>{["Trattoria", "BrightSmile", "IronWorks", "Park Ave Legal"][i]}</span>
+                  <span>0{i + 1}</span>
+                </div>
+              </FadeUp>
             ))}
-          </motion.div>
-        </div>
+          </div>
+        </Parallax>
       </section>
 
-      {/* CTA BANNER */}
-      <section className="py-20 px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-4xl mx-auto glass rounded-3xl p-12 text-center glow-blue"
-        >
-          <TrendingUp className="w-10 h-10 text-sky-400 mx-auto mb-5" />
-          <h2 className="font-display text-[clamp(28px,4vw,52px)] font-bold text-white mb-4">Ready to grow online?</h2>
-          <p className="text-white/60 font-barlow text-lg mb-8 max-w-md mx-auto">One flat fee. No surprises. Your site live in under 2 weeks.</p>
-          <Link to="/contact" className="inline-flex items-center gap-2 bg-sky-400 text-black px-8 py-4 rounded-full font-barlow font-semibold hover:bg-sky-300 transition-colors">
-            Book a Free Call <ArrowRight className="w-4 h-4" />
-          </Link>
-        </motion.div>
+      {/* ───────── NICHES ───────── */}
+      <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-24">
+        <SectionLabel index="03" className="mb-6">Industries we know cold</SectionLabel>
+        <div className="flex flex-wrap gap-3">
+          {niches.map((n, i) => (
+            <motion.span
+              key={n}
+              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.04 }}
+              className="card-paper press px-5 py-3 mono-label cursor-default"
+            >
+              {n}
+            </motion.span>
+          ))}
+        </div>
+        <p className="text-ink-soft max-w-lg mt-8">
+          We don't do "any industry, any time." We go deep on a handful of verticals so you get a partner who already speaks your customer's language.
+        </p>
+      </section>
+
+      {/* ───────── CTA ───────── */}
+      <section className="max-w-[1400px] mx-auto px-5 sm:px-8 pb-28">
+        <div className="card-paper-kraft p-10 sm:p-16 text-center relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)", backgroundSize: "32px 32px" }} />
+          <div className="relative">
+            <SectionLabel index="→" className="justify-center text-paper/80 mb-6">Ready when you are</SectionLabel>
+            <Reveal as="h2" text="Let's put your business in a box worth opening." className="display text-[clamp(32px,5.5vw,76px)] font-semibold justify-center text-center max-w-3xl mx-auto" />
+            <Magnetic className="mt-10 inline-block">
+              <Link to="/contact" data-cursor-label="GO" className="inline-flex items-center gap-2 bg-ink text-paper px-8 py-4 mono-label press">
+                Book a free call <IconArrowUpRight size={15} />
+              </Link>
+            </Magnetic>
+          </div>
+        </div>
       </section>
     </div>
   );

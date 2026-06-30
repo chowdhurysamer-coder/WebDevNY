@@ -1,86 +1,140 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Barlow:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --paper: #EFE9DD;
+  --ink: #17130F;
+  --kraft: #BE6A24;
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
 
 body {
-  background: #000;
-  color: #fff;
+  background: var(--paper);
+  color: var(--ink);
   font-family: 'Inter', system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  font-feature-settings: "ss01", "cv01";
 }
 
 #root { width: 100%; }
 
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #000; }
-::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
-::selection { background: rgba(56,189,248,0.3); color: #fff; }
+::selection { background: var(--kraft); color: #fff; }
 
-@keyframes gradientShift {
-  0%,100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
+::-webkit-scrollbar { width: 9px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: #BBAE97; border-radius: 0; border: 2px solid var(--paper); }
+::-webkit-scrollbar-thumb:hover { background: var(--kraft); }
 
-.gradient-text {
-  background: linear-gradient(135deg, #fff 0%, #7dd3fc 40%, #38bdf8 70%, #0ea5e9 100%);
-  background-size: 200% 200%;
-  animation: gradientShift 4s ease infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text-gold {
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #fbbf24 100%);
-  background-size: 200% 200%;
-  animation: gradientShift 4s ease infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.glass {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-.glass-strong {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.12);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-}
-
-.glow-blue { box-shadow: 0 0 40px rgba(56,189,248,0.15), 0 0 80px rgba(56,189,248,0.05); }
-.glow-white { box-shadow: 0 0 40px rgba(255,255,255,0.1); }
-
-.card-hover { transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease; }
-.card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(56,189,248,0.08); }
-
-/* Cardboard box */
-.box-float {
-  animation: boxFloat 3s ease-in-out infinite;
-}
-
-@keyframes boxFloat {
-  0%,100% { transform: translateY(0) rotate(-1deg); }
-  50% { transform: translateY(-12px) rotate(1deg); }
-}
-
-.noise-overlay {
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-  opacity: 0.06;
+/* ---------- Grain ---------- */
+.grain {
+  position: fixed;
+  inset: -200%;
+  width: 500%;
+  height: 500%;
+  z-index: 9998;
   pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grainShift 0.5s steps(2) infinite;
+  mix-blend-mode: multiply;
+}
+@keyframes grainShift {
+  0% { transform: translate(0,0); }
+  50% { transform: translate(-2%,1%); }
+  100% { transform: translate(1%,-1%); }
+}
+
+/* ---------- Paper card texture ---------- */
+.card-paper {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 60%),
+    var(--paper);
+  border: 1px solid rgba(23,19,15,0.16);
+  box-shadow: 4px 4px 0 rgba(23,19,15,0.9);
+}
+.card-paper-kraft {
+  background: var(--kraft);
+  color: #fff;
+  border: 1px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+/* hard-edged hover press */
+.press {
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.press:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 rgba(23,19,15,0.9); }
+.press:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 rgba(23,19,15,0.9); }
+
+/* ---------- Type ---------- */
+.display {
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+}
+.mono-label {
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 11px;
+}
+
+/* outlined / engraved heading */
+.text-outline {
+  -webkit-text-stroke: 1.5px var(--ink);
+  color: transparent;
+}
+
+/* ---------- Marquee ---------- */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee-rev { animation-direction: reverse; }
+
+/* ---------- Stamp ---------- */
+.stamp {
+  border: 2px solid var(--kraft);
+  color: var(--kraft);
+  transform: rotate(-7deg);
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ticket perforation */
+.perf {
+  background-image: radial-gradient(circle at 6px 50%, transparent 5px, var(--paper) 5px);
+  background-size: 14px 100%;
+}
+
+/* Box reveal keyframes handled in component */
+.box-float { animation: boxFloat 3.2s ease-in-out infinite; }
+@keyframes boxFloat {
+  0%,100% { transform: translateY(0) rotate(-1.5deg); }
+  50% { transform: translateY(-14px) rotate(1.5deg); }
+}
+
+/* link underline draw */
+.link-draw {
+  background-image: linear-gradient(var(--kraft), var(--kraft));
+  background-size: 0% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease;
+}
+.link-draw:hover { background-size: 100% 2px; }
+
+/* custom cursor target */
+@media (pointer: fine) {
+  .cursor-none-fine { cursor: none; }
 }

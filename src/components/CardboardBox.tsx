@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-interface CardboardBoxProps {
-  onOpen: () => void;
-}
+interface CardboardBoxProps { onOpen: () => void; }
 
 export function CardboardBox({ onOpen }: CardboardBoxProps) {
   const [clicked, setClicked] = useState(false);
@@ -12,124 +10,133 @@ export function CardboardBox({ onOpen }: CardboardBoxProps) {
   const handleClick = () => {
     if (clicked) return;
     setClicked(true);
-    setTimeout(onOpen, 1400);
+    setTimeout(onOpen, 1500);
   };
 
-  const brown = "#C4842A";
-  const brownDark = "#9B6520";
-  const brownMid = "#B5781F";
-  const tape = "#E8D5A0";
+  // kraft cardboard tones
+  const top = "#C8843A";
+  const mid = "#B5702A";
+  const dark = "#8F4D18";
+  const tape = "#E3CF9E";
 
   return (
-    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black">
-      {/* Ambient glow under box */}
+    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-ink overflow-hidden">
+      {/* faint workshop grid */}
+      <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)", backgroundSize: "44px 44px" }} />
+
+      {/* shipping label top-left */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }} animate={{ opacity: clicked ? 0 : 0.6, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="absolute top-8 left-8 font-mono text-[10px] text-paper/40 leading-relaxed hidden sm:block"
+      >
+        SHIP TO: ____________<br />
+        FROM: WEBDEV NY — NYC<br />
+        PKG 01 / 01 · HANDLE WITH CARE
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: -10 }} animate={{ opacity: clicked ? 0 : 0.6, y: 0 }}
+        transition={{ delay: 0.4 }}
+        className="absolute top-8 right-8 font-mono text-[10px] text-paper/40 text-right leading-relaxed hidden sm:block"
+      >
+        EST. 2024<br />
+        NEW YORK, NY<br />
+        ████ ██ ████
+      </motion.div>
+
+      {/* glow */}
       <motion.div
         className="absolute rounded-full"
-        style={{ width: 220, height: 40, background: "radial-gradient(ellipse, rgba(196,132,42,0.25) 0%, transparent 70%)", bottom: "calc(50% - 120px)", filter: "blur(8px)" }}
-        animate={!clicked ? { opacity: [0.4, 0.8, 0.4] } : { opacity: 0 }}
-        transition={{ duration: 2, repeat: Infinity }}
+        style={{ width: 260, height: 50, background: "radial-gradient(ellipse, rgba(200,132,58,0.22) 0%, transparent 70%)", bottom: "calc(50% - 130px)", filter: "blur(10px)" }}
+        animate={!clicked ? { opacity: [0.4, 0.85, 0.4] } : { opacity: 0 }}
+        transition={{ duration: 2.2, repeat: Infinity }}
       />
 
-      {/* Hint text */}
       <AnimatePresence>
         {!clicked && (
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: hovered ? 1 : 0.4, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.4 }}
-            className="absolute text-white/40 text-sm tracking-widest uppercase font-barlow select-none"
-            style={{ bottom: "calc(50% - 160px)" }}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: hovered ? 1 : 0.45, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="absolute font-mono text-[11px] tracking-[0.3em] uppercase text-paper/60 select-none"
+            style={{ bottom: "calc(50% - 175px)" }}
           >
-            click to open
+            {hovered ? "open the box →" : "click to unbox"}
           </motion.p>
         )}
       </AnimatePresence>
 
-      {/* The Box */}
       <motion.div
         className={`relative cursor-pointer select-none ${!clicked ? "box-float" : ""}`}
-        style={{ width: 160, height: 140 }}
-        whileHover={{ scale: clicked ? 1 : 1.06 }}
-        animate={clicked ? { scale: [1, 1.15, 0], opacity: [1, 1, 0], y: [0, -20, 80] } : {}}
-        transition={clicked ? { duration: 1.2, ease: [0.22, 1, 0.36, 1] } : { type: "spring", stiffness: 300 }}
+        data-cursor-label="OPEN"
+        style={{ width: 200, height: 170 }}
+        whileHover={{ scale: clicked ? 1 : 1.05 }}
+        animate={clicked ? { scale: [1, 1.12, 0], y: [0, -20, 90], opacity: [1, 1, 0] } : {}}
+        transition={clicked ? { duration: 1.3, ease: [0.22, 1, 0.36, 1] } : { type: "spring", stiffness: 300 }}
         onClick={handleClick}
         onHoverStart={() => setHovered(true)}
         onHoverEnd={() => setHovered(false)}
       >
-        <svg width="160" height="140" viewBox="0 0 160 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-          {/* Box body front */}
-          <rect x="10" y="55" width="140" height="85" rx="4" fill={brown} />
+        <svg width="200" height="170" viewBox="0 0 200 170" xmlns="http://www.w3.org/2000/svg">
+          {/* ground shadow */}
+          <ellipse cx="100" cy="166" rx="86" ry="5" fill="rgba(0,0,0,0.45)" />
 
-          {/* Box body shading (left face) */}
-          <polygon points="10,55 10,140 0,130 0,48" fill={brownDark} />
+          {/* body */}
+          <rect x="16" y="70" width="168" height="96" rx="3" fill={top} />
+          <polygon points="16,70 16,166 4,154 4,60" fill={dark} />
+          <rect x="150" y="70" width="34" height="96" fill={mid} opacity="0.5" />
+          {/* corrugation hint */}
+          <rect x="4" y="60" width="12" height="94" fill={dark} />
+          <line x1="10" y1="62" x2="10" y2="152" stroke="#000" strokeWidth="0.5" opacity="0.2" />
 
-          {/* Box body shading (right face) — subtle */}
-          <rect x="125" y="55" width="25" height="85" rx="2" fill={brownMid} opacity="0.5" />
+          {/* body tape */}
+          <rect x="16" y="104" width="168" height="22" fill={tape} opacity="0.55" />
+          <line x1="16" y1="110" x2="184" y2="110" stroke="#fff" strokeWidth="0.5" opacity="0.3" />
+          <line x1="16" y1="120" x2="184" y2="120" stroke="#fff" strokeWidth="0.5" opacity="0.3" />
 
-          {/* Horizontal crease on body */}
-          <line x1="10" y1="97" x2="150" y2="97" stroke={brownDark} strokeWidth="1.5" opacity="0.5" />
+          {/* printed marks */}
+          <text x="100" y="148" textAnchor="middle" fill={dark} fontSize="13" fontFamily="'JetBrains Mono',monospace" fontWeight="700" letterSpacing="3">WEBDEV NY</text>
+          <g opacity="0.55" stroke={dark} strokeWidth="1.4" fill="none">
+            {/* this-way-up arrows */}
+            <path d="M30 132 l5 -7 l5 7 M35 125 v10" />
+            <path d="M160 132 l5 -7 l5 7 M165 125 v10" />
+          </g>
 
-          {/* Vertical crease center */}
-          <line x1="80" y1="55" x2="80" y2="140" stroke={brownDark} strokeWidth="1" opacity="0.3" />
-
-          {/* Tape strip across center */}
-          <rect x="10" y="88" width="140" height="18" fill={tape} opacity="0.6" rx="1" />
-          <line x1="10" y1="93" x2="150" y2="93" stroke={tape} strokeWidth="0.5" opacity="0.4" />
-          <line x1="10" y1="100" x2="150" y2="100" stroke={tape} strokeWidth="0.5" opacity="0.4" />
-
-          {/* "WEBDEV NY" printed text */}
-          <text x="80" y="125" textAnchor="middle" fill={brownDark} fontSize="10" fontFamily="monospace" fontWeight="bold" opacity="0.7" letterSpacing="2">WEBDEV NY</text>
-          <text x="80" y="137" textAnchor="middle" fill={brownDark} fontSize="7" fontFamily="monospace" opacity="0.5" letterSpacing="1">NEW YORK, NY</text>
-
-          {/* LID — animated on click */}
+          {/* lid */}
           <motion.g
-            style={{ transformOrigin: "80px 55px", transformBox: "fill-box" }}
-            animate={clicked ? { rotateX: -140 } : hovered ? { rotateX: -15 } : { rotateX: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            style={{ transformOrigin: "100px 70px", transformBox: "fill-box" }}
+            animate={clicked ? { rotateX: -148 } : hovered ? { rotateX: -22 } : { rotateX: 0 }}
+            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
-            {/* Lid body */}
-            <rect x="10" y="10" width="140" height="48" rx="3" fill={brown} />
-            {/* Lid left flap */}
-            <polygon points="10,10 10,58 0,52 0,5" fill={brownDark} />
-            {/* Lid top highlight */}
-            <rect x="10" y="10" width="140" height="6" rx="3" fill="rgba(255,255,255,0.08)" />
-            {/* Lid tape */}
-            <rect x="10" y="28" width="140" height="14" fill={tape} opacity="0.5" rx="1" />
-            {/* Lid flap lines (cardboard look) */}
-            <line x1="80" y1="10" x2="80" y2="58" stroke={brownDark} strokeWidth="1.5" opacity="0.4" strokeDasharray="4 3" />
-            {/* Stars / logo on lid */}
-            <text x="80" y="24" textAnchor="middle" fill={tape} fontSize="8" fontFamily="monospace" opacity="0.7" letterSpacing="3">✦ ✦ ✦</text>
-            <text x="80" y="46" textAnchor="middle" fill={brownDark} fontSize="9" fontFamily="monospace" fontWeight="bold" opacity="0.8" letterSpacing="2">FRAGILE</text>
+            <rect x="16" y="18" width="168" height="56" rx="2" fill={top} />
+            <polygon points="16,18 16,74 4,62 4,8" fill={dark} />
+            <rect x="16" y="18" width="168" height="6" fill="rgba(255,255,255,0.1)" />
+            <rect x="16" y="40" width="168" height="16" fill={tape} opacity="0.5" />
+            <line x1="100" y1="18" x2="100" y2="74" stroke={dark} strokeWidth="1.4" opacity="0.45" strokeDasharray="5 4" />
+            <text x="100" y="34" textAnchor="middle" fill={tape} fontSize="9" fontFamily="'JetBrains Mono',monospace" letterSpacing="4" opacity="0.8">✦ ✦ ✦</text>
+            <text x="100" y="60" textAnchor="middle" fill={dark} fontSize="10" fontFamily="'JetBrains Mono',monospace" fontWeight="700" letterSpacing="3" opacity="0.85">FRAGILE</text>
           </motion.g>
-
-          {/* Bottom shadow line */}
-          <ellipse cx="80" cy="140" rx="72" ry="4" fill="rgba(0,0,0,0.4)" />
         </svg>
 
-        {/* Stars that burst out on click */}
+        {/* unboxing burst */}
         <AnimatePresence>
-          {clicked && (
-            <>
-              {[...Array(8)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute text-yellow-400 text-lg pointer-events-none"
-                  style={{ left: "50%", top: "30%" }}
-                  initial={{ x: 0, y: 0, opacity: 1, scale: 0 }}
-                  animate={{
-                    x: Math.cos((i / 8) * Math.PI * 2) * (60 + Math.random() * 40),
-                    y: Math.sin((i / 8) * Math.PI * 2) * (60 + Math.random() * 40) - 20,
-                    opacity: 0,
-                    scale: 1.5,
-                  }}
-                  transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-                >
-                  ✦
-                </motion.div>
-              ))}
-            </>
-          )}
+          {clicked && [...Array(10)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute pointer-events-none"
+              style={{ left: "50%", top: "32%", color: i % 2 ? "#E3CF9E" : "#C8843A", fontSize: 16 }}
+              initial={{ x: 0, y: 0, opacity: 1, scale: 0, rotate: 0 }}
+              animate={{
+                x: Math.cos((i / 10) * Math.PI * 2) * (70 + Math.random() * 50),
+                y: Math.sin((i / 10) * Math.PI * 2) * (70 + Math.random() * 50) - 30,
+                opacity: 0, scale: 1.4, rotate: 180,
+              }}
+              transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
+            >
+              ✦
+            </motion.div>
+          ))}
         </AnimatePresence>
       </motion.div>
     </div>

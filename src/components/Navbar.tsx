@@ -1,17 +1,19 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { IconArrowUpRight, IconBox } from "@/components/icons";
+import { Magnetic } from "@/components/primitives";
 
 const links = [
-  { label: "Home", to: "/" },
-  { label: "Web Design", to: "/web-design" },
-  { label: "Capabilities", to: "/capabilities" },
-  { label: "Portfolio", to: "/portfolio" },
-  { label: "Analytics", to: "/analytics" },
-  { label: "Pricing", to: "/pricing" },
-  { label: "Plans", to: "/plans" },
-  { label: "Contact", to: "/contact" },
+  { label: "Index", to: "/", n: "00" },
+  { label: "Design & Dev", to: "/web-design", n: "01" },
+  { label: "Capabilities", to: "/capabilities", n: "02" },
+  { label: "Portfolio", to: "/portfolio", n: "03" },
+  { label: "Previews", to: "/previews", n: "04" },
+  { label: "Analytics", to: "/analytics", n: "05" },
+  { label: "Pricing", to: "/pricing", n: "06" },
+  { label: "Plans", to: "/plans", n: "07" },
+  { label: "Contact", to: "/contact", n: "08" },
 ];
 
 export function Navbar() {
@@ -20,83 +22,78 @@ export function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 16);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  useEffect(() => { setOpen(false); }, [location]);
+  useEffect(() => setOpen(false), [location]);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "py-3" : "py-5"}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <motion.div
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className={`flex items-center justify-between px-5 py-3 rounded-2xl transition-all duration-500 ${scrolled ? "glass-strong" : "glass"}`}
-        >
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center text-xs font-bold text-white">W</div>
-            <span className="font-barlow font-bold text-white text-[15px] tracking-tight">WebDev NY</span>
+    <>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${scrolled ? "bg-paper/85 backdrop-blur-md border-b border-line" : "border-b border-transparent"}`}>
+        <div className="max-w-[1400px] mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2.5 group">
+            <span className="w-8 h-8 bg-ink text-paper flex items-center justify-center group-hover:bg-kraft transition-colors">
+              <IconBox size={17} />
+            </span>
+            <span className="display text-[19px] font-semibold leading-none">WebDev<span className="text-kraft">.</span>NY</span>
           </Link>
 
-          {/* Desktop */}
-          <ul className="hidden lg:flex items-center gap-1">
-            {links.map((l) => {
-              const active = location.pathname === l.to;
-              return (
-                <li key={l.to}>
-                  <Link
-                    to={l.to}
-                    className={`px-3 py-1.5 rounded-lg text-[13px] font-medium font-barlow transition-all duration-200 ${active ? "bg-white/10 text-white" : "text-white/60 hover:text-white hover:bg-white/5"}`}
-                  >
-                    {l.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-
-          <div className="hidden lg:flex items-center gap-3">
-            <Link
-              to="/contact"
-              className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full text-[13px] font-barlow font-semibold hover:bg-sky-100 transition-colors"
-            >
-              Get Started
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </Link>
+          {/* center: status */}
+          <div className="hidden lg:flex items-center gap-2 mono-label text-ink-faint">
+            <span className="w-1.5 h-1.5 rounded-full bg-kraft animate-pulse" />
+            Booking Q3 — NYC
           </div>
 
-          <button onClick={() => setOpen(!open)} className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors">
-            {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </motion.div>
+          <div className="flex items-center gap-3">
+            <Magnetic>
+              <Link to="/contact" data-cursor-label="GO" className="hidden sm:flex items-center gap-2 bg-ink text-paper px-4 py-2.5 mono-label hover:bg-kraft transition-colors">
+                Start a Project <IconArrowUpRight size={14} />
+              </Link>
+            </Magnetic>
+            <button onClick={() => setOpen(!open)} data-cursor-label={open ? "CLOSE" : "MENU"} className="flex flex-col gap-1.5 w-10 h-10 items-center justify-center border border-line hover:border-ink transition-colors">
+              <motion.span animate={{ rotate: open ? 45 : 0, y: open ? 4 : 0 }} className="w-5 h-px bg-ink block" />
+              <motion.span animate={{ rotate: open ? -45 : 0, y: open ? -3 : 0 }} className="w-5 h-px bg-ink block" />
+            </button>
+          </div>
+        </div>
+      </header>
 
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              initial={{ opacity: 0, y: -8, scale: 0.97 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -8, scale: 0.97 }}
-              transition={{ duration: 0.2 }}
-              className="mt-2 glass-strong rounded-2xl px-4 py-4 flex flex-col gap-1"
-            >
-              {links.map((l) => (
-                <Link key={l.to} to={l.to} className="px-3 py-2.5 rounded-xl text-[14px] font-barlow font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors">
-                  {l.label}
-                </Link>
-              ))}
-              <div className="border-t border-white/10 mt-2 pt-3">
-                <Link to="/contact" className="flex items-center justify-center gap-2 bg-white text-black px-4 py-2.5 rounded-full text-[14px] font-barlow font-semibold">
-                  Get Started <ArrowUpRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </nav>
+      {/* full-screen menu */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ clipPath: "inset(0 0 100% 0)" }}
+            animate={{ clipPath: "inset(0 0 0% 0)" }}
+            exit={{ clipPath: "inset(0 0 100% 0)" }}
+            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+            className="fixed inset-0 z-40 bg-ink text-paper flex flex-col justify-center"
+          >
+            <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)", backgroundSize: "48px 48px" }} />
+            <nav className="relative max-w-[1400px] w-full mx-auto px-5 sm:px-8 pt-20">
+              {links.map((l, i) => {
+                const active = location.pathname === l.to;
+                return (
+                  <motion.div
+                    key={l.to}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 + i * 0.05 }}
+                  >
+                    <Link to={l.to} className="group flex items-baseline gap-5 border-b border-paper/10 py-3 sm:py-4">
+                      <span className="mono-label text-paper/40 group-hover:text-kraft transition-colors">{l.n}</span>
+                      <span className={`display text-[clamp(34px,7vw,76px)] leading-none transition-colors ${active ? "text-kraft" : "text-paper group-hover:text-kraft"}`}>
+                        {l.label}
+                      </span>
+                      <IconArrowUpRight size={26} className="ml-auto self-center opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-kraft" />
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

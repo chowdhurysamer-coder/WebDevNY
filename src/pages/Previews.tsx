@@ -1,181 +1,86 @@
-import { motion } from "framer-motion";
-import { Play, ExternalLink, Eye } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Reveal, FadeUp, SectionLabel } from "@/components/primitives";
+import { SiteMock } from "@/components/SiteMock";
+import { IconArrowUpRight, IconEye, IconPlay } from "@/components/icons";
 
-const previews = [
-  {
-    id: "1",
-    title: "Restaurant Template",
-    category: "Food & Beverage",
-    tags: ["Reservations", "Menu", "Gallery"],
-    color: "#fb923c",
-    metrics: { conversion: "4.2%", load: "1.1s", mobile: "98" },
-    gradient: "from-orange-900/40 to-black",
-  },
-  {
-    id: "2",
-    title: "Medical Clinic",
-    category: "Healthcare",
-    tags: ["Appointments", "Patient Forms", "Reviews"],
-    color: "#38bdf8",
-    metrics: { conversion: "5.8%", load: "0.9s", mobile: "99" },
-    gradient: "from-sky-900/40 to-black",
-  },
-  {
-    id: "3",
-    title: "Fitness Studio",
-    category: "Health & Fitness",
-    tags: ["Class Booking", "Membership", "Trainers"],
-    color: "#34d399",
-    metrics: { conversion: "6.1%", load: "1.3s", mobile: "97" },
-    gradient: "from-emerald-900/40 to-black",
-  },
-  {
-    id: "4",
-    title: "Law Firm Premium",
-    category: "Legal",
-    tags: ["Practice Areas", "Case Results", "Consultation"],
-    color: "#a78bfa",
-    metrics: { conversion: "3.4%", load: "0.8s", mobile: "100" },
-    gradient: "from-violet-900/40 to-black",
-  },
-  {
-    id: "5",
-    title: "E-Commerce Boutique",
-    category: "Retail",
-    tags: ["Product Catalog", "Cart", "Reviews"],
-    color: "#f472b6",
-    metrics: { conversion: "2.9%", load: "1.4s", mobile: "96" },
-    gradient: "from-pink-900/40 to-black",
-  },
-  {
-    id: "6",
-    title: "Real Estate Agency",
-    category: "Property",
-    tags: ["MLS Listings", "Valuation", "Agents"],
-    color: "#fbbf24",
-    metrics: { conversion: "7.2%", load: "1.0s", mobile: "98" },
-    gradient: "from-yellow-900/40 to-black",
-  },
+type V = "restaurant" | "medical" | "gym" | "legal" | "ecommerce" | "realestate";
+
+const templates: { id: string; v: V; title: string; cat: string; cvr: string; load: string; mobile: string }[] = [
+  { id: "01", v: "restaurant", title: "Restaurant", cat: "Food & Beverage", cvr: "4.2%", load: "1.1s", mobile: "98" },
+  { id: "02", v: "medical", title: "Medical Clinic", cat: "Healthcare", cvr: "5.8%", load: "0.9s", mobile: "99" },
+  { id: "03", v: "gym", title: "Fitness Studio", cat: "Health & Fitness", cvr: "6.1%", load: "1.3s", mobile: "97" },
+  { id: "04", v: "legal", title: "Law Firm", cat: "Legal", cvr: "3.4%", load: "0.8s", mobile: "100" },
+  { id: "05", v: "ecommerce", title: "Boutique Shop", cat: "Retail", cvr: "2.9%", load: "1.4s", mobile: "96" },
+  { id: "06", v: "realestate", title: "Real Estate", cat: "Property", cvr: "7.2%", load: "1.0s", mobile: "98" },
 ];
 
-function PreviewCard({ p, i }: { p: typeof previews[0]; i: number }) {
-  const [hovered, setHovered] = useState(false);
+function Card({ t, i }: { t: typeof templates[0]; i: number }) {
+  const [hover, setHover] = useState(false);
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: i * 0.08 }}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
-      className={`glass rounded-2xl overflow-hidden card-hover cursor-pointer relative bg-gradient-to-br ${p.gradient}`}
-    >
-      {/* Mock browser preview */}
-      <div className="h-44 relative overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <div className="text-5xl mb-2">
-              {["🍕","🏥","💪","⚖️","👗","🏠"][i]}
-            </div>
-            <div className="font-barlow text-xs text-white/30 uppercase tracking-widest">Preview</div>
+    <FadeUp delay={(i % 3) * 0.08}>
+      <div
+        onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+        className="card-paper press overflow-hidden"
+        data-cursor-label="DEMO"
+      >
+        <div className="relative">
+          <SiteMock variant={t.v} className="w-full" />
+          <motion.div animate={{ opacity: hover ? 1 : 0 }} className="absolute inset-0 bg-ink/55 flex items-center justify-center gap-3">
+            <span className="bg-paper text-ink px-3 py-2 mono-label inline-flex items-center gap-1.5"><IconEye size={13} /> Preview</span>
+            <span className="bg-kraft text-paper px-3 py-2 mono-label inline-flex items-center gap-1.5"><IconPlay size={13} /> Live</span>
+          </motion.div>
+        </div>
+        <div className="p-5 border-t border-line">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="display text-xl font-semibold">{t.title}</h3>
+            <span className="mono-label text-ink-faint">{t.cat}</span>
           </div>
-        </div>
-
-        {/* Browser chrome */}
-        <div className="absolute top-0 left-0 right-0 h-8 bg-black/60 flex items-center px-3 gap-1.5 border-b border-white/5">
-          {["#f87171","#fbbf24","#34d399"].map((c, j) => (
-            <div key={j} className="w-2 h-2 rounded-full" style={{ background: c }} />
-          ))}
-          <div className="ml-2 flex-1 bg-white/5 rounded text-[10px] text-white/20 px-2 py-0.5 font-mono">yoursite.com</div>
-        </div>
-
-        {/* Hover overlay */}
-        <motion.div
-          animate={{ opacity: hovered ? 1 : 0 }}
-          transition={{ duration: 0.2 }}
-          className="absolute inset-0 bg-black/60 flex items-center justify-center gap-3 pt-8"
-        >
-          <button className="flex items-center gap-1.5 bg-white text-black px-3 py-1.5 rounded-full text-xs font-barlow font-semibold">
-            <Eye className="w-3 h-3" /> Preview
-          </button>
-          <button className="flex items-center gap-1.5 glass px-3 py-1.5 rounded-full text-xs font-barlow text-white">
-            <ExternalLink className="w-3 h-3" /> Live Demo
-          </button>
-        </motion.div>
-      </div>
-
-      {/* Card body */}
-      <div className="p-5">
-        <div className="flex items-center justify-between mb-2">
-          <h3 className="font-barlow font-semibold text-white">{p.title}</h3>
-          <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: `${p.color}20`, color: p.color }}>{p.category}</span>
-        </div>
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {p.tags.map((t) => (
-            <span key={t} className="text-[11px] font-barlow text-white/40 px-2 py-0.5 rounded glass">
-              {t}
-            </span>
-          ))}
-        </div>
-        {/* Metrics */}
-        <div className="grid grid-cols-3 gap-2 pt-3 border-t border-white/5">
-          <div className="text-center">
-            <div className="font-barlow font-bold text-sm" style={{ color: p.color }}>{p.metrics.conversion}</div>
-            <div className="text-white/30 font-barlow text-[10px]">CVR</div>
-          </div>
-          <div className="text-center">
-            <div className="font-barlow font-bold text-sm" style={{ color: p.color }}>{p.metrics.load}</div>
-            <div className="text-white/30 font-barlow text-[10px]">Load</div>
-          </div>
-          <div className="text-center">
-            <div className="font-barlow font-bold text-sm" style={{ color: p.color }}>{p.metrics.mobile}</div>
-            <div className="text-white/30 font-barlow text-[10px]">Mobile</div>
+          <div className="grid grid-cols-3 border-t border-line pt-4">
+            {[["CVR", t.cvr], ["Load", t.load], ["Mobile", t.mobile]].map(([l, v], j) => (
+              <div key={l} className={`text-center ${j !== 0 ? "border-l border-line" : ""}`}>
+                <div className="display text-2xl font-semibold text-kraft">{v}</div>
+                <div className="mono-label text-ink-faint mt-1">{l}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
-    </motion.div>
+    </FadeUp>
   );
 }
 
 export default function Previews() {
   return (
-    <div className="bg-black text-white pt-28">
-      <section className="px-4 pb-16">
-        <div className="max-w-5xl mx-auto">
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-barlow text-white/60 mb-6 uppercase tracking-widest">
-            <Play className="w-3 h-3 text-sky-400" />
-            Live Previews
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="font-display text-[clamp(36px,7vw,84px)] font-bold leading-[0.92] tracking-[-0.03em] mb-6"
-          >
-            See before<br />
-            <span className="gradient-text italic">you commit.</span>
-          </motion.h1>
-          <p className="text-white/60 font-barlow text-lg max-w-xl">
-            Browse live demos of our most popular templates. Every design is fully customized for your brand.
-          </p>
+    <div className="bg-paper pt-16">
+      <section className="max-w-[1400px] mx-auto px-5 sm:px-8 pt-20 pb-14 border-b border-line">
+        <SectionLabel index="04" className="mb-8">Live previews</SectionLabel>
+        <h1 className="display text-[clamp(44px,10vw,150px)] font-semibold tracking-tightest">
+          <Reveal text="See it before" />
+          <span className="italic text-kraft"><Reveal text="you commit." delay={0.15} /></span>
+        </h1>
+        <p className="text-ink-soft text-lg max-w-md leading-relaxed mt-8">
+          Browse working starting points for every industry. Each one gets fully customized to your brand — these are the floor, not the ceiling.
+        </p>
+      </section>
+
+      <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-16">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {templates.map((t, i) => <Card key={t.id} t={t} i={i} />)}
         </div>
       </section>
 
-      <section className="px-4 pb-24">
-        <div className="max-w-5xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {previews.map((p, i) => <PreviewCard key={p.id} p={p} i={i} />)}
-        </div>
-      </section>
-
-      <section className="px-4 pb-20">
-        <div className="max-w-3xl mx-auto glass rounded-3xl p-10 text-center glow-blue">
-          <h2 className="font-display text-[clamp(24px,4vw,44px)] font-bold text-white mb-4">Want to see your industry?</h2>
-          <p className="text-white/60 font-barlow mb-8">We'll build a custom preview for your business — free, no strings attached.</p>
-          <Link to="/contact" className="inline-flex items-center gap-2 bg-sky-400 text-black px-7 py-3.5 rounded-full font-barlow font-semibold hover:bg-sky-300 transition-colors">
-            Request a Preview
-          </Link>
+      <section className="max-w-[1400px] mx-auto px-5 sm:px-8 pb-24">
+        <div className="card-paper-kraft p-10 sm:p-14 text-center relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)", backgroundSize: "32px 32px" }} />
+          <div className="relative">
+            <Reveal as="h2" text="Don't see your industry?" className="display text-[clamp(28px,4.5vw,60px)] font-semibold justify-center mb-5" />
+            <p className="text-paper/80 max-w-md mx-auto mb-8">We'll build a custom preview for your business — free, no strings attached.</p>
+            <Link to="/contact" data-cursor-label="GO" className="inline-flex items-center gap-2 bg-ink text-paper px-7 py-4 mono-label press">
+              Request a preview <IconArrowUpRight size={15} />
+            </Link>
+          </div>
         </div>
       </section>
     </div>

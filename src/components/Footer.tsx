@@ -1,50 +1,60 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { IconArrowUpRight, IconBox } from "@/components/icons";
+import { Marquee } from "@/components/primitives";
 
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="border-t border-white/5 px-4 py-16">
-      <div className="max-w-5xl mx-auto">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
+    <footer className="bg-ink text-paper relative overflow-hidden">
+      <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)", backgroundSize: "48px 48px" }} />
+
+      {/* big CTA marquee */}
+      <Link to="/contact" className="block border-b border-paper/10 py-8 group">
+        <Marquee items={["Let's build something", "Start a project", "Ship it right"]} className="text-paper group-hover:text-kraft transition-colors" />
+      </Link>
+
+      <div className="relative max-w-[1400px] mx-auto px-5 sm:px-8 py-16">
+        <div className="grid md:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center text-xs font-bold text-white">W</div>
-              <span className="font-barlow font-bold text-white text-[15px]">WebDev NY</span>
+            <div className="flex items-center gap-2.5 mb-5">
+              <span className="w-8 h-8 bg-kraft text-ink flex items-center justify-center"><IconBox size={17} /></span>
+              <span className="display text-[20px] font-semibold">WebDev<span className="text-kraft">.</span>NY</span>
             </div>
-            <p className="text-white/40 font-barlow text-sm leading-relaxed">Custom web design and development for New York businesses that want to grow online.</p>
+            <p className="text-paper/50 text-sm leading-relaxed max-w-xs">
+              A web studio in New York. We design and build sites for businesses that take themselves seriously — and want a site that does too.
+            </p>
           </div>
-          <div>
-            <div className="text-white/30 font-barlow text-xs uppercase tracking-widest mb-4">Company</div>
-            <div className="flex flex-col gap-2">
-              {[["Home","/"],["Web Design","/web-design"],["Capabilities","/capabilities"],["Portfolio","/portfolio"]].map(([l,to]) => (
-                <Link key={l as string} to={to as string} className="text-white/55 font-barlow text-sm hover:text-white transition-colors">{l as string}</Link>
-              ))}
+
+          {[
+            { h: "Studio", items: [["Index", "/"], ["Design & Dev", "/web-design"], ["Capabilities", "/capabilities"], ["Portfolio", "/portfolio"]] },
+            { h: "Work", items: [["Previews", "/previews"], ["Analytics", "/analytics"], ["Pricing", "/pricing"], ["Plans", "/plans"]] },
+          ].map((col) => (
+            <div key={col.h}>
+              <div className="mono-label text-kraft mb-4">{col.h}</div>
+              <div className="flex flex-col gap-2.5">
+                {col.items.map(([l, to]) => (
+                  <Link key={l} to={to} className="text-paper/60 hover:text-paper text-sm link-draw w-fit">{l}</Link>
+                ))}
+              </div>
             </div>
-          </div>
+          ))}
+
           <div>
-            <div className="text-white/30 font-barlow text-xs uppercase tracking-widest mb-4">Services</div>
-            <div className="flex flex-col gap-2">
-              {[["Previews","/previews"],["Analytics","/analytics"],["Pricing","/pricing"],["Plans","/plans"]].map(([l,to]) => (
-                <Link key={l as string} to={to as string} className="text-white/55 font-barlow text-sm hover:text-white transition-colors">{l as string}</Link>
-              ))}
+            <div className="mono-label text-kraft mb-4">Contact</div>
+            <div className="flex flex-col gap-2.5 text-sm">
+              <a href="mailto:hello@webdevny.com" className="text-paper/60 hover:text-paper link-draw w-fit">hello@webdevny.com</a>
+              <a href="tel:+12125550190" className="text-paper/60 hover:text-paper link-draw w-fit">(212) 555-0190</a>
+              <span className="text-paper/40">New York, NY</span>
             </div>
-          </div>
-          <div>
-            <div className="text-white/30 font-barlow text-xs uppercase tracking-widest mb-4">Contact</div>
-            <div className="flex flex-col gap-2">
-              <a href="mailto:hello@webdevny.com" className="text-white/55 font-barlow text-sm hover:text-white transition-colors">hello@webdevny.com</a>
-              <a href="tel:+12125550190" className="text-white/55 font-barlow text-sm hover:text-white transition-colors">(212) 555-0190</a>
-              <span className="text-white/55 font-barlow text-sm">New York, NY</span>
-            </div>
-            <Link to="/contact" className="mt-5 inline-flex items-center gap-1.5 text-sky-400 font-barlow text-sm hover:text-sky-300 transition-colors">
-              Start a project <ArrowUpRight className="w-3.5 h-3.5" />
+            <Link to="/contact" className="mt-5 inline-flex items-center gap-1.5 text-kraft text-sm hover:gap-2.5 transition-all">
+              Start a project <IconArrowUpRight size={15} />
             </Link>
           </div>
         </div>
-        <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span className="text-white/25 font-barlow text-xs">© {year} WebDev NY. All rights reserved.</span>
-          <span className="text-white/25 font-barlow text-xs">Built with ♥ in New York</span>
+
+        <div className="mt-16 pt-6 border-t border-paper/10 flex flex-col sm:flex-row items-center justify-between gap-3 mono-label text-paper/35">
+          <span>© {year} WebDev NY — All rights reserved</span>
+          <span>Designed & built in-house · No templates</span>
         </div>
       </div>
     </footer>

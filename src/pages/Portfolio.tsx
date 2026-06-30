@@ -1,126 +1,126 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Star, ExternalLink } from "lucide-react";
-import { Gallery, GalleryImage } from "@/components/Gallery";
+import { motion, AnimatePresence } from "framer-motion";
+import { Reveal, FadeUp, SectionLabel } from "@/components/primitives";
+import { SiteMock } from "@/components/SiteMock";
+import { IconArrowUpRight, IconStar, IconArrow } from "@/components/icons";
 
-const projects = [
-  { id: "1", title: "Bella Cucina NYC", category: "Restaurant", desc: "A gorgeous menu-driven site with reservations integration. 40% increase in online bookings.", src: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=80", color: "#fb923c" },
-  { id: "2", title: "SmilePro Dental", category: "Dental Practice", desc: "Patient-first design with appointment scheduling and before/after gallery.", src: "https://images.unsplash.com/photo-1588776814546-1ffedde3f10f?w=600&q=80", color: "#38bdf8" },
-  { id: "3", title: "Iron Republic Gym", category: "Fitness", desc: "Class bookings, membership tiers, and a video-heavy hero that converts visitors.", src: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80", color: "#34d399" },
-  { id: "4", title: "Luxe & Co. Salon", category: "Beauty & Wellness", desc: "Booking-forward design with portfolio gallery and staff profiles.", src: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=80", color: "#f472b6" },
-  { id: "5", title: "Park Ave Legal", category: "Law Firm", desc: "Authority-building design with practice areas, case results, and attorney bios.", src: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80", color: "#a78bfa" },
-  { id: "6", title: "Hudson Realty Group", category: "Real Estate", desc: "MLS-integrated listings, neighborhood guides, and agent lead capture.", src: "https://images.unsplash.com/photo-1560184897-ae75f418493e?w=600&q=80", color: "#fbbf24" },
+type V = "restaurant" | "dental" | "gym" | "salon" | "legal" | "realestate";
+
+const projects: { id: string; v: V; name: string; cat: string; year: string; blurb: string; result: string }[] = [
+  { id: "01", v: "restaurant", name: "Trattoria Bella", cat: "Restaurant", year: "'25", blurb: "Menu-led design with one-tap reservations and a story-driven scroll.", result: "+40% online bookings in month one" },
+  { id: "02", v: "dental", name: "BrightSmile Dental", cat: "Dental", year: "'25", blurb: "Patient-first layout with online intake forms and a before/after gallery.", result: "6 hrs/week saved on paperwork" },
+  { id: "03", v: "gym", name: "IronWorks Gym", cat: "Fitness", year: "'24", blurb: "Class booking, membership tiers, and a video-forward hero that sells the room.", result: "2× membership sign-ups in 60 days" },
+  { id: "04", v: "salon", name: "Maison Salon", cat: "Beauty", year: "'25", blurb: "Booking-forward design with a stylist portfolio and editorial photography slots.", result: "Fully booked 3 weeks out" },
+  { id: "05", v: "legal", name: "Park Ave Legal", cat: "Legal", year: "'24", blurb: "Authority-building layout with practice areas, results, and attorney bios.", result: "+31% qualified consultations" },
+  { id: "06", v: "realestate", name: "Hudson Realty", cat: "Real Estate", year: "'25", blurb: "MLS-integrated listings, neighborhood guides, and agent lead capture.", result: "7.2% lead conversion rate" },
 ];
 
 const reviews = [
-  { name: "Maria S.", biz: "Bella Cucina NYC", text: "WebDev NY transformed our online presence. We went from zero online reservations to 40% of bookings coming through the website in the first month.", stars: 5 },
-  { name: "Dr. James K.", biz: "SmilePro Dental", text: "The team understood what a dental practice needs — clean, trustworthy, fast. New patient forms are now fully online and we save hours a week.", stars: 5 },
-  { name: "Tony R.", biz: "Iron Republic Gym", text: "Our site finally looks as good as our gym. Membership sign-ups through the site doubled in 60 days. Worth every penny.", stars: 5 },
+  { name: "Maria S.", biz: "Trattoria Bella", text: "We went from zero online reservations to 40% of bookings through the site in the first month. It finally looks like our food tastes." },
+  { name: "Dr. James K.", biz: "BrightSmile Dental", text: "Clean, trustworthy, fast — exactly what a dental practice needs. Patient forms are fully online now and we save hours every week." },
+  { name: "Tony R.", biz: "IronWorks Gym", text: "Our site finally looks as good as our gym. Sign-ups doubled in 60 days. Worth every single penny." },
 ];
 
 export default function Portfolio() {
+  const [active, setActive] = useState<typeof projects[0] | null>(null);
+
   return (
-    <div className="bg-black text-white pt-28">
-      {/* Hero */}
-      <section className="px-4 pb-16">
-        <div className="max-w-5xl mx-auto">
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="font-display text-[clamp(36px,7vw,84px)] font-bold leading-[0.92] tracking-[-0.03em] mb-6"
-          >
-            Work that<br />
-            <span className="gradient-text italic">speaks for itself.</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-white/60 font-barlow text-lg max-w-xl"
-          >
-            Real projects for real New York businesses. Click any image to zoom in.
-          </motion.p>
+    <div className="bg-paper pt-16">
+      <section className="max-w-[1400px] mx-auto px-5 sm:px-8 pt-20 pb-14 border-b border-line">
+        <SectionLabel index="03" className="mb-8">Selected work</SectionLabel>
+        <h1 className="display text-[clamp(44px,10vw,150px)] font-semibold tracking-tightest">
+          <Reveal text="Work that" />
+          <span className="italic text-kraft"><Reveal text="speaks for itself." delay={0.15} /></span>
+        </h1>
+        <p className="text-ink-soft text-lg max-w-md leading-relaxed mt-8">
+          A sample of recent builds for New York businesses. Tap any project to see the brief and the outcome.
+        </p>
+      </section>
+
+      {/* catalog grid */}
+      <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-16">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((p, i) => (
+            <FadeUp key={p.id} delay={(i % 3) * 0.08}>
+              <button onClick={() => setActive(p)} data-cursor-label="VIEW" className="group text-left w-full">
+                <div className="card-paper press overflow-hidden">
+                  <SiteMock variant={p.v} className="w-full" />
+                  <div className="flex items-center justify-between px-4 py-3 border-t border-line">
+                    <span className="mono-label text-ink-soft">{p.cat}</span>
+                    <IconArrowUpRight size={16} className="text-kraft opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                </div>
+                <div className="flex items-baseline justify-between mt-3">
+                  <h3 className="display text-xl font-semibold group-hover:text-kraft transition-colors">{p.name}</h3>
+                  <span className="mono-label text-ink-faint">{p.id} — {p.year}</span>
+                </div>
+              </button>
+            </FadeUp>
+          ))}
         </div>
       </section>
 
-      {/* Portfolio grid with gallery */}
-      <section className="px-4 pb-24">
-        <div className="max-w-5xl mx-auto">
-          <Gallery>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
-              {projects.map((p, i) => (
-                <motion.div
-                  key={p.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
-                  className="glass rounded-2xl overflow-hidden card-hover group"
-                >
-                  <div className="relative overflow-hidden">
-                    <GalleryImage src={p.src} alt={p.title} id={p.id} />
-                    <div className="absolute top-3 left-3">
-                      <span className="text-xs font-barlow px-2.5 py-1 rounded-full glass-strong" style={{ color: p.color, borderColor: `${p.color}30`, border: `1px solid ${p.color}40` }}>
-                        {p.category}
-                      </span>
-                    </div>
-                    <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <ExternalLink className="w-4 h-4 text-white" />
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-barlow font-semibold text-white text-base mb-1">{p.title}</h3>
-                    <p className="text-white/50 font-barlow text-xs leading-relaxed">{p.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </Gallery>
-        </div>
-      </section>
-
-      {/* Reviews */}
-      <section className="px-4 pb-24 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent py-20">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-14">
-            <h2 className="font-display text-[clamp(28px,4vw,48px)] font-bold text-white mb-3">What clients say</h2>
-            <p className="text-white/50 font-barlow">Real reviews from real business owners.</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-5">
+      {/* reviews */}
+      <section className="bg-ink text-paper py-24">
+        <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
+          <SectionLabel index="·" className="text-paper/60 mb-6">What clients say</SectionLabel>
+          <Reveal as="h2" text="Don't take our word for it." className="display text-[clamp(30px,5vw,64px)] font-semibold text-paper mb-12" />
+          <div className="grid md:grid-cols-3 gap-px bg-paper/10 border border-paper/10">
             {reviews.map((r, i) => (
-              <motion.div
-                key={r.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="glass rounded-2xl p-6 card-hover"
-              >
-                <div className="flex gap-0.5 mb-4">
-                  {[...Array(r.stars)].map((_, j) => <Star key={j} className="w-4 h-4 fill-yellow-400 text-yellow-400" />)}
-                </div>
-                <p className="text-white/70 font-barlow text-sm leading-relaxed mb-5 italic">"{r.text}"</p>
-                <div>
-                  <div className="font-barlow font-semibold text-white text-sm">{r.name}</div>
-                  <div className="text-white/40 font-barlow text-xs">{r.biz}</div>
-                </div>
-              </motion.div>
+              <FadeUp key={r.name} delay={i * 0.1} className="bg-ink p-8">
+                <div className="flex gap-1 text-kraft mb-5">{[...Array(5)].map((_, j) => <IconStar key={j} size={15} />)}</div>
+                <p className="text-paper/80 leading-relaxed mb-6 display text-lg italic">"{r.text}"</p>
+                <div className="mono-label text-paper/50">{r.name} · {r.biz}</div>
+              </FadeUp>
             ))}
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="px-4 pb-20">
-        <div className="max-w-3xl mx-auto glass rounded-3xl p-10 text-center">
-          <h2 className="font-display text-[clamp(24px,4vw,44px)] font-bold text-white mb-4">Your project could be next.</h2>
-          <p className="text-white/60 font-barlow mb-8">Let's talk about what we can build for your business.</p>
-          <Link to="/contact" className="inline-flex items-center gap-2 bg-white text-black px-7 py-3.5 rounded-full font-barlow font-semibold hover:bg-sky-100 transition-colors">
-            Start a Project <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
+      <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-24 text-center">
+        <Reveal as="h2" text="Your project could be next." className="display text-[clamp(30px,5vw,68px)] font-semibold justify-center mb-8" />
+        <Link to="/contact" data-cursor-label="GO" className="card-paper-kraft press inline-flex items-center gap-2 px-7 py-4 mono-label">
+          Start a project <IconArrowUpRight size={15} />
+        </Link>
       </section>
+
+      {/* detail modal */}
+      <AnimatePresence>
+        {active && (
+          <motion.div
+            className="fixed inset-0 z-[80] flex items-center justify-center p-4 sm:p-8"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          >
+            <div className="absolute inset-0 bg-ink/70 backdrop-blur-sm" onClick={() => setActive(null)} />
+            <motion.div
+              initial={{ y: 40, opacity: 0, scale: 0.98 }} animate={{ y: 0, opacity: 1, scale: 1 }} exit={{ y: 40, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 240, damping: 26 }}
+              className="relative card-paper w-full max-w-3xl max-h-[88vh] overflow-auto"
+            >
+              <div className="grid md:grid-cols-2">
+                <SiteMock variant={active.v} className="w-full md:h-full" />
+                <div className="p-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="mono-label text-kraft">{active.cat} · {active.year}</span>
+                    <button onClick={() => setActive(null)} data-cursor-label="CLOSE" className="mono-label border border-line px-3 py-1.5 hover:bg-ink hover:text-paper transition-colors">Close ✕</button>
+                  </div>
+                  <h3 className="display text-4xl font-semibold mb-4">{active.name}</h3>
+                  <p className="text-ink-soft leading-relaxed mb-8">{active.blurb}</p>
+                  <div className="card-paper-kraft p-5">
+                    <div className="mono-label text-paper/80 mb-1">Outcome</div>
+                    <div className="display text-2xl font-semibold">{active.result}</div>
+                  </div>
+                  <Link to="/contact" className="mt-8 inline-flex items-center gap-2 mono-label hover:text-kraft transition-colors link-draw">
+                    Want results like this? <IconArrow size={15} />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
