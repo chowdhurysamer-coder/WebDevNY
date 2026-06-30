@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { IconArrowUpRight, IconBox } from "@/components/icons";
+import { IconArrowUpRight } from "@/components/icons";
+import { LogoMark } from "@/components/Logo";
 import { Marquee } from "@/components/primitives";
 
 export function Footer() {
@@ -16,9 +17,12 @@ export function Footer() {
       <div className="relative max-w-[1400px] mx-auto px-5 sm:px-8 py-16">
         <div className="grid md:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10">
           <div>
-            <div className="flex items-center gap-2.5 mb-5">
-              <span className="w-8 h-8 bg-kraft text-ink flex items-center justify-center"><IconBox size={17} /></span>
-              <span className="display text-[20px] font-semibold">WebDev<span className="text-kraft">.</span>NY</span>
+            <div className="flex items-center gap-3 mb-5">
+              <LogoMark size={42} className="text-navy" bg="rgb(var(--c-paper-3))" />
+              <span className="leading-none">
+                <span className="display text-[20px] font-semibold block">WebDev<span className="text-kraft">.</span>NY</span>
+                <span className="mono-label text-ink-faint block mt-1" style={{ fontSize: 9 }}>Website Creation Agency</span>
+              </span>
             </div>
             <p className="text-ink-soft text-sm leading-relaxed max-w-xs">
               A web studio in New York. We design and build sites for businesses that take themselves seriously — and want a site that does too.
@@ -54,7 +58,10 @@ export function Footer() {
 
         <div className="mt-16 pt-6 border-t border-line flex flex-col sm:flex-row items-center justify-between gap-3 mono-label text-ink-faint">
           <span>© {year} WebDev NY — All rights reserved</span>
-          <span>Designed & built in-house · No templates</span>
+          <span className="flex items-center gap-4">
+            <Link to="/privacy" className="hover:text-ink transition-colors">Privacy</Link>
+            <span>Built in-house · No templates</span>
+          </span>
         </div>
       </div>
     </footer>

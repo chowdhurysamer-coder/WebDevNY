@@ -22,10 +22,13 @@ import Contact from "@/pages/Contact";
 import Journal from "@/pages/Journal";
 import JournalPost from "@/pages/JournalPost";
 import Industry from "@/pages/Industry";
+import Privacy from "@/pages/Privacy";
 import NotFound from "@/pages/NotFound";
+import { CookieConsent } from "@/components/CookieConsent";
 import { ConfettiLayer } from "@/components/Confetti";
 import { EasterEggs } from "@/components/EasterEggs";
 import { Seo } from "@/components/Seo";
+import { RouteCurtain } from "@/components/RouteCurtain";
 
 const STORAGE_KEY = "webdevny_unboxed";
 
@@ -68,8 +71,10 @@ function SiteLayout() {
     <div className="min-h-screen bg-paper flex flex-col">
       <ScrollTop />
       <Seo />
+      <RouteCurtain />
       <Navbar />
       <FloatingDock />
+      <CookieConsent />
       <EasterEggs />
       <main className="flex-1">
         <PageTransition>
@@ -86,6 +91,7 @@ function SiteLayout() {
             <Route path="/journal" element={<Journal />} />
             <Route path="/journal/:slug" element={<JournalPost />} />
             <Route path="/for/:slug" element={<Industry />} />
+            <Route path="/privacy" element={<Privacy />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

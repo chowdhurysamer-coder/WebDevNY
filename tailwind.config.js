@@ -22,6 +22,7 @@ export default {
         "kraft-soft": rgb("--c-kraft-soft"),
         sky: rgb("--c-sky"),
         blush: rgb("--c-blush"),
+        navy: rgb("--c-navy"),
         line: "var(--line)",
       },
       letterSpacing: { tightest: "-0.05em" },

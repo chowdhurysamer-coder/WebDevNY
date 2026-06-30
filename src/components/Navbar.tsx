@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { IconArrowUpRight, IconBox } from "@/components/icons";
+import { IconArrowUpRight } from "@/components/icons";
+import { LogoMark } from "@/components/Logo";
 import { Magnetic } from "@/components/primitives";
 import { LiveClock } from "@/components/flourishes";
 import { CommandPalette } from "@/components/CommandPalette";
@@ -37,10 +38,8 @@ export function Navbar() {
     <>
       <header className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${scrolled ? "bg-paper/85 backdrop-blur-md border-b border-line" : "border-b border-transparent"}`}>
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2.5 group">
-            <span className="w-8 h-8 bg-ink text-paper flex items-center justify-center group-hover:bg-kraft transition-colors">
-              <IconBox size={17} />
-            </span>
+          <Link to="/" data-cursor-label="HOME" className="flex items-center gap-2.5 group">
+            <LogoMark size={34} className="text-navy group-hover:rotate-[8deg] transition-transform duration-300" />
             <span className="display text-[19px] font-semibold leading-none">WebDev<span className="text-kraft">.</span>NY</span>
           </Link>
 

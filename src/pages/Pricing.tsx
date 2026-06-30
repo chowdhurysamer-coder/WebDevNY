@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Reveal, FadeUp, SectionLabel, Magnetic } from "@/components/primitives";
@@ -23,6 +23,24 @@ const faqs = [
 
 export default function Pricing() {
   const [open, setOpen] = useState<number | null>(0);
+
+  // FAQ rich-snippet structured data
+  useEffect(() => {
+    const el = document.createElement("script");
+    el.type = "application/ld+json";
+    el.id = "faq-schema";
+    el.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map(([q, a]) => ({
+        "@type": "Question", name: q,
+        acceptedAnswer: { "@type": "Answer", text: a },
+      })),
+    });
+    document.head.appendChild(el);
+    return () => { document.getElementById("faq-schema")?.remove(); };
+  }, []);
+
   return (
     <div className="bg-paper pt-16">
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 pt-20 pb-14 border-b border-line text-center">
