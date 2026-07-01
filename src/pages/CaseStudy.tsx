@@ -5,8 +5,10 @@ import { SiteMock } from "@/components/SiteMock";
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { Reveal, FadeUp, SectionLabel, Magnetic, Parallax } from "@/components/primitives";
 import { IconArrow, IconArrowUpRight, IconCheck, IconStar } from "@/components/icons";
+import { useLang } from "@/lib/i18n";
 
 export default function CaseStudy() {
+  const { t } = useLang();
   const { slug } = useParams();
   const study = caseBySlug(slug);
   if (!study) return <Navigate to="/portfolio" replace />;
@@ -19,7 +21,7 @@ export default function CaseStudy() {
       {/* hero */}
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 pt-16 pb-12">
         <Link to="/portfolio" className="inline-flex items-center gap-2 mono-label text-ink-soft hover:text-kraft transition-colors mb-10 link-draw">
-          <IconArrow size={15} className="rotate-180" /> All work
+          <IconArrow size={15} className="rotate-180" /> {t("cs.allWork")}
         </Link>
         <div className="flex flex-wrap items-center gap-3 mb-6">
           <span className="mono-label px-3 py-1.5 border" style={{ color: study.accent, borderColor: study.accent }}>{study.category}</span>
@@ -44,8 +46,8 @@ export default function CaseStudy() {
       {/* before / after */}
       <section className="max-w-[1100px] mx-auto px-5 sm:px-8 pb-24">
         <div className="flex items-end justify-between mb-6">
-          <SectionLabel index="·">The transformation</SectionLabel>
-          <span className="mono-label text-ink-faint hidden sm:block">drag to compare ⇄</span>
+          <SectionLabel index="·">{t("cs.transformation")}</SectionLabel>
+          <span className="mono-label text-ink-faint hidden sm:block">{t("cs.dragCompare")}</span>
         </div>
         <BeforeAfter variant={study.variant} />
       </section>
@@ -53,16 +55,16 @@ export default function CaseStudy() {
       {/* overview */}
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 pb-20 grid lg:grid-cols-[1.4fr_1fr] gap-12">
         <div>
-          <SectionLabel index="·" className="mb-6">Overview</SectionLabel>
+          <SectionLabel index="·" className="mb-6">{t("cs.overview")}</SectionLabel>
           <p className="display text-[clamp(22px,2.6vw,32px)] leading-snug">{study.intro}</p>
         </div>
         <div className="grid grid-cols-2 gap-px bg-line border border-line h-fit">
           <div className="bg-paper p-5">
-            <div className="mono-label text-ink-faint mb-3">Services</div>
+            <div className="mono-label text-ink-faint mb-3">{t("cs.services")}</div>
             <ul className="flex flex-col gap-1.5 text-sm">{study.services.map((s) => <li key={s}>{s}</li>)}</ul>
           </div>
           <div className="bg-paper p-5">
-            <div className="mono-label text-ink-faint mb-3">Stack</div>
+            <div className="mono-label text-ink-faint mb-3">{t("cs.stack")}</div>
             <ul className="flex flex-col gap-1.5 text-sm">{study.stack.map((s) => <li key={s}>{s}</li>)}</ul>
           </div>
         </div>
@@ -85,11 +87,11 @@ export default function CaseStudy() {
       {/* challenge + approach */}
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-24 grid lg:grid-cols-2 gap-16">
         <div>
-          <SectionLabel index="01" className="mb-6">The challenge</SectionLabel>
+          <SectionLabel index="01" className="mb-6">{t("cs.challenge")}</SectionLabel>
           <p className="display text-[clamp(24px,3vw,38px)] leading-snug">{study.challenge}</p>
         </div>
         <div>
-          <SectionLabel index="02" className="mb-6">Our approach</SectionLabel>
+          <SectionLabel index="02" className="mb-6">{t("cs.approach")}</SectionLabel>
           <div className="border-t border-line">
             {study.approach.map((a, i) => (
               <FadeUp key={i} delay={i * 0.08} className="flex gap-5 border-b border-line py-6">
@@ -104,7 +106,7 @@ export default function CaseStudy() {
       {/* outcome + quote */}
       <section className="bg-paper-2 border-y border-line py-24">
         <div className="max-w-[1100px] mx-auto px-5 sm:px-8 text-center">
-          <SectionLabel index="03" className="justify-center mb-6">The outcome</SectionLabel>
+          <SectionLabel index="03" className="justify-center mb-6">{t("cs.outcome")}</SectionLabel>
           <Reveal as="h2" text={study.outcome} className="display text-[clamp(26px,4vw,52px)] font-semibold justify-center text-center mb-12 max-w-4xl mx-auto" />
           <div className="card-paper p-8 sm:p-10 max-w-2xl mx-auto text-left">
             <div className="flex gap-1 mb-5" style={{ color: study.accent }}>{[...Array(5)].map((_, j) => <IconStar key={j} size={16} />)}</div>
@@ -118,19 +120,19 @@ export default function CaseStudy() {
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-20">
         <div className="card-paper-kraft p-10 sm:p-14 flex flex-col sm:flex-row items-center justify-between gap-8">
           <div>
-            <div className="mono-label text-paper/80 mb-3 flex items-center gap-2"><IconCheck size={14} /> Want results like these?</div>
-            <h2 className="display text-[clamp(26px,4vw,52px)] font-semibold">Let's build yours.</h2>
+            <div className="mono-label text-paper/80 mb-3 flex items-center gap-2"><IconCheck size={14} /> {t("cs.wantResults")}</div>
+            <h2 className="display text-[clamp(26px,4vw,52px)] font-semibold">{t("cs.buildYours")}</h2>
           </div>
           <Magnetic>
             <Link to="/contact" data-cursor-label="GO" className="bg-ink text-paper px-8 py-4 mono-label press inline-flex items-center gap-2">
-              Start a project <IconArrowUpRight size={15} />
+              {t("cta.start")} <IconArrowUpRight size={15} />
             </Link>
           </Magnetic>
         </div>
 
         <Link to={`/work/${next.slug}`} className="group mt-6 flex items-center justify-between border-t border-ink pt-6">
           <div>
-            <div className="mono-label text-ink-faint mb-1">Next project</div>
+            <div className="mono-label text-ink-faint mb-1">{t("cs.nextProject")}</div>
             <div className="display text-[clamp(24px,3.5vw,44px)] font-semibold group-hover:text-kraft transition-colors">{next.name}</div>
           </div>
           <IconArrowUpRight size={32} className="group-hover:text-kraft group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />

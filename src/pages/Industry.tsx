@@ -3,8 +3,10 @@ import { industryBySlug, industries } from "@/data/industries";
 import { SiteMock } from "@/components/SiteMock";
 import { Reveal, FadeUp, SectionLabel, Magnetic, Counter, TiltCard } from "@/components/primitives";
 import { IconArrowUpRight, IconCheck, IconStar } from "@/components/icons";
+import { useLang } from "@/lib/i18n";
 
 export default function Industry() {
+  const { t } = useLang();
   const { slug } = useParams();
   const ind = industryBySlug(slug);
   if (!ind) return <Navigate to="/capabilities" replace />;
@@ -25,10 +27,10 @@ export default function Industry() {
           <div className="flex flex-wrap items-center gap-4 mt-10">
             <Magnetic>
               <Link to="/contact" data-cursor-label="GO" className="card-paper-kraft press inline-flex items-center gap-2 px-6 py-4 mono-label">
-                Get a free quote <IconArrowUpRight size={15} />
+                {t("in.getQuote")} <IconArrowUpRight size={15} />
               </Link>
             </Magnetic>
-            <Link to="/pricing" className="mono-label hover:text-kraft transition-colors link-draw">See pricing</Link>
+            <Link to="/pricing" className="mono-label hover:text-kraft transition-colors link-draw">{t("in.seePricing")}</Link>
           </div>
         </div>
         <TiltCard>
@@ -39,7 +41,7 @@ export default function Industry() {
       {/* pains */}
       <section className="bg-paper-2 border-y border-line py-20">
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
-          <SectionLabel index="·" className="mb-8">Sound familiar?</SectionLabel>
+          <SectionLabel index="·" className="mb-8">{t("in.soundFamiliar")}</SectionLabel>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {ind.pains.map((p, i) => (
               <FadeUp key={p} delay={i * 0.07} className="card-paper p-6">
@@ -53,7 +55,7 @@ export default function Industry() {
 
       {/* features */}
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-24">
-        <SectionLabel index="·" className="mb-10">What you get</SectionLabel>
+        <SectionLabel index="·" className="mb-10">{t("in.whatYouGet")}</SectionLabel>
         <div className="grid md:grid-cols-3 gap-6">
           {ind.features.map((f, i) => (
             <FadeUp key={f.t} delay={i * 0.1} className="card-paper p-7">
@@ -68,7 +70,7 @@ export default function Industry() {
       {/* results */}
       <section className="py-20" style={{ background: ind.accent }}>
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
-          <div className="mono-label text-white/80 mb-10">Real results from real {ind.name.toLowerCase()}</div>
+          <div className="mono-label text-white/80 mb-10">{t("in.realResults")}</div>
           <div className="grid sm:grid-cols-3 gap-8">
             {ind.result.map((r, i) => {
               const num = parseFloat(r.value.replace(/[^0-9.]/g, "")) || 0;
@@ -96,11 +98,11 @@ export default function Industry() {
         <div className="card-paper-kraft p-10 sm:p-14 mt-16 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)", backgroundSize: "32px 32px" }} />
           <div className="relative">
-            <h3 className="display text-[clamp(26px,4vw,56px)] font-semibold mb-4">Ready for a site that works?</h3>
-            <p className="text-paper/80 mb-8 max-w-md mx-auto">Flat fee, live in about {ind.variant === "legal" ? "three weeks" : "two weeks"}, built specifically for {ind.name.toLowerCase()}.</p>
+            <h3 className="display text-[clamp(26px,4vw,56px)] font-semibold mb-4">{t("in.readyWorks")}</h3>
+            <p className="text-paper/80 mb-8 max-w-md mx-auto">{t("in.ctaSub")}</p>
             <Magnetic className="inline-block">
               <Link to="/contact" data-cursor-label="GO" className="bg-ink text-paper px-8 py-4 mono-label press inline-flex items-center gap-2">
-                Start your project <IconArrowUpRight size={15} />
+                {t("in.startProject")} <IconArrowUpRight size={15} />
               </Link>
             </Magnetic>
           </div>
@@ -108,7 +110,7 @@ export default function Industry() {
 
         {/* other industries */}
         <div className="mt-16">
-          <div className="mono-label text-ink-faint mb-5">Other industries we know cold</div>
+          <div className="mono-label text-ink-faint mb-5">{t("in.otherIndustries")}</div>
           <div className="flex flex-wrap justify-center gap-3">
             {industries.filter((o) => o.slug !== ind.slug).map((o) => (
               <Link key={o.slug} to={`/for/${o.slug}`} className="card-paper press px-5 py-3 mono-label">{o.name}</Link>
