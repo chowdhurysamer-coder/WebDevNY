@@ -44,7 +44,7 @@ export function Seo() {
         if (c) meta = { t: `${c.name}, Case Study, ${BASE}`, d: `${c.tagline} ${c.intro}`.slice(0, 160) };
       } else if (pathname.startsWith("/journal/")) {
         const p = postBySlug(pathname.split("/")[2]);
-        if (p) meta = { t: `${p.title}, ${BASE}`, d: p.excerpt };
+        if (p) meta = { t: `${en(p.titleKey)}, ${BASE}`, d: en(p.excerptKey) };
       } else if (pathname.startsWith("/for/")) {
         const slug = pathname.split("/")[2];
         const i = industryBySlug(slug);

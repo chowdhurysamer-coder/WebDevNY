@@ -19,17 +19,17 @@ export default function JournalPost() {
           <IconArrow size={15} className="rotate-180" /> {t("jn.eyebrow")}
         </Link>
         <div className="flex items-center gap-3 mb-6 mono-label text-ink-faint">
-          <span className="text-kraft">{post.category}</span><span>·</span><span>{post.date}</span><span>·</span><span>{post.read} {t("jn.read")}</span>
+          <span className="text-kraft">{t(post.categoryKey)}</span><span>·</span><span>{post.date}</span><span>·</span><span>{post.read} {t("jn.read")}</span>
         </div>
         <h1 className="display text-[clamp(32px,6vw,68px)] font-semibold tracking-tightest mb-10 leading-[0.95]">
-          <Reveal text={post.title} />
+          <Reveal text={t(post.titleKey)} />
         </h1>
         <div className="h-px bg-line mb-10" />
         <div className="flex flex-col gap-7">
           {post.body.map((b, i) => (
             <FadeUp key={i} delay={0.02 * i}>
-              {b.h && <h2 className="display text-2xl sm:text-3xl font-semibold mb-3 mt-2">{b.h}</h2>}
-              <p className="text-ink-soft text-lg leading-relaxed">{b.p}</p>
+              {b.hKey && <h2 className="display text-2xl sm:text-3xl font-semibold mb-3 mt-2">{t(b.hKey)}</h2>}
+              <p className="text-ink-soft text-lg leading-relaxed">{t(b.pKey)}</p>
             </FadeUp>
           ))}
         </div>
@@ -46,7 +46,7 @@ export default function JournalPost() {
         <Link to={`/journal/${next.slug}`} className="group flex items-center justify-between border-t border-ink pt-6">
           <div>
             <div className="mono-label text-ink-faint mb-1">{t("jp.nextRead")}</div>
-            <div className="display text-2xl font-semibold group-hover:text-kraft transition-colors">{next.title}</div>
+            <div className="display text-2xl font-semibold group-hover:text-kraft transition-colors">{t(next.titleKey)}</div>
           </div>
           <IconArrowUpRight size={28} className="shrink-0 ml-4 group-hover:text-kraft group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
         </Link>

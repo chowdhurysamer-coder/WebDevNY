@@ -25,10 +25,10 @@ export default function Journal() {
             <FadeUp key={p.slug} delay={i * 0.06}>
               <Link to={`/journal/${p.slug}`} data-cursor-label="READ"
                 className="group grid md:grid-cols-[120px_1fr_auto] gap-4 md:gap-10 items-baseline border-b border-line py-8 hover:bg-paper-2 transition-colors -mx-3 px-3">
-                <span className="mono-label text-kraft">{p.category}</span>
+                <span className="mono-label text-kraft">{t(p.categoryKey)}</span>
                 <div>
-                  <h2 className="display text-[clamp(24px,3.2vw,42px)] font-semibold group-hover:text-kraft transition-colors leading-tight">{p.title}</h2>
-                  <p className="text-ink-soft mt-2 max-w-2xl">{p.excerpt}</p>
+                  <h2 className="display text-[clamp(24px,3.2vw,42px)] font-semibold group-hover:text-kraft transition-colors leading-tight">{t(p.titleKey)}</h2>
+                  <p className="text-ink-soft mt-2 max-w-2xl">{t(p.excerptKey)}</p>
                   <div className="mono-label text-ink-faint mt-3">{p.date} · {p.read} {t("jn.read")}</div>
                 </div>
                 <IconArrowUpRight size={24} className="justify-self-end opacity-30 group-hover:opacity-100 group-hover:text-kraft group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
