@@ -48,12 +48,9 @@ export default function Home() {
           </div>
 
           <h1 className="display text-[clamp(48px,12vw,180px)] font-semibold tracking-tightest">
-            <Reveal text="Websites New York" />
-            <span className="flex flex-wrap items-baseline">
-              <Reveal text="actually" delay={0.15} />
-              <span className="italic text-sunset ml-[0.22em]">
-                <Reveal text="clicks with." delay={0.25} />
-              </span>
+            <Reveal text={t("home.hlA")} />
+            <span className="italic text-sunset">
+              <Reveal text={t("home.hlB")} delay={0.2} />
             </span>
           </h1>
 

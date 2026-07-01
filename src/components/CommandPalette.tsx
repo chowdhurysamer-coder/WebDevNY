@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { sfx } from "@/lib/sfx";
 import { IconArrowUpRight, IconSearch } from "@/components/icons";
+import { useLang } from "@/lib/i18n";
 
 interface Cmd { label: string; hint: string; to: string; keys?: string }
 
@@ -24,6 +25,7 @@ const commands: Cmd[] = [
 ];
 
 export function CommandPalette() {
+  const { t } = useLang();
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
   const [active, setActive] = useState(0);
@@ -64,7 +66,7 @@ export function CommandPalette() {
       {/* trigger pill (desktop) */}
       <button onClick={() => { setOpen(true); sfx.tick(); }} data-cursor-label="⌘K"
         className="hidden md:flex items-center gap-2 mono-label text-ink-faint border border-line px-3 py-2 hover:border-ink transition-colors">
-        <IconSearch size={13} /> Search
+        <IconSearch size={13} /> {t("misc.search")}
         <span className="ml-1 px-1.5 py-0.5 bg-paper-3 text-ink/60 rounded text-[10px]">⌘K</span>
       </button>
 
@@ -84,12 +86,12 @@ export function CommandPalette() {
               <div className="flex items-center gap-3 px-5 border-b border-line">
                 <IconSearch size={18} className="text-ink-faint" />
                 <input ref={inputRef} value={q} onChange={(e) => setQ(e.target.value)}
-                  placeholder="Jump to a page, project, or service…"
+                  placeholder={t("misc.searchPh")}
                   className="flex-1 bg-transparent py-4 outline-none text-ink placeholder:text-ink-faint" />
                 <span className="mono-label text-ink-faint">ESC</span>
               </div>
               <div className="max-h-[50vh] overflow-auto py-2">
-                {results.length === 0 && <div className="px-5 py-8 text-center text-ink-faint mono-label">No matches</div>}
+                {results.length === 0 && <div className="px-5 py-8 text-center text-ink-faint mono-label">{t("misc.noMatches")}</div>}
                 {results.map((c, i) => (
                   <button key={c.to + c.label} onMouseEnter={() => setActive(i)} onClick={() => go(c.to)}
                     className={`w-full flex items-center justify-between gap-3 px-5 py-3 text-left transition-colors ${i === active ? "bg-kraft text-paper" : "hover:bg-paper-2"}`}>
@@ -102,7 +104,7 @@ export function CommandPalette() {
                 ))}
               </div>
               <div className="flex items-center justify-between px-5 py-2.5 border-t border-line mono-label text-ink-faint">
-                <span>↑↓ navigate · ↵ open</span>
+                <span>{t("misc.navOpen")}</span>
                 <span>WEBDEV NY</span>
               </div>
             </motion.div>

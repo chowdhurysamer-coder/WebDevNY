@@ -125,6 +125,8 @@ export const dict: Record<string, Entry> = {
     ar: "نحن لا نعمل بمبدأ \"أي قطاع، في أي وقت\". نتعمّق في عدد قليل من المجالات لتحصل على شريك يتحدث بالفعل لغة عميلك.",
     pl: "Nie robimy \"każdej branży, o każdej porze\". Specjalizujemy się w kilku obszarach, więc zyskujesz partnera, który już mówi językiem twojego klienta.",
   },
+  "home.hlA": { en: "Websites New York", es: "Webs que Nueva York", zh: "让纽约", yue: "令紐約", ru: "Сайты, с которыми Нью-Йорк", yi: "וועבזייטלעך וואָס ניו-יאָרק", bn: "এমন ওয়েবসাইট যাতে নিউ ইয়র্ক", ko: "뉴욕이", ht: "Sit entènèt New York", it: "Siti web con cui New York", ar: "مواقع نيويورك", pl: "Strony, z którymi Nowy Jork" },
+  "home.hlB": { en: "actually clicks with.", es: "de verdad conecta.", zh: "真正一见倾心的网站。", yue: "真正一見鍾情嘅網站。", ru: "по-настоящему кликает.", yi: "טאַקע קליקט מיט.", bn: "সত্যিই ক্লিক করে।", ko: "진짜 클릭하는 웹사이트.", ht: "reyèlman klike avè l.", it: "fa davvero clic.", ar: "التي تنقر معها حقًّا.", pl: "naprawdę klika." },
   "home.readyWhen": { en: "Ready when you are", es: "Listos cuando tú lo estés", zh: "你准备好，我们就开始", yue: "你準備好，我哋就開始", ru: "Готовы, когда будете готовы вы", yi: "גרייט ווען איר זײַט", bn: "আপনি প্রস্তুত হলেই আমরা প্রস্তুত", ko: "준비되시면 언제든지", ht: "Nou pare lè ou pare", it: "Pronti quando lo sei tu", ar: "جاهزون متى كنت جاهزًا", pl: "Gotowi, gdy tylko będziesz" },
   "home.boxWorthOpening": {
     en: "Let's put your business in a box worth opening.",
@@ -679,5 +681,10 @@ export const dict: Record<string, Entry> = {
   "es.addon.copy": { en: "Copywriting", es: "Redacción publicitaria", zh: "文案撰写", yue: "文案撰寫", ru: "Копирайтинг", yi: "קאָפּירייטינג", bn: "কপিরাইটিং", ko: "카피라이팅", ht: "Kopiraytin", it: "Copywriting", ar: "كتابة المحتوى", pl: "Copywriting" },
 
   // ─────────────────────────── Misc (tape strip) ───────────────────────────
+  "misc.bookingQ3": { en: "Booking Q3", es: "Reservas Q3", zh: "第三季度预约", yue: "第三季度預約", ru: "Запись на 3 кв.", yi: "באַשטעל Q3", bn: "তৃতীয় প্রান্তিক বুকিং", ko: "3분기 예약", ht: "Rezèvasyon Q3", it: "Prenotazioni Q3", ar: "الحجز للربع الثالث", pl: "Rezerwacje III kw." },
+  "misc.search": { en: "Search", es: "Buscar", zh: "搜索", yue: "搜尋", ru: "Поиск", yi: "זוכן", bn: "খুঁজুন", ko: "검색", ht: "Chèche", it: "Cerca", ar: "بحث", pl: "Szukaj" },
+  "misc.searchPh": { en: "Jump to a page, project, or service…", es: "Ir a una página, proyecto o servicio…", zh: "跳转到页面、项目或服务…", yue: "跳去頁面、項目或服務…", ru: "Перейти к странице, проекту или услуге…", yi: "שפּרינג צו אַ בלאַט, פּראָיעקט, אָדער סערוויס…", bn: "একটি পৃষ্ঠা, প্রকল্প বা সেবায় যান…", ko: "페이지, 프로젝트 또는 서비스로 이동…", ht: "Ale nan yon paj, pwojè, oswa sèvis…", it: "Vai a una pagina, progetto o servizio…", ar: "انتقل إلى صفحة أو مشروع أو خدمة…", pl: "Przejdź do strony, projektu lub usługi…" },
+  "misc.noMatches": { en: "No matches", es: "Sin resultados", zh: "无匹配", yue: "冇匹配", ru: "Нет совпадений", yi: "קיין שטימונגען", bn: "কোনো মিল নেই", ko: "일치 항목 없음", ht: "Pa gen rezilta", it: "Nessun risultato", ar: "لا نتائج", pl: "Brak wyników" },
+  "misc.navOpen": { en: "↑↓ navigate · ↵ open", es: "↑↓ navegar · ↵ abrir", zh: "↑↓ 导航 · ↵ 打开", yue: "↑↓ 導航 · ↵ 打開", ru: "↑↓ навигация · ↵ открыть", yi: "↑↓ נאַוויגירן · ↵ עפֿענען", bn: "↑↓ নেভিগেট · ↵ খুলুন", ko: "↑↓ 이동 · ↵ 열기", ht: "↑↓ navige · ↵ louvri", it: "↑↓ naviga · ↵ apri", ar: "↑↓ تنقّل · ↵ فتح", pl: "↑↓ nawigacja · ↵ otwórz" },
   "misc.selectedWork2025": { en: "SELECTED WORK · 2025", es: "TRABAJO SELECCIONADO · 2025", zh: "精选作品 · 2025", yue: "精選作品 · 2025", ru: "ИЗБРАННЫЕ РАБОТЫ · 2025", yi: "אויסגעקליבענע אַרבעט · 2025", bn: "নির্বাচিত কাজ · ২০২৫", ko: "선별 작업 · 2025", ht: "TRAVAY CHWAZI · 2025", it: "LAVORI SELEZIONATI · 2025", ar: "أعمال مختارة · 2025", pl: "WYBRANE PRACE · 2025" },
 };

@@ -84,6 +84,7 @@ export function SoundToggle() {
 }
 
 export function FloatingDock() {
+  const { t: dockT } = useLang();
   const [show, setShow] = useState(false);
   const loc = useLocation();
   useEffect(() => {
@@ -106,7 +107,7 @@ export function FloatingDock() {
                 <span className="absolute inline-flex h-full w-full rounded-full bg-paper/70 animate-ping" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-paper" />
               </span>
-              <span className="mono-label">Start a project</span>
+              <span className="mono-label">{dockT("cta.start")}</span>
               <span className="w-7 h-7 bg-ink text-paper grid place-items-center group-hover:rotate-45 transition-transform">
                 <IconArrowUpRight size={14} />
               </span>

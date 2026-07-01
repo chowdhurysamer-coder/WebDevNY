@@ -63,7 +63,7 @@ export function Navbar() {
           <div className="hidden lg:flex items-center gap-4 mono-label text-ink-faint">
             <span className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-kraft animate-pulse" />
-              Booking Q3
+              {t("misc.bookingQ3")}
             </span>
             <span className="h-3 w-px bg-line" />
             <span className="flex items-center gap-1.5">NYC <LiveClock /></span>
