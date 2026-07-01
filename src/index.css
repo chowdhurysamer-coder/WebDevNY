@@ -81,7 +81,7 @@ body {
 }
 
 /* ---------- Type ---------- */
-.display { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; letter-spacing: -0.035em; line-height: 0.92; }
+.display { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; letter-spacing: -0.035em; line-height: 0.98; padding-bottom: 0.02em; }
 .mono-label { font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.18em; font-size: 11px; }
 .text-outline { -webkit-text-stroke: 1.5px rgb(var(--c-ink)); color: transparent; }
 

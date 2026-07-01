@@ -56,7 +56,9 @@ export function Reveal({ text, className, as = "div", delay = 0 }: { text: strin
   return (
     <Comp ref={ref} className={cn("flex flex-wrap", className)}>
       {words.map((w, i) => (
-        <span key={i} className="overflow-hidden inline-flex" style={{ marginRight: "0.22em" }}>
+        // extra bottom room + matching negative margin so descenders (y, g, p)
+        // are never clipped by the reveal mask, without changing layout.
+        <span key={i} className="overflow-hidden inline-flex" style={{ marginRight: "0.22em", paddingBottom: "0.18em", marginBottom: "-0.18em" }}>
           <motion.span
             className="inline-block"
             initial={{ y: "110%" }}

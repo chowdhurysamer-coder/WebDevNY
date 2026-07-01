@@ -17,11 +17,20 @@ function ac(): AudioContext | null {
     if (!AC) return null;
     ctx = new AC();
     master = ctx.createGain();
-    master.gain.value = 0.5;
+    master.gain.value = 0.65;
     master.connect(ctx.destination);
   }
   if (ctx.state === "suspended") ctx.resume();
   return ctx;
+}
+
+// Unlock/resume the audio context on the very first user gesture so the first
+// click actually makes a sound (browsers start it "suspended").
+if (typeof window !== "undefined") {
+  const unlock = () => { try { ac(); } catch { /* ignore */ } };
+  ["pointerdown", "touchstart", "keydown", "click"].forEach((ev) =>
+    window.addEventListener(ev, unlock, { capture: true, passive: true })
+  );
 }
 
 export const sfx = {

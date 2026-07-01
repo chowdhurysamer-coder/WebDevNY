@@ -1,3 +1,5 @@
+import { useLang } from "@/lib/i18n";
+
 /**
  * WebDev brand mark, a lightbulb with a code-bracket glyph inside,
  * encircled by an orbiting dotted ring. Recreated as crisp SVG.
@@ -35,11 +37,12 @@ export function LogoMark({ size = 34, className, bg = "rgb(var(--c-paper))", ani
 }
 
 export function LogoLockup({ size = 34, className, tagline = false }: { size?: number; className?: string; tagline?: boolean }) {
+  const { brand } = useLang();
   return (
     <span className={`inline-flex items-center gap-2.5 ${className || ""}`}>
       <LogoMark size={size} className="text-navy" />
       <span className="leading-none">
-        <span className="display text-[1.05em] font-semibold tracking-tight block">WebDev<span className="text-kraft">.</span>NY</span>
+        <span className="display text-[1.05em] font-semibold tracking-tight block">{brand}<span className="text-kraft">.</span>NY</span>
         {tagline && <span className="mono-label text-ink-faint text-[8px] block mt-1">Website Creation Agency</span>}
       </span>
     </span>

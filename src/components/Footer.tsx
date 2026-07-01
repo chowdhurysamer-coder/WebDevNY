@@ -13,7 +13,7 @@ const socials = [
 
 export function Footer() {
   const year = new Date().getFullYear();
-  const { t } = useLang();
+  const { t, brand } = useLang();
   return (
     <footer className="bg-paper-3 text-ink relative overflow-hidden border-t border-ink">
       <div className="absolute inset-0 dotgrid opacity-50" />
@@ -29,7 +29,7 @@ export function Footer() {
             <div className="flex items-center gap-3 mb-5">
               <LogoMark size={42} className="text-navy" bg="rgb(var(--c-paper-3))" />
               <span className="leading-none">
-                <span className="display text-[20px] font-semibold block">WebDev<span className="text-kraft">.</span>NY</span>
+                <span className="display text-[20px] font-semibold block">{brand}<span className="text-kraft">.</span>NY</span>
                 <span className="mono-label text-ink-faint block mt-1" style={{ fontSize: 9 }}>Website Creation Agency</span>
               </span>
             </div>
@@ -74,7 +74,7 @@ export function Footer() {
         </div>
 
         <div className="mt-16 pt-6 border-t border-line flex flex-col sm:flex-row items-center justify-between gap-3 mono-label text-ink-faint">
-          <span>© {year} WebDev NY, All rights reserved</span>
+          <span>© {year} {brand} NY, All rights reserved</span>
           <span className="flex items-center gap-4">
             <Link to="/privacy" className="hover:text-ink transition-colors">Privacy</Link>
             <Link to="/terms" className="hover:text-ink transition-colors">Terms</Link>

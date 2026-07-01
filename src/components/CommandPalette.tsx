@@ -75,7 +75,7 @@ export function CommandPalette() {
             onMouseDown={() => setOpen(false)}>
             <motion.div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-ink/75 backdrop-blur-md" />
+              className="absolute inset-0 backdrop-blur-md" style={{ background: "rgba(8,6,4,0.78)" }} />
             <motion.div
               initial={{ y: -16, opacity: 0, scale: 0.98 }} animate={{ y: 0, opacity: 1, scale: 1 }} exit={{ y: -16, opacity: 0 }}
               transition={{ type: "spring", stiffness: 320, damping: 26 }}

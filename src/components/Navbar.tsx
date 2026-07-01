@@ -13,17 +13,17 @@ import { sfx } from "@/lib/sfx";
 import { useLang } from "@/lib/i18n";
 
 const links = [
-  { label: "Index", to: "/", n: "00" },
-  { label: "About", to: "/about", n: "01" },
-  { label: "Design & Dev", to: "/web-design", n: "02" },
-  { label: "Capabilities", to: "/capabilities", n: "03" },
-  { label: "Portfolio", to: "/portfolio", n: "04" },
-  { label: "Previews", to: "/previews", n: "05" },
-  { label: "Analytics", to: "/analytics", n: "06" },
-  { label: "Pricing", to: "/pricing", n: "07" },
-  { label: "Plans", to: "/plans", n: "08" },
-  { label: "Journal", to: "/journal", n: "09" },
-  { label: "Contact", to: "/contact", n: "10" },
+  { key: "link.index", to: "/", n: "00" },
+  { key: "link.about", to: "/about", n: "01" },
+  { key: "link.design", to: "/web-design", n: "02" },
+  { key: "link.capabilities", to: "/capabilities", n: "03" },
+  { key: "link.portfolio", to: "/portfolio", n: "04" },
+  { key: "link.previews", to: "/previews", n: "05" },
+  { key: "link.analytics", to: "/analytics", n: "06" },
+  { key: "link.pricing", to: "/pricing", n: "07" },
+  { key: "link.plans", to: "/plans", n: "08" },
+  { key: "link.journal", to: "/journal", n: "09" },
+  { key: "link.contact", to: "/contact", n: "10" },
 ];
 
 export function Navbar() {
@@ -31,7 +31,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
   const location = useLocation();
-  const { t } = useLang();
+  const { t, brand } = useLang();
 
   // menu spotlight
   const mx = useMotionValue(0), my = useMotionValue(0);
@@ -54,7 +54,7 @@ export function Navbar() {
           <div className="flex items-center gap-5">
             <Link to="/" data-cursor-label="HOME" className="flex items-center gap-2.5 group">
               <LogoMark size={34} className="text-navy group-hover:rotate-[8deg] transition-transform duration-300" />
-              <span className="display text-[19px] font-semibold leading-none">WebDev<span className="text-kraft">.</span>NY</span>
+              <span className="display text-[19px] font-semibold leading-none">{brand}<span className="text-kraft">.</span>NY</span>
             </Link>
             <MegaMenu />
           </div>
@@ -96,21 +96,20 @@ export function Navbar() {
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
             transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-40 text-paper flex flex-col justify-center overflow-hidden"
-            style={{ background: "#050505" }}
+            className="fixed inset-0 z-40 bg-paper text-ink flex flex-col justify-center overflow-hidden"
             onMouseMove={onMenuMove}
             onMouseLeave={() => setHovered(null)}
           >
-            {/* Higgsfield-generated graphic */}
+            {/* Higgsfield-generated graphic — subtle texture, tinted to the theme */}
             <motion.div
               initial={{ scale: 1.12, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${GEN_MENU_BG})` }} />
-            {/* legibility wash */}
-            <div className="absolute inset-0" style={{ background: "linear-gradient(115deg, rgba(5,5,5,0.94) 0%, rgba(18,12,7,0.82) 50%, rgba(40,20,6,0.62) 100%)" }} />
-            {/* mouse spotlight */}
-            <motion.div className="absolute inset-0 pointer-events-none" style={{ background: spot, mixBlendMode: "screen" }} />
-            {/* grid */}
-            <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)", backgroundSize: "48px 48px" }} />
+              className="absolute inset-0 bg-cover bg-center opacity-[0.10] dark:opacity-[0.28]" style={{ backgroundImage: `url(${GEN_MENU_BG})`, mixBlendMode: "multiply" }} />
+            {/* legibility wash toward the theme background */}
+            <div className="absolute inset-0" style={{ background: "linear-gradient(115deg, rgb(var(--c-paper) / 0.75) 0%, rgb(var(--c-paper) / 0.55) 50%, rgb(var(--c-paper) / 0.35) 100%)" }} />
+            {/* mouse spotlight (warm) */}
+            <motion.div className="absolute inset-0 pointer-events-none" style={{ background: spot }} />
+            {/* faint grid */}
+            <div className="absolute inset-0 dotgrid opacity-40" />
 
             {/* giant hovered watermark numeral */}
             <AnimatePresence>
@@ -131,22 +130,22 @@ export function Navbar() {
                   <motion.div key={l.to}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 + i * 0.035 }}
                     onHoverStart={() => setHovered(l.n)}>
-                    <Link to={l.to} onClick={() => { setOpen(false); sfx.tick(); }} className="group relative flex items-baseline gap-4 border-b border-paper/15 py-[0.6vh] sm:py-[0.9vh]">
+                    <Link to={l.to} onClick={() => { setOpen(false); sfx.tick(); }} className="group relative flex items-baseline gap-4 border-b border-line py-[0.6vh] sm:py-[0.9vh]">
                       {/* accent slide bar */}
                       <span className="absolute left-0 bottom-0 h-px bg-kraft w-0 group-hover:w-full transition-all duration-500" />
-                      <span className="mono-label text-paper/50 group-hover:text-kraft transition-colors">{l.n}</span>
+                      <span className="mono-label text-ink-faint group-hover:text-kraft transition-colors">{l.n}</span>
                       <motion.span
-                        className={`display text-[clamp(18px,3.1vw,40px)] leading-none transition-all duration-300 ${active ? "text-kraft" : "text-paper/85 group-hover:text-paper group-hover:translate-x-3"}`}>
-                        {l.label}
+                        className={`display text-[clamp(18px,3.1vw,40px)] leading-none transition-all duration-300 ${active ? "text-kraft" : "text-ink group-hover:text-kraft group-hover:translate-x-3"}`}>
+                        {t(l.key)}
                       </motion.span>
                       <IconArrowUpRight size={20} className="ml-auto self-center opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-kraft" />
                     </Link>
                   </motion.div>
                 );
               })}
-              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 mono-label text-paper/40">
-                <a href="mailto:hello@webdevny.com" className="hover:text-paper transition-colors">hello@webdevny.com</a>
-                <a href="tel:+12125550190" className="hover:text-paper transition-colors">(212) 555-0190</a>
+              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 mono-label text-ink-faint">
+                <a href="mailto:hello@webdevny.com" className="hover:text-ink transition-colors">hello@webdevny.com</a>
+                <a href="tel:+12125550190" className="hover:text-ink transition-colors">(212) 555-0190</a>
                 <span>New York, NY</span>
               </div>
             </nav>

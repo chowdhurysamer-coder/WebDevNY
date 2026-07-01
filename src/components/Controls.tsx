@@ -1,19 +1,55 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { sfx } from "@/lib/sfx";
 import { IconSound, IconMute, IconArrowUpRight, IconSun, IconMoon } from "@/components/icons";
 import { Magnetic } from "@/components/primitives";
-import { useLang } from "@/lib/i18n";
+import { useLang, LANGS } from "@/lib/i18n";
 
 export function LangToggle() {
   const { lang, setLang } = useLang();
-  const toggle = () => { setLang(lang === "en" ? "es" : "en"); sfx.tick(); };
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onDoc = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false); };
+    window.addEventListener("mousedown", onDoc);
+    return () => window.removeEventListener("mousedown", onDoc);
+  }, []);
+
+  const pick = (code: typeof lang) => { setLang(code); setOpen(false); sfx.tick(); };
+
   return (
-    <button onClick={toggle} data-cursor-label={lang === "en" ? "ES" : "EN"} aria-label="Toggle language"
-      className="h-9 px-2.5 flex items-center justify-center border border-line hover:border-ink transition-colors mono-label text-ink-soft hover:text-ink">
-      {lang.toUpperCase()}
-    </button>
+    <div className="relative" ref={ref} dir="ltr">
+      <button onClick={() => { setOpen((o) => !o); sfx.tick(); }} data-cursor-label="LANG" aria-label="Choose language"
+        aria-expanded={open}
+        className="h-9 px-2.5 flex items-center gap-1.5 border border-line hover:border-ink transition-colors mono-label text-ink-soft hover:text-ink">
+        {lang.toUpperCase()}
+        <motion.span animate={{ rotate: open ? 180 : 0 }} className="text-[8px] leading-none">▾</motion.span>
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.16 }}
+            className="absolute right-0 mt-2 w-56 max-h-[70vh] overflow-auto card-paper z-[130] py-1">
+            {LANGS.map((l) => {
+              const active = l.code === lang;
+              return (
+                <button key={l.code} onClick={() => pick(l.code)}
+                  className={`w-full flex items-center justify-between gap-3 px-4 py-2 text-left text-sm transition-colors ${active ? "bg-kraft text-paper" : "hover:bg-paper-2 text-ink"}`}>
+                  <span className="flex flex-col leading-tight">
+                    <span className="font-medium" dir={l.rtl ? "rtl" : "ltr"}>{l.native}</span>
+                    <span className={`text-[11px] ${active ? "text-paper/70" : "text-ink-faint"}`}>{l.label}</span>
+                  </span>
+                  <span className={`mono-label ${active ? "text-paper" : "text-ink-faint"}`}>{l.code.toUpperCase()}</span>
+                </button>
+              );
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 
