@@ -26,7 +26,7 @@ const groups: Group[] = [
     { label: "link.plans", to: "/plans", hint: "ex.hint.maintenance" },
     { label: "ex.link.privacy", to: "/privacy" }, { label: "ex.link.terms", to: "/terms" },
   ]},
-  { hKey: "ex.g.cases", n: "03", items: cases.map((c) => ({ label: c.name, to: `/work/${c.slug}`, hint: c.category })) },
+  { hKey: "ex.g.cases", n: "03", items: cases.map((c) => ({ label: c.name, to: `/work/${c.slug}`, hint: c.categoryKey })) },
   { hKey: "ex.g.industries", n: "04", items: industries.map((i) => ({ label: i.nameKey, to: `/for/${i.slug}`, hint: "ex.hint.landing" })) },
   { hKey: "ex.g.journal", n: "05", items: posts.map((p) => ({ label: p.titleKey, to: `/journal/${p.slug}`, hint: p.categoryKey })) },
 ];

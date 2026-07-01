@@ -24,13 +24,13 @@ export default function CaseStudy() {
           <IconArrow size={15} className="rotate-180" /> {t("cs.allWork")}
         </Link>
         <div className="flex flex-wrap items-center gap-3 mb-6">
-          <span className="mono-label px-3 py-1.5 border" style={{ color: study.accent, borderColor: study.accent }}>{study.category}</span>
+          <span className="mono-label px-3 py-1.5 border" style={{ color: study.accent, borderColor: study.accent }}>{t(study.categoryKey)}</span>
           <span className="mono-label text-ink-faint">{study.year}</span>
         </div>
         <h1 className="display text-[clamp(40px,8vw,120px)] font-semibold tracking-tightest mb-6">
           <Reveal text={study.name} />
         </h1>
-        <p className="display italic text-[clamp(20px,3vw,34px)] text-ink-soft max-w-3xl">{study.tagline}</p>
+        <p className="display italic text-[clamp(20px,3vw,34px)] text-ink-soft max-w-3xl">{t(study.taglineKey)}</p>
       </section>
 
       {/* big mock */}
@@ -56,12 +56,12 @@ export default function CaseStudy() {
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 pb-20 grid lg:grid-cols-[1.4fr_1fr] gap-12">
         <div>
           <SectionLabel index="·" className="mb-6">{t("cs.overview")}</SectionLabel>
-          <p className="display text-[clamp(22px,2.6vw,32px)] leading-snug">{study.intro}</p>
+          <p className="display text-[clamp(22px,2.6vw,32px)] leading-snug">{t(study.introKey)}</p>
         </div>
         <div className="grid grid-cols-2 gap-px bg-line border border-line h-fit">
           <div className="bg-paper p-5">
             <div className="mono-label text-ink-faint mb-3">{t("cs.services")}</div>
-            <ul className="flex flex-col gap-1.5 text-sm">{study.services.map((s) => <li key={s}>{s}</li>)}</ul>
+            <ul className="flex flex-col gap-1.5 text-sm">{study.serviceKeys.map((s) => <li key={s}>{t(s)}</li>)}</ul>
           </div>
           <div className="bg-paper p-5">
             <div className="mono-label text-ink-faint mb-3">{t("cs.stack")}</div>
@@ -75,10 +75,10 @@ export default function CaseStudy() {
         <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)", backgroundSize: "40px 40px" }} />
         <div className="relative max-w-[1400px] mx-auto px-5 sm:px-8 grid sm:grid-cols-3 gap-px bg-paper/10 border border-paper/10">
           {study.metrics.map((m, i) => (
-            <FadeUp key={m.label} delay={i * 0.1} className="bg-ink p-8 text-center">
+            <FadeUp key={m.labelKey} delay={i * 0.1} className="bg-ink p-8 text-center">
               <div className="display text-[clamp(40px,6vw,72px)] font-semibold" style={{ color: study.accent }}>{m.value}</div>
-              <div className="text-sm font-medium mt-2">{m.label}</div>
-              <div className="mono-label text-paper/40 mt-1">{m.sub}</div>
+              <div className="text-sm font-medium mt-2">{t(m.labelKey)}</div>
+              <div className="mono-label text-paper/40 mt-1">{t(m.subKey)}</div>
             </FadeUp>
           ))}
         </div>
@@ -88,15 +88,15 @@ export default function CaseStudy() {
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-24 grid lg:grid-cols-2 gap-16">
         <div>
           <SectionLabel index="01" className="mb-6">{t("cs.challenge")}</SectionLabel>
-          <p className="display text-[clamp(24px,3vw,38px)] leading-snug">{study.challenge}</p>
+          <p className="display text-[clamp(24px,3vw,38px)] leading-snug">{t(study.challengeKey)}</p>
         </div>
         <div>
           <SectionLabel index="02" className="mb-6">{t("cs.approach")}</SectionLabel>
           <div className="border-t border-line">
-            {study.approach.map((a, i) => (
+            {study.approachKeys.map((a, i) => (
               <FadeUp key={i} delay={i * 0.08} className="flex gap-5 border-b border-line py-6">
                 <span className="mono-label text-kraft shrink-0 mt-1">{String(i + 1).padStart(2, "0")}</span>
-                <p className="text-ink-soft leading-relaxed">{a}</p>
+                <p className="text-ink-soft leading-relaxed">{t(a)}</p>
               </FadeUp>
             ))}
           </div>
@@ -107,10 +107,10 @@ export default function CaseStudy() {
       <section className="bg-paper-2 border-y border-line py-24">
         <div className="max-w-[1100px] mx-auto px-5 sm:px-8 text-center">
           <SectionLabel index="03" className="justify-center mb-6">{t("cs.outcome")}</SectionLabel>
-          <Reveal as="h2" text={study.outcome} className="display text-[clamp(26px,4vw,52px)] font-semibold justify-center text-center mb-12 max-w-4xl mx-auto" />
+          <Reveal as="h2" text={t(study.outcomeKey)} className="display text-[clamp(26px,4vw,52px)] font-semibold justify-center text-center mb-12 max-w-4xl mx-auto" />
           <div className="card-paper p-8 sm:p-10 max-w-2xl mx-auto text-left">
             <div className="flex gap-1 mb-5" style={{ color: study.accent }}>{[...Array(5)].map((_, j) => <IconStar key={j} size={16} />)}</div>
-            <p className="display italic text-xl sm:text-2xl leading-snug mb-5">"{study.quote.text}"</p>
+            <p className="display italic text-xl sm:text-2xl leading-snug mb-5">"{t(study.quote.textKey)}"</p>
             <div className="mono-label text-ink-faint">{study.quote.who}</div>
           </div>
         </div>

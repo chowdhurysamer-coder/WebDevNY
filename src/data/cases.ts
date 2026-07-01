@@ -3,141 +3,111 @@ export type CaseVariant = "restaurant" | "dental" | "gym" | "salon" | "legal" | 
 export interface CaseStudy {
   slug: string;
   variant: CaseVariant;
-  name: string;
-  category: string;
+  name: string;            // brand name, not translated
+  categoryKey: string;
   year: string;
-  tagline: string;
-  intro: string;
-  services: string[];
-  stack: string[];
-  challenge: string;
-  approach: string[];
-  outcome: string;
-  metrics: { label: string; value: string; sub: string }[];
-  quote: { text: string; who: string };
+  taglineKey: string;
+  introKey: string;
+  serviceKeys: string[];
+  stack: string[];         // tech names, not translated
+  challengeKey: string;
+  approachKeys: string[];
+  outcomeKey: string;
+  metrics: { labelKey: string; value: string; subKey: string }[];
+  quote: { textKey: string; who: string };
   accent: string;
 }
 
 export const cases: CaseStudy[] = [
   {
-    slug: "trattoria-bella", variant: "restaurant", name: "Trattoria Bella", category: "Restaurant", year: "2025", accent: "#D98A3D",
-    tagline: "A neighborhood trattoria that fills every table, online first.",
-    intro: "A family-run Italian spot in the West Village with incredible food and a website stuck in 2014. Reservations happened by phone, the menu was a blurry PDF, and Google barely knew they existed.",
-    services: ["Web Design", "Development", "Local SEO", "Reservations"],
+    slug: "trattoria-bella", variant: "restaurant", name: "Trattoria Bella", categoryKey: "pf.cat.restaurant", year: "2025", accent: "#D98A3D",
+    taglineKey: "case.trattoria.tagline", introKey: "case.trattoria.intro",
+    serviceKeys: ["cs.svc.webdesign", "term.development", "cs.svc.localseo", "cs.svc.reservations"],
     stack: ["React", "Headless CMS", "OpenTable API", "GA4"],
-    challenge: "Turn a beautiful-in-person experience into a website that earns reservations while the kitchen sleeps, and finally show up when locals search \"Italian near me.\"",
-    approach: [
-      "Photographed the room and the plates, then built a menu-led scroll that makes you hungry by the second section.",
-      "Wired one-tap reservations straight into their booking system, no phone tag, no missed covers.",
-      "Rebuilt the technical SEO foundation and Google Business Profile around the neighborhoods they serve.",
-    ],
-    outcome: "Within the first month, 40% of all reservations came through the website. Walk-ins quoting the site became a nightly occurrence.",
+    challengeKey: "case.trattoria.challenge",
+    approachKeys: ["case.trattoria.a0", "case.trattoria.a1", "case.trattoria.a2"],
+    outcomeKey: "case.trattoria.outcome",
     metrics: [
-      { label: "Online reservations", value: "+40%", sub: "share of bookings, month one" },
-      { label: "Avg. session", value: "2m 48s", sub: "up from 41 seconds" },
-      { label: "Local pack", value: "#2", sub: "for core search terms" },
+      { labelKey: "case.trattoria.m0l", value: "+40%", subKey: "case.trattoria.m0s" },
+      { labelKey: "case.trattoria.m1l", value: "2m 48s", subKey: "case.trattoria.m1s" },
+      { labelKey: "case.trattoria.m2l", value: "#2", subKey: "case.trattoria.m2s" },
     ],
-    quote: { text: "We went from zero online reservations to nearly half of our bookings through the site in the first month. It finally looks like our food tastes.", who: "Maria S., Owner" },
+    quote: { textKey: "case.trattoria.q", who: "Maria S., Owner" },
   },
   {
-    slug: "brightsmile-dental", variant: "dental", name: "BrightSmile Dental", category: "Dental Practice", year: "2025", accent: "#37b6c4",
-    tagline: "A modern practice that earns trust before the first hello.",
-    intro: "A growing dental practice in Midtown drowning in paperwork and fielding the same five questions on every call. New patients couldn't tell them apart from the office next door.",
-    services: ["Web Design", "Development", "Patient Intake", "SEO"],
+    slug: "brightsmile-dental", variant: "dental", name: "BrightSmile Dental", categoryKey: "term.dentalPractices", year: "2025", accent: "#37b6c4",
+    taglineKey: "case.brightsmile.tagline", introKey: "case.brightsmile.intro",
+    serviceKeys: ["cs.svc.webdesign", "term.development", "cs.svc.intake", "term.seo"],
     stack: ["React", "Secure Forms", "Calendar Sync", "Schema"],
-    challenge: "Build instant credibility for nervous new patients and pull the endless intake paperwork off the front desk's plate.",
-    approach: [
-      "Designed a calm, clinical-but-warm interface with real before/after results and clear pricing.",
-      "Moved patient intake fully online with secure, HIPAA-minded forms that sync to their calendar.",
-      "Added structured data so insurance, hours, and services surface directly in search.",
-    ],
-    outcome: "The front desk reclaimed roughly six hours a week, and new-patient form completion jumped now that it happens before the visit.",
+    challengeKey: "case.brightsmile.challenge",
+    approachKeys: ["case.brightsmile.a0", "case.brightsmile.a1", "case.brightsmile.a2"],
+    outcomeKey: "case.brightsmile.outcome",
     metrics: [
-      { label: "Staff time saved", value: "6 hrs", sub: "per week on paperwork" },
-      { label: "Form completion", value: "+58%", sub: "online vs. in-office" },
-      { label: "Mobile score", value: "99", sub: "Lighthouse performance" },
+      { labelKey: "case.brightsmile.m0l", value: "6 hrs", subKey: "case.brightsmile.m0s" },
+      { labelKey: "case.brightsmile.m1l", value: "+58%", subKey: "case.brightsmile.m1s" },
+      { labelKey: "case.brightsmile.m2l", value: "99", subKey: "case.brightsmile.m2s" },
     ],
-    quote: { text: "Clean, trustworthy, fast, exactly what a dental practice needs. Patient forms are fully online now and we save hours every week.", who: "Dr. James K., Principal Dentist" },
+    quote: { textKey: "case.brightsmile.q", who: "Dr. James K., Principal Dentist" },
   },
   {
-    slug: "ironworks-gym", variant: "gym", name: "IronWorks Gym", category: "Fitness", year: "2024", accent: "#7ee06b",
-    tagline: "A gym that closes memberships while the doors are locked.",
-    intro: "A serious strength gym in Brooklyn with a loyal crowd but a website that didn't sell the room. Sign-ups meant a DM or a walk-in, and class schedules lived on a whiteboard.",
-    services: ["Web Design", "Development", "Memberships", "Booking"],
+    slug: "ironworks-gym", variant: "gym", name: "IronWorks Gym", categoryKey: "pf.cat.fitness", year: "2024", accent: "#7ee06b",
+    taglineKey: "case.ironworks.tagline", introKey: "case.ironworks.intro",
+    serviceKeys: ["cs.svc.webdesign", "term.development", "cs.svc.memberships", "cs.svc.booking"],
     stack: ["React", "Stripe", "Class Booking", "Video"],
-    challenge: "Capture the intensity of the gym online and turn curiosity into memberships without anyone behind a desk.",
-    approach: [
-      "Led with full-bleed video of real members training, no stock, no models.",
-      "Built tiered memberships with Stripe checkout and a self-serve class booking flow.",
-      "Created a trainer roster and results wall that does the convincing for them.",
-    ],
-    outcome: "Membership sign-ups through the site doubled within 60 days, and class booking moved entirely off the whiteboard.",
+    challengeKey: "case.ironworks.challenge",
+    approachKeys: ["case.ironworks.a0", "case.ironworks.a1", "case.ironworks.a2"],
+    outcomeKey: "case.ironworks.outcome",
     metrics: [
-      { label: "Sign-ups", value: "2×", sub: "via site, in 60 days" },
-      { label: "Conversion", value: "6.1%", sub: "visitor → member" },
-      { label: "Load time", value: "1.3s", sub: "video hero included" },
+      { labelKey: "case.ironworks.m0l", value: "2×", subKey: "case.ironworks.m0s" },
+      { labelKey: "case.ironworks.m1l", value: "6.1%", subKey: "case.ironworks.m1s" },
+      { labelKey: "case.ironworks.m2l", value: "1.3s", subKey: "case.ironworks.m2s" },
     ],
-    quote: { text: "Our site finally looks as good as our gym. Sign-ups doubled in 60 days. Worth every single penny.", who: "Tony R., Founder" },
+    quote: { textKey: "case.ironworks.q", who: "Tony R., Founder" },
   },
   {
-    slug: "maison-salon", variant: "salon", name: "Maison Salon", category: "Beauty & Wellness", year: "2025", accent: "#e07ab0",
-    tagline: "An editorial salon experience that books itself solid.",
-    intro: "A high-end salon in SoHo with serious talent and an outdated booking widget that buried their portfolio and frustrated clients.",
-    services: ["Web Design", "Branding", "Booking", "Photography Art-Direction"],
+    slug: "maison-salon", variant: "salon", name: "Maison Salon", categoryKey: "pf.cat.beauty", year: "2025", accent: "#e07ab0",
+    taglineKey: "case.maison.tagline", introKey: "case.maison.intro",
+    serviceKeys: ["cs.svc.webdesign", "term.branding", "cs.svc.booking", "cs.svc.photoart"],
     stack: ["React", "Booking API", "Headless CMS", "Image CDN"],
-    challenge: "Frame the work like the editorial it is, and make booking a specific stylist effortless.",
-    approach: [
-      "Built a gallery-first layout that treats each stylist's work like a magazine spread.",
-      "Streamlined booking down to stylist → service → time, with no dead ends.",
-      "Established a refined visual system the salon now uses across print and social.",
-    ],
-    outcome: "The calendar now runs roughly three weeks out, and stylists point new clients straight to their portfolios.",
+    challengeKey: "case.maison.challenge",
+    approachKeys: ["case.maison.a0", "case.maison.a1", "case.maison.a2"],
+    outcomeKey: "case.maison.outcome",
     metrics: [
-      { label: "Booked ahead", value: "3 wks", sub: "average lead time" },
-      { label: "Conversion", value: "+44%", sub: "visitor → booking" },
-      { label: "Returning", value: "61%", sub: "rebook online" },
+      { labelKey: "case.maison.m0l", value: "3 wks", subKey: "case.maison.m0s" },
+      { labelKey: "case.maison.m1l", value: "+44%", subKey: "case.maison.m1s" },
+      { labelKey: "case.maison.m2l", value: "61%", subKey: "case.maison.m2s" },
     ],
-    quote: { text: "It feels like a magazine, not a booking form. Clients notice, and they book the stylist they want.", who: "Élise M., Creative Director" },
+    quote: { textKey: "case.maison.q", who: "Élise M., Creative Director" },
   },
   {
-    slug: "park-ave-legal", variant: "legal", name: "Park Ave Legal", category: "Law Firm", year: "2024", accent: "#9d86e0",
-    tagline: "Authority that converts a search into a consultation.",
-    intro: "A boutique litigation firm with an impressive track record and a website that read like a 2009 brochure. Qualified leads were slipping to flashier competitors.",
-    services: ["Web Design", "Development", "Content Strategy", "SEO"],
+    slug: "park-ave-legal", variant: "legal", name: "Park Ave Legal", categoryKey: "term.lawFirms", year: "2024", accent: "#9d86e0",
+    taglineKey: "case.parkave.tagline", introKey: "case.parkave.intro",
+    serviceKeys: ["cs.svc.webdesign", "term.development", "cs.svc.content", "term.seo"],
     stack: ["React", "CMS", "Lead Routing", "Analytics"],
-    challenge: "Signal serious credibility and make starting a consultation feel safe and obvious.",
-    approach: [
-      "Structured the site around practice areas, real case results, and attorney authority.",
-      "Designed a low-friction consultation flow with clear expectations at every step.",
-      "Built a content engine to rank for the specific matters they win.",
-    ],
-    outcome: "Qualified consultation requests climbed 31% as the firm started outranking larger competitors on key terms.",
+    challengeKey: "case.parkave.challenge",
+    approachKeys: ["case.parkave.a0", "case.parkave.a1", "case.parkave.a2"],
+    outcomeKey: "case.parkave.outcome",
     metrics: [
-      { label: "Consultations", value: "+31%", sub: "qualified requests" },
-      { label: "Mobile score", value: "100", sub: "Lighthouse" },
-      { label: "Avg. position", value: "Top 3", sub: "core practice terms" },
+      { labelKey: "case.parkave.m0l", value: "+31%", subKey: "case.parkave.m0s" },
+      { labelKey: "case.parkave.m1l", value: "100", subKey: "case.parkave.m1s" },
+      { labelKey: "case.parkave.m2l", value: "Top 3", subKey: "case.parkave.m2s" },
     ],
-    quote: { text: "It finally reflects the calibre of our work. We're getting better-qualified inquiries than ever.", who: "R. Bennett, Managing Partner" },
+    quote: { textKey: "case.parkave.q", who: "R. Bennett, Managing Partner" },
   },
   {
-    slug: "hudson-realty", variant: "realestate", name: "Hudson Realty Group", category: "Real Estate", year: "2025", accent: "#e0b84a",
-    tagline: "Listings that capture leads instead of losing them.",
-    intro: "A growing brokerage with great inventory and a clunky portal that leaked leads and buried neighborhood expertise.",
-    services: ["Web Design", "Development", "IDX / Listings", "Lead Capture"],
+    slug: "hudson-realty", variant: "realestate", name: "Hudson Realty Group", categoryKey: "pf.cat.realestate", year: "2025", accent: "#e0b84a",
+    taglineKey: "case.hudson.tagline", introKey: "case.hudson.intro",
+    serviceKeys: ["cs.svc.webdesign", "term.development", "cs.svc.idx", "cs.svc.leadcapture"],
     stack: ["React", "IDX Feed", "Map UI", "CRM Sync"],
-    challenge: "Make browsing listings a pleasure and turn interest into agent-ready leads.",
-    approach: [
-      "Built fast, map-driven listing search with saved searches and clean detail pages.",
-      "Added neighborhood guides that position their agents as the local experts.",
-      "Wired lead capture straight into their CRM with instant agent routing.",
-    ],
-    outcome: "The site now converts at 7.2%, well above brokerage benchmarks, with leads landing in front of agents in seconds.",
+    challengeKey: "case.hudson.challenge",
+    approachKeys: ["case.hudson.a0", "case.hudson.a1", "case.hudson.a2"],
+    outcomeKey: "case.hudson.outcome",
     metrics: [
-      { label: "Lead conversion", value: "7.2%", sub: "above benchmark" },
-      { label: "Listing views", value: "+118%", sub: "per session" },
-      { label: "Speed to lead", value: "<10s", sub: "to agent inbox" },
+      { labelKey: "case.hudson.m0l", value: "7.2%", subKey: "case.hudson.m0s" },
+      { labelKey: "case.hudson.m1l", value: "+118%", subKey: "case.hudson.m1s" },
+      { labelKey: "case.hudson.m2l", value: "<10s", subKey: "case.hudson.m2s" },
     ],
-    quote: { text: "The site does the first showing for us. Leads arrive warm and organized, our agents love it.", who: "Dana W., Broker / Owner" },
+    quote: { textKey: "case.hudson.q", who: "Dana W., Broker / Owner" },
   },
 ];
 

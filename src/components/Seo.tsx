@@ -41,7 +41,7 @@ export function Seo() {
     if (!meta) {
       if (pathname.startsWith("/work/")) {
         const c = caseBySlug(pathname.split("/")[2]);
-        if (c) meta = { t: `${c.name}, Case Study, ${BASE}`, d: `${c.tagline} ${c.intro}`.slice(0, 160) };
+        if (c) meta = { t: `${c.name}, Case Study, ${BASE}`, d: `${en(c.taglineKey)} ${en(c.introKey)}`.slice(0, 160) };
       } else if (pathname.startsWith("/journal/")) {
         const p = postBySlug(pathname.split("/")[2]);
         if (p) meta = { t: `${en(p.titleKey)}, ${BASE}`, d: en(p.excerptKey) };
