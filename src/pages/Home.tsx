@@ -132,7 +132,7 @@ export default function Home() {
 
       {/* ───────── SELECTED WORK (light) ───────── */}
       <section className="py-24 overflow-hidden border-y border-line bg-paper-2 relative">
-        <TapeStrip label="SELECTED WORK · 2025" className="absolute top-6 left-1/2 -translate-x-1/2" />
+        <TapeStrip label={t("misc.selectedWork2025")} className="absolute top-6 left-1/2 -translate-x-1/2" />
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8 mt-6">
           <div className="flex items-end justify-between mb-12">
             <div>
