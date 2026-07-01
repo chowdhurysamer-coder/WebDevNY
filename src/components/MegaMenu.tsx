@@ -75,7 +75,7 @@ export function MegaMenu() {
                 <div className="grid grid-cols-2 gap-x-4 gap-y-2.5">
                   {industries.map((i) => (
                     <Link key={i.slug} to={`/for/${i.slug}`} onClick={() => { close(); sfx.tick(); }} className="text-sm hover:text-kraft transition-colors">
-                      {i.name}
+                      {t(i.nameKey)}
                     </Link>
                   ))}
                 </div>

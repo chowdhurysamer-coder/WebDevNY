@@ -27,7 +27,7 @@ const groups: Group[] = [
     { label: "ex.link.privacy", to: "/privacy" }, { label: "ex.link.terms", to: "/terms" },
   ]},
   { hKey: "ex.g.cases", n: "03", items: cases.map((c) => ({ label: c.name, to: `/work/${c.slug}`, hint: c.category })) },
-  { hKey: "ex.g.industries", n: "04", items: industries.map((i) => ({ label: i.name, to: `/for/${i.slug}`, hint: "ex.hint.landing" })) },
+  { hKey: "ex.g.industries", n: "04", items: industries.map((i) => ({ label: i.nameKey, to: `/for/${i.slug}`, hint: "ex.hint.landing" })) },
   { hKey: "ex.g.journal", n: "05", items: posts.map((p) => ({ label: p.title, to: `/journal/${p.slug}`, hint: p.category })) },
 ];
 
@@ -37,7 +37,7 @@ export default function Explore() {
   // Only the Studio/Company nodes use translation keys as labels; data-driven
   // nodes (cases, industries, journal) carry real text. tt() resolves keys and
   // passes plain text through unchanged.
-  const tt = (s: string) => (s.startsWith("ex.") || s.startsWith("link.") ? t(s) : s);
+  const tt = (s: string) => (s.startsWith("ex.") || s.startsWith("link.") || s.startsWith("term.") ? t(s) : s);
   const filtered = useMemo(() => {
     const s = q.trim().toLowerCase();
     if (!s) return groups;

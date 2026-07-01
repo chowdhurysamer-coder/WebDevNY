@@ -3,6 +3,9 @@ import { useLocation } from "react-router-dom";
 import { caseBySlug } from "@/data/cases";
 import { postBySlug } from "@/data/journal";
 import { industryBySlug } from "@/data/industries";
+import { dict } from "@/lib/translations";
+
+const en = (key: string) => dict[key]?.en ?? key;
 
 const BASE = "WebDev NY";
 const SITE = "https://chowdhurysamer-coder.github.io/WebDevNY";
@@ -45,7 +48,7 @@ export function Seo() {
       } else if (pathname.startsWith("/for/")) {
         const slug = pathname.split("/")[2];
         const i = industryBySlug(slug);
-        if (i) { meta = { t: `${i.eyebrow}, ${BASE}`, d: i.sub }; ogImage = `${SITE}/og/${slug}.png`; }
+        if (i) { meta = { t: `${en(i.eyebrowKey)}, ${BASE}`, d: en(i.subKey) }; ogImage = `${SITE}/og/${slug}.png`; }
       }
     }
     if (!meta) meta = { t: `Page Not Found, ${BASE}`, d: "This page got lost in shipping." };
