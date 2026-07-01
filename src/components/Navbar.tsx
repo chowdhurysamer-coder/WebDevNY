@@ -79,9 +79,10 @@ export function Navbar() {
                 {t("nav.start")} <IconArrowUpRight size={14} />
               </Link>
             </Magnetic>
-            <button onClick={() => { setOpen(!open); sfx.tick(); }} data-cursor-label={open ? "CLOSE" : "MENU"} className="flex flex-col gap-1.5 w-10 h-10 items-center justify-center border border-line hover:border-ink transition-colors">
-              <motion.span animate={{ rotate: open ? 45 : 0, y: open ? 4 : 0 }} className="w-5 h-px bg-ink block" />
-              <motion.span animate={{ rotate: open ? -45 : 0, y: open ? -3 : 0 }} className="w-5 h-px bg-ink block" />
+            <button onClick={() => { setOpen(!open); sfx.tick(); }} data-cursor-label={open ? "CLOSE" : "MENU"} aria-label="Menu" className="flex flex-col gap-[5px] w-10 h-10 items-center justify-center border border-line hover:border-ink transition-colors">
+              <motion.span animate={{ rotate: open ? 45 : 0, y: open ? 6 : 0 }} className="w-5 h-px bg-ink block" />
+              <motion.span animate={{ opacity: open ? 0 : 1 }} className="w-5 h-px bg-ink block" />
+              <motion.span animate={{ rotate: open ? -45 : 0, y: open ? -6 : 0 }} className="w-5 h-px bg-ink block" />
             </button>
           </div>
         </div>
@@ -117,34 +118,36 @@ export function Navbar() {
                 <motion.span key={hovered}
                   initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -40 }}
                   transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                  className="hidden lg:block absolute right-6 bottom-2 display font-semibold leading-none pointer-events-none text-[26vw] text-kraft/15 select-none">
+                  className="hidden lg:block absolute right-6 bottom-2 display font-semibold leading-none pointer-events-none text-[16vw] text-kraft/15 select-none">
                   {hovered}
                 </motion.span>
               )}
             </AnimatePresence>
 
-            <nav className="relative max-w-[1400px] w-full mx-auto px-5 sm:px-8 pt-20">
+            <nav className="relative max-w-[1400px] w-full mx-auto px-5 sm:px-8 pt-20 pb-6 max-h-screen overflow-y-auto">
               {links.map((l, i) => {
                 const active = location.pathname === l.to;
                 return (
                   <motion.div key={l.to}
-                    initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 + i * 0.05 }}
+                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 + i * 0.035 }}
                     onHoverStart={() => setHovered(l.n)}>
-                    <Link to={l.to} className="group relative flex items-baseline gap-5 border-b border-paper/15 py-3 sm:py-4">
+                    <Link to={l.to} onClick={() => { setOpen(false); sfx.tick(); }} className="group relative flex items-baseline gap-4 border-b border-paper/15 py-[0.6vh] sm:py-[0.9vh]">
                       {/* accent slide bar */}
                       <span className="absolute left-0 bottom-0 h-px bg-kraft w-0 group-hover:w-full transition-all duration-500" />
                       <span className="mono-label text-paper/50 group-hover:text-kraft transition-colors">{l.n}</span>
                       <motion.span
-                        className={`display text-[clamp(34px,7vw,76px)] leading-none transition-all duration-300 ${active ? "text-kraft" : "text-paper/85 group-hover:text-paper group-hover:translate-x-3"}`}>
+                        className={`display text-[clamp(18px,3.1vw,40px)] leading-none transition-all duration-300 ${active ? "text-kraft" : "text-paper/85 group-hover:text-paper group-hover:translate-x-3"}`}>
                         {l.label}
                       </motion.span>
-                      <IconArrowUpRight size={26} className="ml-auto self-center opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-kraft" />
+                      <IconArrowUpRight size={20} className="ml-auto self-center opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-kraft" />
                     </Link>
                   </motion.div>
                 );
               })}
-              <div className="mt-8 flex items-center gap-6 mono-label text-paper/40">
-                <span>hello@webdevny.com</span><span className="hidden sm:inline">·</span><span className="hidden sm:inline">New York, NY</span>
+              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 mono-label text-paper/40">
+                <a href="mailto:hello@webdevny.com" className="hover:text-paper transition-colors">hello@webdevny.com</a>
+                <a href="tel:+12125550190" className="hover:text-paper transition-colors">(212) 555-0190</a>
+                <span>New York, NY</span>
               </div>
             </nav>
           </motion.div>

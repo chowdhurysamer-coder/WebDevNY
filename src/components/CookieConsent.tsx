@@ -33,7 +33,7 @@ export function CookieConsent() {
           className="fixed bottom-5 left-5 z-[56] max-w-sm card-paper p-5">
           <div className="mono-label text-kraft mb-2">Cookies</div>
           <p className="text-sm text-ink-soft leading-relaxed mb-4">
-            We use a couple of cookies to remember your theme and keep the site running. No creepy tracking — promise.
+            We use a couple of cookies to remember your theme and keep the site running. No creepy tracking, promise.
             See our <Link to="/privacy" className="text-ink link-draw">privacy policy</Link>.
           </p>
           <div className="flex items-center gap-2">

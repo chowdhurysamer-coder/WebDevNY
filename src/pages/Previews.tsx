@@ -59,7 +59,7 @@ export default function Previews() {
           <span className="italic text-kraft"><Reveal text="you commit." delay={0.15} /></span>
         </h1>
         <p className="text-ink-soft text-lg max-w-md leading-relaxed mt-8">
-          Browse working starting points for every industry. Each one gets fully customized to your brand — these are the floor, not the ceiling.
+          Browse working starting points for every industry. Each one gets fully customized to your brand, these are the floor, not the ceiling.
         </p>
       </section>
 
@@ -74,7 +74,7 @@ export default function Previews() {
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)", backgroundSize: "32px 32px" }} />
           <div className="relative">
             <Reveal as="h2" text="Don't see your industry?" className="display text-[clamp(28px,4.5vw,60px)] font-semibold justify-center mb-5" />
-            <p className="text-paper/80 max-w-md mx-auto mb-8">We'll build a custom preview for your business — free, no strings attached.</p>
+            <p className="text-paper/80 max-w-md mx-auto mb-8">We'll build a custom preview for your business, free, no strings attached.</p>
             <Link to="/contact" data-cursor-label="GO" className="inline-flex items-center gap-2 bg-ink text-paper px-7 py-4 mono-label press">
               Request a preview <IconArrowUpRight size={15} />
             </Link>

@@ -1,9 +1,9 @@
 export type Tier = "Starter" | "Growth" | "Elite";
 
 export const TIERS: Record<Tier, { base: number; pagesIncl: number; days: number }> = {
-  Starter: { base: 2499, pagesIncl: 5, days: 7 },
-  Growth: { base: 4999, pagesIncl: 12, days: 12 },
-  Elite: { base: 9999, pagesIncl: 30, days: 24 },
+  Starter: { base: 1490, pagesIncl: 5, days: 7 },
+  Growth: { base: 3490, pagesIncl: 12, days: 12 },
+  Elite: { base: 6990, pagesIncl: 30, days: 24 },
 };
 
 export const ADDONS = [

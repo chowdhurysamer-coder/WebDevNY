@@ -68,7 +68,7 @@ export function BeamReveal({ onComplete }: { onComplete: () => void }) {
         PKG 01 / 01<br />HANDLE WITH CARE<br />WEBDEV NY · NYC
       </motion.div>
       <motion.div animate={{ opacity: lidOpen ? 0 : 0.4 }} className="absolute top-7 right-7 font-mono text-[10px] text-paper/60 text-right leading-relaxed hidden sm:block z-30">
-        EST. 2024<br />40.7° N, 74.0° W<br />████ ██ ████
+        EST. 2025<br />HANDLE WITH CARE<br />████ ██ ████
       </motion.div>
 
       {/* ───── BEAM STACK (behind/over box) ───── */}
@@ -159,7 +159,7 @@ export function BeamReveal({ onComplete }: { onComplete: () => void }) {
         </svg>
       </motion.div>
 
-      {/* torch darkening — reveals the scene only around the cursor */}
+      {/* torch darkening, reveals the scene only around the cursor */}
       {phase === "idle" && <motion.div className="absolute inset-0 z-20 pointer-events-none" style={{ background: torch }} exit={{ opacity: 0 }} />}
 
       {/* torch cursor dot */}

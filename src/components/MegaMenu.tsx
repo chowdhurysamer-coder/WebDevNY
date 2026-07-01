@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { IconArrowUpRight } from "@/components/icons";
 import { industries } from "@/data/industries";
@@ -26,9 +26,14 @@ const cols = [
 export function MegaMenu() {
   const [open, setOpen] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const location = useLocation();
 
   const enter = () => { if (timer.current) clearTimeout(timer.current); setOpen(true); };
   const leave = () => { timer.current = setTimeout(() => setOpen(false), 120); };
+  const close = () => { if (timer.current) clearTimeout(timer.current); setOpen(false); };
+
+  // close whenever the route changes (so it never lingers after a click)
+  useEffect(() => { setOpen(false); }, [location.pathname]);
 
   return (
     <div className="hidden lg:block" onMouseEnter={enter} onMouseLeave={leave}>
@@ -51,7 +56,7 @@ export function MegaMenu() {
                   <div className="mono-label text-kraft mb-4">{col.h}</div>
                   <div className="flex flex-col gap-3">
                     {col.items.map(([t, d, to]) => (
-                      <Link key={t} to={to} onClick={() => sfx.tick()} data-cursor-label="GO" className="group">
+                      <Link key={t} to={to} onClick={() => { close(); sfx.tick(); }} data-cursor-label="GO" className="group">
                         <div className="flex items-center gap-1.5 font-medium text-sm group-hover:text-kraft transition-colors">
                           {t} <IconArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
@@ -67,7 +72,7 @@ export function MegaMenu() {
                 <div className="mono-label text-kraft mb-4">Industries</div>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-2.5">
                   {industries.map((i) => (
-                    <Link key={i.slug} to={`/for/${i.slug}`} onClick={() => sfx.tick()} className="text-sm hover:text-kraft transition-colors">
+                    <Link key={i.slug} to={`/for/${i.slug}`} onClick={() => { close(); sfx.tick(); }} className="text-sm hover:text-kraft transition-colors">
                       {i.name}
                     </Link>
                   ))}
@@ -75,7 +80,7 @@ export function MegaMenu() {
               </div>
 
               {/* featured CTA */}
-              <Link to="/contact" onClick={() => sfx.tick()} data-cursor-label="GO" className="card-paper-kraft press p-5 flex flex-col justify-between">
+              <Link to="/contact" onClick={() => { close(); sfx.tick(); }} data-cursor-label="GO" className="card-paper-kraft press p-5 flex flex-col justify-between">
                 <div className="mono-label text-paper/80">Free quote</div>
                 <div>
                   <div className="display text-2xl font-semibold leading-tight mb-2">Start a project</div>

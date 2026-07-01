@@ -6,7 +6,7 @@ const sections = [
   { h: "Agreement", p: "By using this website you agree to these terms. If you engage us for a project, a separate written proposal and contract will govern that specific work and take precedence over anything here." },
   { h: "Our work", p: "We provide web design, development, SEO, analytics, and maintenance services. Scope, deliverables, timeline, and price for any engagement are defined in a signed proposal before work begins." },
   { h: "Estimates", p: "The pricing and estimator figures on this site are illustrative starting points, not binding quotes. Your final quote is confirmed in writing after a discovery conversation." },
-  { h: "Intellectual property", p: "On full payment for a completed project, you own the final website — the code, content, and domain. This website's own brand, copy, and design remain the property of WebDev NY." },
+  { h: "Intellectual property", p: "On full payment for a completed project, you own the final website, the code, content, and domain. This website's own brand, copy, and design remain the property of WebDev NY." },
   { h: "Acceptable use", p: "Don't use this site to break the law, infringe others' rights, or disrupt its operation. We may restrict access for misuse." },
   { h: "Liability", p: "This site is provided \"as is.\" To the extent permitted by law, we're not liable for indirect or incidental damages arising from its use. Nothing here limits liability that can't be limited by law." },
   { h: "Changes", p: "We may update these terms as the studio evolves. Material changes will be reflected by the date below. Continued use means you accept the current version." },
@@ -24,7 +24,7 @@ export default function Terms() {
         <h1 className="display text-[clamp(36px,7vw,80px)] font-semibold tracking-tightest mb-4">
           <Reveal text="Terms of service" />
         </h1>
-        <p className="mono-label text-ink-faint">Last updated — June 2026</p>
+        <p className="mono-label text-ink-faint">Last updated, June 2026</p>
       </section>
       <section className="max-w-[760px] mx-auto px-5 sm:px-8 pb-24">
         <div className="border-t border-line">

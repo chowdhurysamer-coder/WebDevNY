@@ -6,12 +6,12 @@ import { SiteMock } from "@/components/SiteMock";
 import { IconArrowUpRight, IconCode, IconPen, IconBolt, IconShield, IconChart, IconPhone } from "@/components/icons";
 
 const offer = [
-  { icon: IconPen, t: "Design", d: "We design in high fidelity before a line of code — you approve the real thing, not a rough sketch." },
+  { icon: IconPen, t: "Design", d: "We design in high fidelity before a line of code, you approve the real thing, not a rough sketch." },
   { icon: IconCode, t: "Development", d: "Hand-written React & TypeScript. No bloated builders, no plugin spaghetti. Just clean, fast code." },
   { icon: IconBolt, t: "Performance", d: "Sub-2-second loads and 95+ Lighthouse scores. Speed is the cheapest conversion lever there is." },
   { icon: IconPhone, t: "Responsive", d: "Designed for thumbs first. Flawless from a 360px phone to a 5K display." },
   { icon: IconShield, t: "Secure", d: "SSL, hardened forms, safe hosting. We sweat the parts your visitors never see." },
-  { icon: IconChart, t: "Measurable", d: "GA4, events, and heatmaps wired up day one — so you know what's working." },
+  { icon: IconChart, t: "Measurable", d: "GA4, events, and heatmaps wired up day one, so you know what's working." },
 ];
 
 const process = [
@@ -33,7 +33,7 @@ export default function WebDesign() {
         </h1>
         <div className="mt-10 grid md:grid-cols-2 gap-8 items-end">
           <p className="text-ink-soft text-lg max-w-md leading-relaxed">
-            We don't just make websites look good. We engineer them to earn — more calls, more bookings, more revenue for New York businesses.
+            We don't just make websites look good. We engineer them to earn, more calls, more bookings, more revenue for New York businesses.
           </p>
           <div className="md:justify-self-end">
             <Magnetic>
@@ -79,7 +79,7 @@ export default function WebDesign() {
             <SectionLabel index="·" className="mb-6">The result</SectionLabel>
             <Reveal as="h2" text="No two sites look alike." className="display text-[clamp(30px,5vw,60px)] font-semibold mb-6" />
             <p className="text-ink-soft leading-relaxed mb-8 max-w-md">
-              Templates make every business look the same. We start from your brand and your goals — so your site looks like you, not like everyone else's homepage.
+              Templates make every business look the same. We start from your brand and your goals, so your site looks like you, not like everyone else's homepage.
             </p>
             <Link to="/portfolio" className="inline-flex items-center gap-2 mono-label hover:text-kraft transition-colors link-draw">
               Browse the portfolio <IconArrowUpRight size={15} />

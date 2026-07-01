@@ -26,7 +26,7 @@ export function BeforeAfter({ variant }: { variant: V }) {
       {/* AFTER (full) */}
       <div className="absolute inset-0"><SiteMock variant={variant} className="w-full h-full" /></div>
 
-      {/* BEFORE (clipped) — a deliberately dated site */}
+      {/* BEFORE (clipped), a deliberately dated site */}
       <div className="absolute inset-0 overflow-hidden" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
         <DatedSite />
       </div>

@@ -1,5 +1,5 @@
 /**
- * Google Analytics 4 — loaded only when a measurement ID is configured
+ * Google Analytics 4, loaded only when a measurement ID is configured
  * (VITE_GA_ID, e.g. "G-XXXXXXX") AND the visitor has accepted cookies.
  */
 const GA_ID = (import.meta.env.VITE_GA_ID as string) || "";

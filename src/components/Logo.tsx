@@ -1,5 +1,5 @@
 /**
- * WebDev brand mark — a lightbulb with a code-bracket glyph inside,
+ * WebDev brand mark, a lightbulb with a code-bracket glyph inside,
  * encircled by an orbiting dotted ring. Recreated as crisp SVG.
  * `currentColor` drives the navy; `bg` is the knockout for the inner glyph.
  */

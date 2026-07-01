@@ -39,7 +39,7 @@ export function Estimator() {
       {/* controls */}
       <div>
         {/* tier */}
-        <div className="mono-label text-ink-faint mb-3">01 — Package</div>
+        <div className="mono-label text-ink-faint mb-3">01, Package</div>
         <div className="grid grid-cols-3 gap-2 mb-8">
           {(Object.keys(tiers) as Tier[]).map((t) => (
             <button key={t} onClick={() => setTier(t)} data-cursor-label="PICK"
@@ -51,14 +51,14 @@ export function Estimator() {
 
         {/* pages */}
         <div className="flex items-center justify-between mb-3">
-          <span className="mono-label text-ink-faint">02 — Pages</span>
+          <span className="mono-label text-ink-faint">02, Pages</span>
           <span className="display text-2xl font-semibold">{pages}</span>
         </div>
         <input type="range" min={1} max={40} value={pages} onChange={(e) => setPages(+e.target.value)}
           className="w-full accent-kraft mb-8 cursor-pointer" style={{ accentColor: "#C66E22" }} />
 
         {/* add-ons */}
-        <div className="mono-label text-ink-faint mb-3">03 — Add-ons</div>
+        <div className="mono-label text-ink-faint mb-3">03, Add-ons</div>
         <div className="grid sm:grid-cols-2 gap-2">
           {addons.map((a) => {
             const on = selected.includes(a.id);

@@ -1,5 +1,5 @@
 /**
- * Tiny synthesized sound engine — Web Audio, no audio files.
+ * Tiny synthesized sound engine, Web Audio, no audio files.
  * All sounds are generated from oscillators + noise envelopes.
  */
 let ctx: AudioContext | null = null;
@@ -44,7 +44,7 @@ export const sfx = {
     o.connect(g); g.connect(master); o.start(); o.stop(c.currentTime + 0.07);
   },
 
-  /** box pop — pitch-dropping blip */
+  /** box pop, pitch-dropping blip */
   pop() {
     if (!enabled) return;
     const c = ac(); if (!c || !master) return;
@@ -58,7 +58,7 @@ export const sfx = {
     o.connect(g); g.connect(master); o.start(); o.stop(c.currentTime + 0.24);
   },
 
-  /** beam whoosh — filtered noise sweep */
+  /** beam whoosh, filtered noise sweep */
   whoosh() {
     if (!enabled) return;
     const c = ac(); if (!c || !master) return;
@@ -77,7 +77,7 @@ export const sfx = {
     src.connect(filter); filter.connect(g); g.connect(master); src.start();
   },
 
-  /** arrival chime — pleasant major triad */
+  /** arrival chime, pleasant major triad */
   chime() {
     if (!enabled) return;
     const c = ac(); const m = master; if (!c || !m) return;

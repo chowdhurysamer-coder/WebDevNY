@@ -18,7 +18,7 @@ const projects: { id: string; slug: string; v: V; name: string; cat: string; yea
 
 const reviews = [
   { name: "Maria S.", biz: "Trattoria Bella", text: "We went from zero online reservations to 40% of bookings through the site in the first month. It finally looks like our food tastes." },
-  { name: "Dr. James K.", biz: "BrightSmile Dental", text: "Clean, trustworthy, fast — exactly what a dental practice needs. Patient forms are fully online now and we save hours every week." },
+  { name: "Dr. James K.", biz: "BrightSmile Dental", text: "Clean, trustworthy, fast, exactly what a dental practice needs. Patient forms are fully online now and we save hours every week." },
   { name: "Tony R.", biz: "IronWorks Gym", text: "Our site finally looks as good as our gym. Sign-ups doubled in 60 days. Worth every single penny." },
 ];
 
@@ -95,7 +95,7 @@ export default function Portfolio() {
                 </div>
                 <div className="flex items-baseline justify-between mt-3">
                   <h3 className="display text-xl font-semibold group-hover:text-kraft transition-colors">{p.name}</h3>
-                  <span className="mono-label text-ink-faint">{p.id} — {p.year}</span>
+                  <span className="mono-label text-ink-faint">{p.id}, {p.year}</span>
                 </div>
               </motion.button>
             ))}

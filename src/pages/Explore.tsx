@@ -45,7 +45,7 @@ export default function Explore() {
   return (
     <div className="bg-paper pt-16">
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 pt-20 pb-10 border-b border-line">
-        <SectionLabel index="✦" className="mb-8">Explore — the whole site</SectionLabel>
+        <SectionLabel index="✦" className="mb-8">Explore, the whole site</SectionLabel>
         <h1 className="display text-[clamp(44px,10vw,150px)] font-semibold tracking-tightest">
           <Reveal text="Everything," />
           <span className="italic text-kraft"><Reveal text="in one place." delay={0.15} /></span>
@@ -67,7 +67,7 @@ export default function Explore() {
               <div className="flex items-baseline gap-3 mb-6">
                 <span className="mono-label text-kraft">{g.n}</span>
                 <h2 className="display text-3xl font-semibold">{g.h}</h2>
-                <span className="mono-label text-ink-faint">— {g.items.length}</span>
+                <span className="mono-label text-ink-faint">,  {g.items.length}</span>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {g.items.map((it, i) => (

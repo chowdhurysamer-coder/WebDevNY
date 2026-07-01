@@ -1,4 +1,4 @@
-/* Hand-built line icons — single 1.6 stroke, crafted look. No icon library. */
+/* Hand-built line icons, single 1.6 stroke, crafted look. No icon library. */
 type P = { className?: string; size?: number };
 const base = (size = 24) => ({ width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const });
 

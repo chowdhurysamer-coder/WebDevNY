@@ -13,11 +13,11 @@ const metrics = [
 ];
 
 const tools = [
-  ["GA4", "Full-funnel tracking and audience insight, configured properly — not just a pasted snippet."],
+  ["GA4", "Full-funnel tracking and audience insight, configured properly, not just a pasted snippet."],
   ["Heatmaps", "See exactly where visitors click, scroll, and quietly give up."],
   ["Search Console", "Keyword rankings, impressions, and indexing health, reviewed monthly."],
   ["Dashboards", "A plain-English report in your inbox every month. No jargon, just what moved."],
-  ["Conversion tracking", "Calls, forms, and purchases — every lead tied back to its source."],
+  ["Conversion tracking", "Calls, forms, and purchases, every lead tied back to its source."],
   ["A/B testing", "Headlines, CTAs, and layouts tested against real traffic, not opinions."],
 ];
 
@@ -33,7 +33,7 @@ export default function Analytics() {
           <span className="italic text-kraft"><Reveal text="decisions." delay={0.15} /></span>
         </h1>
         <p className="text-ink-soft text-lg max-w-md leading-relaxed mt-8">
-          We don't just build sites — we measure them. Every WebDev NY build ships with a real analytics foundation, so growth is something you can see.
+          We don't just build sites, we measure them. Every WebDev NY build ships with a real analytics foundation, so growth is something you can see.
         </p>
       </section>
 

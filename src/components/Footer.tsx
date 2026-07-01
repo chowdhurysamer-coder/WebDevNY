@@ -74,7 +74,7 @@ export function Footer() {
         </div>
 
         <div className="mt-16 pt-6 border-t border-line flex flex-col sm:flex-row items-center justify-between gap-3 mono-label text-ink-faint">
-          <span>© {year} WebDev NY — All rights reserved</span>
+          <span>© {year} WebDev NY, All rights reserved</span>
           <span className="flex items-center gap-4">
             <Link to="/privacy" className="hover:text-ink transition-colors">Privacy</Link>
             <Link to="/terms" className="hover:text-ink transition-colors">Terms</Link>

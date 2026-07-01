@@ -71,11 +71,15 @@ export function CommandPalette() {
       <AnimatePresence>
         {open && (
           <motion.div className="fixed inset-0 z-[120] flex items-start justify-center pt-[14vh] px-4"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <div className="absolute inset-0 bg-ink/40 backdrop-blur-sm" onClick={() => setOpen(false)} />
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            onMouseDown={() => setOpen(false)}>
+            <motion.div
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-ink/75 backdrop-blur-md" />
             <motion.div
               initial={{ y: -16, opacity: 0, scale: 0.98 }} animate={{ y: 0, opacity: 1, scale: 1 }} exit={{ y: -16, opacity: 0 }}
               transition={{ type: "spring", stiffness: 320, damping: 26 }}
+              onMouseDown={(e) => e.stopPropagation()}
               className="relative w-full max-w-xl card-paper overflow-hidden" onKeyDown={onListKey}>
               <div className="flex items-center gap-3 px-5 border-b border-line">
                 <IconSearch size={18} className="text-ink-faint" />

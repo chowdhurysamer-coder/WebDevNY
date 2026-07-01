@@ -21,14 +21,14 @@ export interface CaseStudy {
 export const cases: CaseStudy[] = [
   {
     slug: "trattoria-bella", variant: "restaurant", name: "Trattoria Bella", category: "Restaurant", year: "2025", accent: "#D98A3D",
-    tagline: "A neighborhood trattoria that fills every table — online first.",
+    tagline: "A neighborhood trattoria that fills every table, online first.",
     intro: "A family-run Italian spot in the West Village with incredible food and a website stuck in 2014. Reservations happened by phone, the menu was a blurry PDF, and Google barely knew they existed.",
     services: ["Web Design", "Development", "Local SEO", "Reservations"],
     stack: ["React", "Headless CMS", "OpenTable API", "GA4"],
-    challenge: "Turn a beautiful-in-person experience into a website that earns reservations while the kitchen sleeps — and finally show up when locals search \"Italian near me.\"",
+    challenge: "Turn a beautiful-in-person experience into a website that earns reservations while the kitchen sleeps, and finally show up when locals search \"Italian near me.\"",
     approach: [
       "Photographed the room and the plates, then built a menu-led scroll that makes you hungry by the second section.",
-      "Wired one-tap reservations straight into their booking system — no phone tag, no missed covers.",
+      "Wired one-tap reservations straight into their booking system, no phone tag, no missed covers.",
       "Rebuilt the technical SEO foundation and Google Business Profile around the neighborhoods they serve.",
     ],
     outcome: "Within the first month, 40% of all reservations came through the website. Walk-ins quoting the site became a nightly occurrence.",
@@ -37,7 +37,7 @@ export const cases: CaseStudy[] = [
       { label: "Avg. session", value: "2m 48s", sub: "up from 41 seconds" },
       { label: "Local pack", value: "#2", sub: "for core search terms" },
     ],
-    quote: { text: "We went from zero online reservations to nearly half of our bookings through the site in the first month. It finally looks like our food tastes.", who: "Maria S. — Owner" },
+    quote: { text: "We went from zero online reservations to nearly half of our bookings through the site in the first month. It finally looks like our food tastes.", who: "Maria S., Owner" },
   },
   {
     slug: "brightsmile-dental", variant: "dental", name: "BrightSmile Dental", category: "Dental Practice", year: "2025", accent: "#37b6c4",
@@ -57,7 +57,7 @@ export const cases: CaseStudy[] = [
       { label: "Form completion", value: "+58%", sub: "online vs. in-office" },
       { label: "Mobile score", value: "99", sub: "Lighthouse performance" },
     ],
-    quote: { text: "Clean, trustworthy, fast — exactly what a dental practice needs. Patient forms are fully online now and we save hours every week.", who: "Dr. James K. — Principal Dentist" },
+    quote: { text: "Clean, trustworthy, fast, exactly what a dental practice needs. Patient forms are fully online now and we save hours every week.", who: "Dr. James K., Principal Dentist" },
   },
   {
     slug: "ironworks-gym", variant: "gym", name: "IronWorks Gym", category: "Fitness", year: "2024", accent: "#7ee06b",
@@ -67,7 +67,7 @@ export const cases: CaseStudy[] = [
     stack: ["React", "Stripe", "Class Booking", "Video"],
     challenge: "Capture the intensity of the gym online and turn curiosity into memberships without anyone behind a desk.",
     approach: [
-      "Led with full-bleed video of real members training — no stock, no models.",
+      "Led with full-bleed video of real members training, no stock, no models.",
       "Built tiered memberships with Stripe checkout and a self-serve class booking flow.",
       "Created a trainer roster and results wall that does the convincing for them.",
     ],
@@ -77,7 +77,7 @@ export const cases: CaseStudy[] = [
       { label: "Conversion", value: "6.1%", sub: "visitor → member" },
       { label: "Load time", value: "1.3s", sub: "video hero included" },
     ],
-    quote: { text: "Our site finally looks as good as our gym. Sign-ups doubled in 60 days. Worth every single penny.", who: "Tony R. — Founder" },
+    quote: { text: "Our site finally looks as good as our gym. Sign-ups doubled in 60 days. Worth every single penny.", who: "Tony R., Founder" },
   },
   {
     slug: "maison-salon", variant: "salon", name: "Maison Salon", category: "Beauty & Wellness", year: "2025", accent: "#e07ab0",
@@ -97,7 +97,7 @@ export const cases: CaseStudy[] = [
       { label: "Conversion", value: "+44%", sub: "visitor → booking" },
       { label: "Returning", value: "61%", sub: "rebook online" },
     ],
-    quote: { text: "It feels like a magazine, not a booking form. Clients notice — and they book the stylist they want.", who: "Élise M. — Creative Director" },
+    quote: { text: "It feels like a magazine, not a booking form. Clients notice, and they book the stylist they want.", who: "Élise M., Creative Director" },
   },
   {
     slug: "park-ave-legal", variant: "legal", name: "Park Ave Legal", category: "Law Firm", year: "2024", accent: "#9d86e0",
@@ -117,7 +117,7 @@ export const cases: CaseStudy[] = [
       { label: "Mobile score", value: "100", sub: "Lighthouse" },
       { label: "Avg. position", value: "Top 3", sub: "core practice terms" },
     ],
-    quote: { text: "It finally reflects the calibre of our work. We're getting better-qualified inquiries than ever.", who: "R. Bennett — Managing Partner" },
+    quote: { text: "It finally reflects the calibre of our work. We're getting better-qualified inquiries than ever.", who: "R. Bennett, Managing Partner" },
   },
   {
     slug: "hudson-realty", variant: "realestate", name: "Hudson Realty Group", category: "Real Estate", year: "2025", accent: "#e0b84a",
@@ -131,13 +131,13 @@ export const cases: CaseStudy[] = [
       "Added neighborhood guides that position their agents as the local experts.",
       "Wired lead capture straight into their CRM with instant agent routing.",
     ],
-    outcome: "The site now converts at 7.2% — well above brokerage benchmarks — with leads landing in front of agents in seconds.",
+    outcome: "The site now converts at 7.2%, well above brokerage benchmarks, with leads landing in front of agents in seconds.",
     metrics: [
       { label: "Lead conversion", value: "7.2%", sub: "above benchmark" },
       { label: "Listing views", value: "+118%", sub: "per session" },
       { label: "Speed to lead", value: "<10s", sub: "to agent inbox" },
     ],
-    quote: { text: "The site does the first showing for us. Leads arrive warm and organized — our agents love it.", who: "Dana W. — Broker / Owner" },
+    quote: { text: "The site does the first showing for us. Leads arrive warm and organized, our agents love it.", who: "Dana W., Broker / Owner" },
   },
 ];
 

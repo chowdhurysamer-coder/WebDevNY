@@ -26,20 +26,20 @@
 }
 
 .dark {
-  --c-paper: 26 20 15;
-  --c-paper-2: 33 26 19;
-  --c-paper-3: 44 35 26;
-  --c-ink: 243 236 221;
-  --c-ink-soft: 201 188 168;
-  --c-ink-faint: 142 130 112;
-  --c-kraft: 224 137 74;
-  --c-kraft-deep: 198 110 34;
-  --c-kraft-soft: 232 167 101;
-  --c-sky: 110 168 200;
-  --c-blush: 224 150 118;
-  --c-navy: 124 172 214;
-  --c-card-hi: 46 37 27;
-  --line: rgba(243,236,221,0.14);
+  --c-paper: 24 19 14;
+  --c-paper-2: 34 27 20;
+  --c-paper-3: 46 37 27;
+  --c-ink: 247 241 229;
+  --c-ink-soft: 214 203 184;
+  --c-ink-faint: 168 155 136;
+  --c-kraft: 230 146 84;
+  --c-kraft-deep: 205 118 40;
+  --c-kraft-soft: 236 176 116;
+  --c-sky: 120 176 208;
+  --c-blush: 228 158 126;
+  --c-navy: 132 180 222;
+  --c-card-hi: 50 40 29;
+  --line: rgba(247,241,229,0.18);
   --shadow: rgba(0,0,0,0.55);
   --grain-blend: screen;
   --grain-opacity: 0.03;
@@ -165,5 +165,10 @@ body {
 /* aurora dims in dark mode */
 .dark .aurora { filter: brightness(0.46) saturate(1.1) contrast(1.04); }
 
-@media (pointer: fine) { .cursor-none-fine { cursor: none; } }
+/* custom cursor replaces the native pointer everywhere on fine pointers */
+@media (pointer: fine) {
+  html, body { cursor: none; }
+  a, button, input, textarea, select, summary, label, [role="button"], [data-cursor], [data-cursor-label] { cursor: none; }
+  .cursor-none-fine { cursor: none; }
+}
 @media (prefers-reduced-motion: reduce) { .box-float, .marquee, .text-sunset, .grain { animation: none !important; } }

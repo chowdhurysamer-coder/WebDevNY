@@ -25,10 +25,12 @@ export default function Contact() {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
+  const [hp, setHp] = useState("");           // honeypot — humans never fill this
+  const startedAt = useState(() => Date.now())[0]; // submit-too-fast detector
   const [form, setForm] = useState(() => {
     if (quote) {
       const addons = quote.addons.length ? `\nAdd-ons: ${quote.addons.join(", ")}` : "";
-      const budgetMap: Record<string, string> = { Starter: "$2,499 — Starter", Growth: "$4,999 — Growth", Elite: "$9,999 — Elite" };
+      const budgetMap: Record<string, string> = { Starter: "$1,490, Starter", Growth: "$3,490, Growth", Elite: "$6,990, Elite" };
       return {
         name: "", email: "", business: "",
         budget: budgetMap[quote.tier] || "Custom / Enterprise",
@@ -38,6 +40,7 @@ export default function Contact() {
     return { name: "", email: "", business: "", budget: "", message: "" };
   });
 
+  const markSent = () => { try { localStorage.setItem("webdevny_last_submit", String(Date.now())); } catch { /* ignore */ } };
   const succeed = () => {
     setSent(true);
     sfx.chime();
@@ -47,15 +50,27 @@ export default function Contact() {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    if (!ENDPOINT) { succeed(); return; } // no backend configured → optimistic success
+
+    // Spam guard 1 — honeypot: a bot that filled the hidden field is silently "accepted"
+    // (we show success but never send).
+    if (hp.trim() !== "") { succeed(); return; }
+    // Spam guard 2 — too fast: real people take more than a couple seconds to fill this out.
+    if (Date.now() - startedAt < 2500) { setError("Please take a moment, then send again."); return; }
+    // Spam guard 3 — rate limit: one submission per 30s per browser.
+    try {
+      const last = Number(localStorage.getItem("webdevny_last_submit") || 0);
+      if (Date.now() - last < 30000) { setError("You just sent a message. Please wait a moment before sending another."); return; }
+    } catch { /* ignore */ }
+
+    if (!ENDPOINT) { markSent(); succeed(); return; } // no backend configured → optimistic success
     setSending(true);
     try {
       const res = await fetch(ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ ...form, _subject: `New project inquiry — ${form.business || form.name}` }),
+        body: JSON.stringify({ ...form, _subject: `New project inquiry, ${form.business || form.name}` }),
       });
-      if (res.ok) succeed();
+      if (res.ok) { markSent(); succeed(); }
       else { const d = await res.json().catch(() => ({})); setError(d?.errors?.[0]?.message || "Something went wrong. Please email us directly."); }
     } catch {
       setError("Network error. Please email hello@webdevny.com directly.");
@@ -80,7 +95,7 @@ export default function Contact() {
         {/* left */}
         <div>
           <p className="text-ink-soft text-lg leading-relaxed mb-10 max-w-sm">
-            Tell us about your project. We reply within 24 hours with a plan and a real quote — no automated drip, no runaround.
+            Tell us about your project. We reply within 24 hours with a plan and a real quote, no automated drip, no runaround.
           </p>
           <div className="flex flex-col gap-3 mb-12">
             {info.map((c) => (
@@ -115,9 +130,13 @@ export default function Contact() {
             </div>
           ) : (
             <form onSubmit={submit} className="flex flex-col gap-5">
+              {/* honeypot: hidden from people, tempting to bots */}
+              <input type="text" name="company_website" tabIndex={-1} autoComplete="off" value={hp}
+                onChange={(e) => setHp(e.target.value)} aria-hidden="true"
+                style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }} />
               {quote && (
                 <div className="card-paper-kraft p-5">
-                  <div className="mono-label text-paper/80 mb-2">Your estimate — carried over</div>
+                  <div className="mono-label text-paper/80 mb-2">Your estimate, carried over</div>
                   <div className="flex items-baseline gap-3">
                     <span className="display text-3xl font-semibold">${quote.total.toLocaleString()}</span>
                     <span className="mono-label text-paper/80">{quote.tier} · {quote.pages} pages · ~{quote.days} days</span>
@@ -143,9 +162,9 @@ export default function Contact() {
                 <span className="mono-label text-ink-faint block mb-2">Budget</span>
                 <select value={form.budget} onChange={(e) => setForm({ ...form, budget: e.target.value })} className={field}>
                   <option value="">Select a range</option>
-                  <option>$2,499 — Starter</option>
-                  <option>$4,999 — Growth</option>
-                  <option>$9,999 — Elite</option>
+                  <option>$2,499, Starter</option>
+                  <option>$4,999, Growth</option>
+                  <option>$9,999, Elite</option>
                   <option>Custom / Enterprise</option>
                 </select>
               </label>

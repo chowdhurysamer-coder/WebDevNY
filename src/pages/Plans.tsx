@@ -3,9 +3,9 @@ import { Reveal, FadeUp, SectionLabel, Magnetic } from "@/components/primitives"
 import { IconCheck, IconArrowUpRight, IconRefresh, IconShield, IconHeadset } from "@/components/icons";
 
 const features = [
-  { icon: IconRefresh, t: "Regular updates", d: "Dependencies, CMS, and plugins kept current and secure — quietly, in the background." },
+  { icon: IconRefresh, t: "Regular updates", d: "Dependencies, CMS, and plugins kept current and secure, quietly, in the background." },
   { icon: IconShield, t: "Security monitoring", d: "Daily scans, firewall rules, and a real response plan if anything ever looks off." },
-  { icon: IconHeadset, t: "Priority support", d: "Real people who already know your site — not a ticket number in a queue." },
+  { icon: IconHeadset, t: "Priority support", d: "Real people who already know your site, not a ticket number in a queue." },
 ];
 
 const plans = [
@@ -27,7 +27,7 @@ export default function Plans() {
           <span className="italic text-kraft"><Reveal text="Keep it that way." delay={0.15} /></span>
         </h1>
         <p className="text-ink-soft text-lg max-w-md leading-relaxed mt-8">
-          A launched site isn't a finished one. Our care plans keep yours fast, secure, and improving — without you lifting a finger.
+          A launched site isn't a finished one. Our care plans keep yours fast, secure, and improving, without you lifting a finger.
         </p>
       </section>
 

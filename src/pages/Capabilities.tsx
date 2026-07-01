@@ -4,12 +4,12 @@ import { CapabilityCube } from "@/components/CapabilityCube";
 import { IconLayers, IconTarget, IconChart, IconClock, IconTag, IconUsers } from "@/components/icons";
 
 const caps = [
-  { icon: IconLayers, n: "01", t: "Full-stack delivery", d: "Frontend, backend, CMS, hosting, email — one team ships the whole stack. No vendor ping-pong.", tags: ["React / Next.js", "Headless CMS", "Node APIs", "Edge hosting"] },
+  { icon: IconLayers, n: "01", t: "Full-stack delivery", d: "Frontend, backend, CMS, hosting, email, one team ships the whole stack. No vendor ping-pong.", tags: ["React / Next.js", "Headless CMS", "Node APIs", "Edge hosting"] },
   { icon: IconTarget, n: "02", t: "Conversion architecture", d: "Every page is built to move a visitor toward one action. Then we test until the numbers agree.", tags: ["Landing pages", "A/B testing", "CTA hierarchy", "Heatmaps"] },
-  { icon: IconChart, n: "03", t: "SEO & discoverability", d: "Technical SEO, local search, schema — so Google understands you and your neighbors find you.", tags: ["Technical audit", "Local SEO", "Schema markup", "Core Web Vitals"] },
+  { icon: IconChart, n: "03", t: "SEO & discoverability", d: "Technical SEO, local search, schema, so Google understands you and your neighbors find you.", tags: ["Technical audit", "Local SEO", "Schema markup", "Core Web Vitals"] },
   { icon: IconClock, n: "04", t: "Rapid turnaround", d: "First draft in 48 hours, live in under two weeks. We move fast without cutting the corners that matter.", tags: ["48h first draft", "2-week launch", "Async reviews", "Tight scope"] },
   { icon: IconTag, n: "05", t: "Flat-fee pricing", d: "One price per project, agreed before we start. No mystery retainers, no surprise invoices.", tags: ["Flat fee", "Clear scope", "Payment plans", "No lock-in"] },
-  { icon: IconUsers, n: "06", t: "Ongoing partnership", d: "After launch we're still your team — maintenance, updates, and strategy whenever you need it.", tags: ["Maintenance", "Content updates", "Strategy calls", "Priority support"] },
+  { icon: IconUsers, n: "06", t: "Ongoing partnership", d: "After launch we're still your team, maintenance, updates, and strategy whenever you need it.", tags: ["Maintenance", "Content updates", "Strategy calls", "Priority support"] },
 ];
 
 const verticals = [
@@ -30,7 +30,7 @@ export default function Capabilities() {
               <span className="italic text-kraft"><Reveal text="to the table." delay={0.15} /></span>
             </h1>
             <p className="text-ink-soft text-lg max-w-md leading-relaxed mt-8">
-              Six core capabilities that turn a web project into something that actually grows your business. Spin the model — every face is a discipline we own end to end.
+              Six core capabilities that turn a web project into something that actually grows your business. Spin the model, every face is a discipline we own end to end.
             </p>
           </div>
           <div className="card-paper p-2">

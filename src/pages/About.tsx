@@ -13,7 +13,7 @@ const stats = [
   { to: 150, suffix: "+", label: "Sites shipped" },
   { to: 11, suffix: " days", label: "Avg launch" },
   { to: 98, suffix: "%", label: "Retention" },
-  { to: 2024, suffix: "", label: "Est." },
+  { to: 2025, suffix: "", label: "Est." },
 ];
 
 export default function About() {
@@ -27,10 +27,10 @@ export default function About() {
         </h1>
         <div className="grid md:grid-cols-2 gap-8 mt-10">
           <p className="display text-[clamp(20px,2.4vw,30px)] leading-snug">
-            WebDev NY is a web design & development studio in New York. We build custom sites for local businesses that want to look — and perform — like the best in their category.
+            WebDev NY is a web design & development studio in New York. We build custom sites for local businesses that want to look, and perform, like the best in their category.
           </p>
           <p className="text-ink-soft leading-relaxed self-end">
-            No offshore assembly line, no template marketplace. Just a tight, senior team that designs, writes the code, and stays accountable for the result. We keep our roster small on purpose — it's how the work stays sharp.
+            No offshore assembly line, no template marketplace. Just a tight, senior team that designs, writes the code, and stays accountable for the result. We keep our roster small on purpose, it's how the work stays sharp.
           </p>
         </div>
       </section>
@@ -64,7 +64,7 @@ export default function About() {
       {/* how we work */}
       <section className="bg-paper-2 border-y border-line py-24">
         <div className="max-w-[1100px] mx-auto px-5 sm:px-8 text-center">
-          <Reveal as="h2" text="We're the whole team — design, code, and strategy under one roof." className="display text-[clamp(26px,4vw,52px)] font-semibold justify-center text-center max-w-3xl mx-auto mb-6" />
+          <Reveal as="h2" text="We're the whole team, design, code, and strategy under one roof." className="display text-[clamp(26px,4vw,52px)] font-semibold justify-center text-center max-w-3xl mx-auto mb-6" />
           <p className="text-ink-soft max-w-lg mx-auto">
             When you work with us, you talk to the people actually building your site. No account-manager telephone game, no handoffs to strangers.
           </p>
