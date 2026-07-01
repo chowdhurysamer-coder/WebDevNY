@@ -1,10 +1,19 @@
 import { Link } from "react-router-dom";
-import { IconArrowUpRight } from "@/components/icons";
+import { IconArrowUpRight, IconX, IconInstagram, IconLinkedin, IconDribbble } from "@/components/icons";
 import { LogoMark } from "@/components/Logo";
 import { Marquee } from "@/components/primitives";
+import { useLang } from "@/lib/i18n";
+
+const socials = [
+  { icon: IconX, label: "X", href: "https://x.com/" },
+  { icon: IconInstagram, label: "Instagram", href: "https://instagram.com/" },
+  { icon: IconLinkedin, label: "LinkedIn", href: "https://linkedin.com/" },
+  { icon: IconDribbble, label: "Dribbble", href: "https://dribbble.com/" },
+];
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const { t } = useLang();
   return (
     <footer className="bg-paper-3 text-ink relative overflow-hidden border-t border-ink">
       <div className="absolute inset-0 dotgrid opacity-50" />
@@ -25,13 +34,21 @@ export function Footer() {
               </span>
             </div>
             <p className="text-ink-soft text-sm leading-relaxed max-w-xs">
-              A web studio in New York. We design and build sites for businesses that take themselves seriously — and want a site that does too.
+              {t("footer.desc")}
             </p>
+            <div className="flex items-center gap-2 mt-5">
+              {socials.map((s) => (
+                <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label} data-cursor-label="↗"
+                  className="w-9 h-9 flex items-center justify-center border border-line hover:bg-ink hover:text-paper hover:border-ink transition-colors">
+                  <s.icon size={16} />
+                </a>
+              ))}
+            </div>
           </div>
 
           {[
-            { h: "Studio", items: [["Index", "/"], ["Design & Dev", "/web-design"], ["Capabilities", "/capabilities"], ["Portfolio", "/portfolio"]] },
-            { h: "Work", items: [["Previews", "/previews"], ["Analytics", "/analytics"], ["Pricing", "/pricing"], ["Journal", "/journal"]] },
+            { h: "Studio", items: [["About", "/about"], ["Design & Dev", "/web-design"], ["Capabilities", "/capabilities"], ["Portfolio", "/portfolio"]] },
+            { h: "Work", items: [["Previews", "/previews"], ["Analytics", "/analytics"], ["Pricing", "/pricing"], ["Journal", "/journal"], ["Explore all", "/explore"]] },
           ].map((col) => (
             <div key={col.h}>
               <div className="mono-label text-kraft mb-4">{col.h}</div>
@@ -60,7 +77,8 @@ export function Footer() {
           <span>© {year} WebDev NY — All rights reserved</span>
           <span className="flex items-center gap-4">
             <Link to="/privacy" className="hover:text-ink transition-colors">Privacy</Link>
-            <span>Built in-house · No templates</span>
+            <Link to="/terms" className="hover:text-ink transition-colors">Terms</Link>
+            <Link to="/explore" className="hover:text-ink transition-colors">Sitemap</Link>
           </span>
         </div>
       </div>

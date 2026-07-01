@@ -4,6 +4,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import { sfx } from "@/lib/sfx";
 import { IconSound, IconMute, IconArrowUpRight, IconSun, IconMoon } from "@/components/icons";
 import { Magnetic } from "@/components/primitives";
+import { useLang } from "@/lib/i18n";
+
+export function LangToggle() {
+  const { lang, setLang } = useLang();
+  const toggle = () => { setLang(lang === "en" ? "es" : "en"); sfx.tick(); };
+  return (
+    <button onClick={toggle} data-cursor-label={lang === "en" ? "ES" : "EN"} aria-label="Toggle language"
+      className="h-9 px-2.5 flex items-center justify-center border border-line hover:border-ink transition-colors mono-label text-ink-soft hover:text-ink">
+      {lang.toUpperCase()}
+    </button>
+  );
+}
 
 export function ThemeToggle() {
   const [dark, setDark] = useState(() => document.documentElement.classList.contains("dark"));

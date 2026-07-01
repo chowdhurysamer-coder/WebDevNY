@@ -5,6 +5,7 @@ import { SiteMock } from "@/components/SiteMock";
 import { Reveal, FadeUp, SectionLabel, Marquee, Magnetic, Counter, Parallax, TiltCard } from "@/components/primitives";
 import { RotatingStamp, WordmarkMarquee, TapeStrip } from "@/components/flourishes";
 import { IconArrowUpRight, IconArrow } from "@/components/icons";
+import { useLang } from "@/lib/i18n";
 
 const stats = [
   { to: 150, suffix: "+", label: "Sites shipped" },
@@ -31,6 +32,7 @@ const niches: { label: string; to?: string }[] = [
 ];
 
 export default function Home() {
+  const { t } = useLang();
   return (
     <div className="bg-paper">
       {/* ───────── HERO ───────── */}
@@ -41,7 +43,7 @@ export default function Home() {
 
         <div className="relative max-w-[1400px] w-full mx-auto px-5 sm:px-8 pb-14 pt-32">
           <div className="flex items-center justify-between mb-8">
-            <SectionLabel index="00">Web studio · New York</SectionLabel>
+            <SectionLabel index="00">{t("hero.eyebrow")}</SectionLabel>
             <span className="mono-label text-ink-soft hidden sm:block">Est. 2024 — 40.7° N, 74.0° W</span>
           </div>
 
@@ -58,16 +60,16 @@ export default function Home() {
           <div className="mt-10 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
             <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.7 }}
               className="text-ink-soft text-lg max-w-md leading-relaxed">
-              We design and build custom websites for New York businesses — fast, distinctive, and engineered to turn a click into a customer.
+              {t("hero.sub")}
             </motion.p>
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85, duration: 0.7 }} className="flex items-center gap-4">
               <Magnetic>
                 <Link to="/contact" data-cursor-label="GO" className="card-paper-kraft press inline-flex items-center gap-2 px-6 py-4 mono-label">
-                  Start a project <IconArrowUpRight size={15} />
+                  {t("hero.start")} <IconArrowUpRight size={15} />
                 </Link>
               </Magnetic>
               <Link to="/portfolio" className="inline-flex items-center gap-2 mono-label text-ink hover:text-kraft transition-colors link-draw">
-                See the work <IconArrow size={15} />
+                {t("hero.work")} <IconArrow size={15} />
               </Link>
             </motion.div>
           </div>
@@ -107,7 +109,7 @@ export default function Home() {
       {/* ───────── TRUSTED BY ───────── */}
       <section className="py-12 border-b border-line overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8 mb-6">
-          <SectionLabel index="·">Trusted by New York businesses</SectionLabel>
+          <SectionLabel index="·">{t("hero.trusted")}</SectionLabel>
         </div>
         <WordmarkMarquee />
       </section>

@@ -23,9 +23,13 @@ import Journal from "@/pages/Journal";
 import JournalPost from "@/pages/JournalPost";
 import Industry from "@/pages/Industry";
 import Privacy from "@/pages/Privacy";
+import Terms from "@/pages/Terms";
+import About from "@/pages/About";
+import Explore from "@/pages/Explore";
 import NotFound from "@/pages/NotFound";
 import { CookieConsent } from "@/components/CookieConsent";
 import { Analytics as GAnalytics } from "@/components/Analytics";
+import { LangProvider } from "@/lib/i18n";
 import { ConfettiLayer } from "@/components/Confetti";
 import { EasterEggs } from "@/components/EasterEggs";
 import { Seo } from "@/components/Seo";
@@ -94,6 +98,9 @@ function SiteLayout() {
             <Route path="/journal/:slug" element={<JournalPost />} />
             <Route path="/for/:slug" element={<Industry />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/explore" element={<Explore />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
@@ -116,6 +123,7 @@ export default function App() {
   };
 
   return (
+    <LangProvider>
     <HashRouter>
       <div className="grain" />
       <CustomCursor />
@@ -148,5 +156,6 @@ export default function App() {
         )}
       </AnimatePresence>
     </HashRouter>
+    </LangProvider>
   );
 }

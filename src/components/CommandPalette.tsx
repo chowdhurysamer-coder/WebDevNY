@@ -8,6 +8,8 @@ interface Cmd { label: string; hint: string; to: string; keys?: string }
 
 const commands: Cmd[] = [
   { label: "Home", hint: "Intro & overview", to: "/", keys: "index" },
+  { label: "About", hint: "Who we are", to: "/about", keys: "team studio story" },
+  { label: "Explore everything", hint: "Full sitemap", to: "/explore", keys: "sitemap map all pages" },
   { label: "Web Design & Development", hint: "What we make", to: "/web-design", keys: "design dev build" },
   { label: "Capabilities", hint: "What we bring", to: "/capabilities", keys: "services skills" },
   { label: "Portfolio", hint: "Selected work", to: "/portfolio", keys: "work projects" },

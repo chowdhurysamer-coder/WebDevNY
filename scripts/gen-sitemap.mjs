@@ -1,6 +1,6 @@
 import { writeFileSync } from 'fs';
 const BASE = 'https://chowdhurysamer-coder.github.io/WebDevNY/';
-const routes = ['', '#/web-design','#/capabilities','#/portfolio','#/previews','#/analytics','#/pricing','#/plans','#/journal','#/contact',
+const routes = ['', '#/about','#/web-design','#/capabilities','#/portfolio','#/previews','#/analytics','#/pricing','#/plans','#/journal','#/contact','#/explore','#/privacy','#/terms',
   '#/for/restaurants','#/for/dentists','#/for/gyms','#/for/salons','#/for/lawyers','#/for/real-estate',
   '#/work/trattoria-bella','#/work/brightsmile-dental','#/work/ironworks-gym','#/work/maison-salon','#/work/park-ave-legal','#/work/hudson-realty',
   '#/journal/why-flat-fee','#/journal/speed-is-a-feature','#/journal/local-seo-playbook','#/journal/templates-vs-custom'];

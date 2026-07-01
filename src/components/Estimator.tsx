@@ -3,22 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { IconCheck, IconArrowUpRight } from "@/components/icons";
 import { Magnetic } from "@/components/primitives";
-
-type Tier = "Starter" | "Growth" | "Elite";
-const tiers: Record<Tier, { base: number; pagesIncl: number; days: number }> = {
-  Starter: { base: 2499, pagesIncl: 5, days: 7 },
-  Growth: { base: 4999, pagesIncl: 12, days: 12 },
-  Elite: { base: 9999, pagesIncl: 30, days: 24 },
-};
-
-const addons = [
-  { id: "ecom", label: "E-commerce / store", price: 1800, days: 6 },
-  { id: "booking", label: "Booking / scheduling", price: 900, days: 3 },
-  { id: "cms", label: "Blog / CMS", price: 700, days: 2 },
-  { id: "seo", label: "Advanced SEO package", price: 600, days: 2 },
-  { id: "brand", label: "Brand & logo design", price: 1500, days: 5 },
-  { id: "copy", label: "Copywriting", price: 800, days: 3 },
-];
+import { TIERS as tiers, ADDONS as addons, computeQuote, type Tier } from "@/lib/pricing";
 
 function useAnimatedNumber(value: number) {
   const [display, setDisplay] = useState(value);
@@ -45,14 +30,7 @@ export function Estimator() {
 
   const toggle = (id: string) => setSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
 
-  const { total, days } = useMemo(() => {
-    const t = tiers[tier];
-    const extraPages = Math.max(0, pages - t.pagesIncl);
-    let total = t.base + extraPages * 220;
-    let days = t.days + Math.ceil(extraPages / 3);
-    for (const a of addons) if (selected.includes(a.id)) { total += a.price; days += a.days; }
-    return { total, days };
-  }, [tier, pages, selected]);
+  const { total, days } = useMemo(() => computeQuote(tier, pages, selected), [tier, pages, selected]);
 
   const animTotal = useAnimatedNumber(total);
 

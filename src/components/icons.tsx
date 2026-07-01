@@ -101,3 +101,15 @@ export const IconSun = ({ className, size }: P) => (
 export const IconMoon = ({ className, size }: P) => (
   <svg {...base(size)} className={className}><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></svg>
 );
+export const IconX = ({ className, size }: P) => (
+  <svg {...base(size)} className={className}><path d="M4 4l16 16M20 4L4 20" /></svg>
+);
+export const IconInstagram = ({ className, size }: P) => (
+  <svg {...base(size)} className={className}><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17" cy="7" r="0.6" fill="currentColor" /></svg>
+);
+export const IconLinkedin = ({ className, size }: P) => (
+  <svg {...base(size)} className={className}><rect x="3.5" y="3.5" width="17" height="17" rx="3" /><path d="M8 10.5V17M8 7.5v.01M12 17v-3.5a2 2 0 0 1 4 0V17" /></svg>
+);
+export const IconDribbble = ({ className, size }: P) => (
+  <svg {...base(size)} className={className}><circle cx="12" cy="12" r="8.5" /><path d="M5 8.5c4 .5 9 .3 12.5-2M8.5 20c1.5-6 1.2-11-2-15.5M20 13c-6-1.5-11 .5-13.5 5" /></svg>
+);

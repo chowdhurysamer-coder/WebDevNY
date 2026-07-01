@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://chowdhurysamer-coder.github.io/WebDevNY/</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://chowdhurysamer-coder.github.io/WebDevNY/#/about</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://chowdhurysamer-coder.github.io/WebDevNY/#/web-design</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://chowdhurysamer-coder.github.io/WebDevNY/#/capabilities</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://chowdhurysamer-coder.github.io/WebDevNY/#/portfolio</loc><changefreq>monthly</changefreq></url>
@@ -10,6 +11,9 @@
   <url><loc>https://chowdhurysamer-coder.github.io/WebDevNY/#/plans</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://chowdhurysamer-coder.github.io/WebDevNY/#/journal</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://chowdhurysamer-coder.github.io/WebDevNY/#/contact</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://chowdhurysamer-coder.github.io/WebDevNY/#/explore</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://chowdhurysamer-coder.github.io/WebDevNY/#/privacy</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://chowdhurysamer-coder.github.io/WebDevNY/#/terms</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://chowdhurysamer-coder.github.io/WebDevNY/#/for/restaurants</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://chowdhurysamer-coder.github.io/WebDevNY/#/for/dentists</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://chowdhurysamer-coder.github.io/WebDevNY/#/for/gyms</loc><changefreq>monthly</changefreq></url>
