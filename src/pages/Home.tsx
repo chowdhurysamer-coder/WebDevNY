@@ -8,27 +8,27 @@ import { IconArrowUpRight, IconArrow } from "@/components/icons";
 import { useLang } from "@/lib/i18n";
 
 const stats = [
-  { to: 150, suffix: "+", label: "Sites shipped" },
-  { to: 98, suffix: "%", label: "Client retention" },
-  { to: 3.2, suffix: "×", label: "Avg traffic lift" },
-  { to: 11, suffix: " days", label: "Avg time to launch" },
+  { to: 150, suffix: "+", key: "home.stat.sites" },
+  { to: 98, suffix: "%", key: "home.stat.retention" },
+  { to: 3.2, suffix: "×", key: "home.stat.lift" },
+  { to: 11, suffixKey: "home.stat.days", key: "home.stat.launch" },
 ];
 
 const services = [
-  { n: "01", t: "Web Design", d: "Brand-led interfaces designed in-house, pixel by pixel. No themes, no page builders.", to: "/web-design" },
-  { n: "02", t: "Development", d: "Hand-written React. Fast, accessible, and built to outlast the next redesign.", to: "/web-design" },
-  { n: "03", t: "SEO Foundation", d: "Technical SEO, local search, schema, baked in from the first commit.", to: "/capabilities" },
-  { n: "04", t: "Analytics", d: "We instrument everything, then read the numbers back to you in plain English.", to: "/analytics" },
+  { n: "01", tKey: "home.svc.webdesign", dKey: "home.svc.webdesign.d", to: "/web-design" },
+  { n: "02", tKey: "term.development", dKey: "home.svc.dev.d", to: "/web-design" },
+  { n: "03", tKey: "home.svc.seo", dKey: "home.svc.seo.d", to: "/capabilities" },
+  { n: "04", tKey: "term.analytics", dKey: "home.svc.analytics.d", to: "/analytics" },
 ];
 
-const niches: { label: string; to?: string }[] = [
-  { label: "Restaurants", to: "/for/restaurants" },
-  { label: "Dental", to: "/for/dentists" },
-  { label: "Fitness", to: "/for/gyms" },
-  { label: "Salons", to: "/for/salons" },
-  { label: "Legal", to: "/for/lawyers" },
-  { label: "Real Estate", to: "/for/real-estate" },
-  { label: "Medical" }, { label: "E-commerce" }, { label: "Home Services" }, { label: "Hospitality" },
+const niches: { key: string; to?: string }[] = [
+  { key: "term.restaurants", to: "/for/restaurants" },
+  { key: "term.dental", to: "/for/dentists" },
+  { key: "term.fitness", to: "/for/gyms" },
+  { key: "term.salons", to: "/for/salons" },
+  { key: "term.legal", to: "/for/lawyers" },
+  { key: "term.realestate", to: "/for/real-estate" },
+  { key: "term.medical" }, { key: "term.ecommerce" }, { key: "term.homeservices" }, { key: "term.hospitality" },
 ];
 
 export default function Home() {
@@ -83,17 +83,17 @@ export default function Home() {
 
       {/* ───────── MARQUEE ───────── */}
       <section className="border-y border-ink bg-kraft text-paper py-5">
-        <Marquee items={["Design", "Development", "SEO", "Analytics", "Branding", "Maintenance"]} />
+        <Marquee items={[t("term.design"), t("term.development"), t("term.seo"), t("term.analytics"), t("term.branding"), t("term.maintenance")]} />
       </section>
 
       {/* ───────── STATS ───────── */}
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-20 grid grid-cols-2 lg:grid-cols-4 border-b border-line">
         {stats.map((s, i) => (
-          <FadeUp key={s.label} delay={i * 0.08} className={`px-2 py-6 ${i !== 0 ? "lg:border-l border-line" : ""}`}>
+          <FadeUp key={s.key} delay={i * 0.08} className={`px-2 py-6 ${i !== 0 ? "lg:border-l border-line" : ""}`}>
             <div className="display text-[clamp(44px,7vw,84px)] font-semibold leading-none">
-              <Counter to={s.to} suffix={s.suffix} />
+              <Counter to={s.to} suffix={s.suffix ?? t(s.suffixKey!)} />
             </div>
-            <div className="mono-label text-ink-faint mt-3">{s.label}</div>
+            <div className="mono-label text-ink-faint mt-3">{t(s.key)}</div>
           </FadeUp>
         ))}
       </section>
@@ -110,10 +110,10 @@ export default function Home() {
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-24">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
           <div>
-            <SectionLabel index="01" className="mb-5">What we do</SectionLabel>
-            <Reveal as="h2" text="A studio, not a factory." className="display text-[clamp(32px,5.5vw,72px)] font-semibold" />
+            <SectionLabel index="01" className="mb-5">{t("home.what")}</SectionLabel>
+            <Reveal as="h2" text={t("home.studioNotFactory")} className="display text-[clamp(32px,5.5vw,72px)] font-semibold" />
           </div>
-          <p className="text-ink-soft max-w-sm">Four disciplines, one team. Every project runs through all of them, no handoffs to strangers.</p>
+          <p className="text-ink-soft max-w-sm">{t("home.disciplines")}</p>
         </div>
 
         <div className="border-t border-ink">
@@ -121,8 +121,8 @@ export default function Home() {
             <motion.div key={s.n} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
               <Link to={s.to} className="group grid grid-cols-1 md:grid-cols-[80px_1fr_1.2fr_auto] gap-4 md:gap-8 items-baseline border-b border-line py-7 hover:bg-paper-2 transition-colors -mx-3 px-3">
                 <span className="mono-label text-kraft">{s.n}</span>
-                <h3 className="display text-[clamp(28px,3.5vw,46px)] font-semibold group-hover:text-kraft transition-colors">{s.t}</h3>
-                <p className="text-ink-soft text-sm leading-relaxed max-w-md">{s.d}</p>
+                <h3 className="display text-[clamp(28px,3.5vw,46px)] font-semibold group-hover:text-kraft transition-colors">{t(s.tKey)}</h3>
+                <p className="text-ink-soft text-sm leading-relaxed max-w-md">{t(s.dKey)}</p>
                 <IconArrowUpRight size={24} className="justify-self-end opacity-30 group-hover:opacity-100 group-hover:text-kraft group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
               </Link>
             </motion.div>
@@ -136,11 +136,11 @@ export default function Home() {
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8 mt-6">
           <div className="flex items-end justify-between mb-12">
             <div>
-              <SectionLabel index="02" className="mb-5">Selected work</SectionLabel>
-              <Reveal as="h2" text="Built for real businesses." className="display text-[clamp(30px,5vw,64px)] font-semibold" />
+              <SectionLabel index="02" className="mb-5">{t("home.selectedWork")}</SectionLabel>
+              <Reveal as="h2" text={t("home.builtForReal")} className="display text-[clamp(30px,5vw,64px)] font-semibold" />
             </div>
             <Link to="/portfolio" className="hidden sm:inline-flex items-center gap-2 mono-label text-ink hover:text-kraft transition-colors">
-              All projects <IconArrowUpRight size={15} />
+              {t("cta.allProjects")} <IconArrowUpRight size={15} />
             </Link>
           </div>
         </div>
@@ -166,23 +166,23 @@ export default function Home() {
 
       {/* ───────── NICHES ───────── */}
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-24">
-        <SectionLabel index="03" className="mb-6">Industries we know cold</SectionLabel>
+        <SectionLabel index="03" className="mb-6">{t("home.industriesCold")}</SectionLabel>
         <div className="flex flex-wrap gap-3">
           {niches.map((n, i) => (
-            <motion.div key={n.label}
+            <motion.div key={n.key}
               initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.04 }}>
               {n.to ? (
                 <Link to={n.to} data-cursor-label="OPEN" className="card-paper press px-5 py-3 mono-label flex items-center gap-2 group">
-                  {n.label} <IconArrowUpRight size={13} className="opacity-40 group-hover:opacity-100 group-hover:text-kraft transition-all" />
+                  {t(n.key)} <IconArrowUpRight size={13} className="opacity-40 group-hover:opacity-100 group-hover:text-kraft transition-all" />
                 </Link>
               ) : (
-                <span className="card-paper px-5 py-3 mono-label inline-block opacity-70 cursor-default">{n.label}</span>
+                <span className="card-paper px-5 py-3 mono-label inline-block opacity-70 cursor-default">{t(n.key)}</span>
               )}
             </motion.div>
           ))}
         </div>
         <p className="text-ink-soft max-w-lg mt-8">
-          We don't do "any industry, any time." We go deep on a handful of verticals so you get a partner who already speaks your customer's language.
+          {t("home.nichesNote")}
         </p>
       </section>
 
@@ -191,11 +191,11 @@ export default function Home() {
         <div className="card-paper-kraft p-10 sm:p-16 text-center relative overflow-hidden">
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)", backgroundSize: "32px 32px" }} />
           <div className="relative">
-            <SectionLabel index="·" className="justify-center text-paper/80 mb-6">Ready when you are</SectionLabel>
-            <Reveal as="h2" text="Let's put your business in a box worth opening." className="display text-[clamp(32px,5.5vw,76px)] font-semibold justify-center text-center max-w-3xl mx-auto" />
+            <SectionLabel index="·" className="justify-center text-paper/80 mb-6">{t("home.readyWhen")}</SectionLabel>
+            <Reveal as="h2" text={t("home.boxWorthOpening")} className="display text-[clamp(32px,5.5vw,76px)] font-semibold justify-center text-center max-w-3xl mx-auto" />
             <Magnetic className="mt-10 inline-block">
               <Link to="/contact" data-cursor-label="GO" className="inline-flex items-center gap-2 bg-ink text-paper px-8 py-4 mono-label press">
-                Book a free call <IconArrowUpRight size={15} />
+                {t("cta.bookCall")} <IconArrowUpRight size={15} />
               </Link>
             </Magnetic>
           </div>
