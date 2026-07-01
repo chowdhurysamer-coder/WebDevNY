@@ -3,8 +3,10 @@ import { motion } from "framer-motion";
 import { Magnetic } from "@/components/primitives";
 import { BoxCatchGame } from "@/components/BoxCatchGame";
 import { IconArrowUpRight, IconArrow } from "@/components/icons";
+import { useLang } from "@/lib/i18n";
 
 export default function NotFound() {
+  const { t } = useLang();
   return (
     <div className="bg-paper min-h-screen flex flex-col items-center justify-center px-5 pt-24 pb-16 relative overflow-hidden">
       <div className="absolute inset-0 dotgrid opacity-40" />
@@ -25,17 +27,17 @@ export default function NotFound() {
           </svg>
         </motion.div>
 
-        <div className="mono-label text-kraft mb-3">Error 404</div>
-        <h1 className="display text-[clamp(40px,9vw,90px)] font-semibold tracking-tightest mb-5">This box is empty.</h1>
-        <p className="text-ink-soft mb-10">The page you're looking for got lost in shipping. Let's get you back to something real.</p>
+        <div className="mono-label text-kraft mb-3">{t("nf.error")}</div>
+        <h1 className="display text-[clamp(40px,9vw,90px)] font-semibold tracking-tightest mb-5">{t("nf.h1")}</h1>
+        <p className="text-ink-soft mb-10">{t("nf.sub")}</p>
         <div className="flex flex-wrap items-center justify-center gap-4">
           <Magnetic>
             <Link to="/" data-cursor-label="HOME" className="card-paper-kraft press inline-flex items-center gap-2 px-6 py-4 mono-label">
-              Back home <IconArrowUpRight size={15} />
+              {t("nf.home")} <IconArrowUpRight size={15} />
             </Link>
           </Magnetic>
           <Link to="/portfolio" className="inline-flex items-center gap-2 mono-label hover:text-kraft transition-colors link-draw">
-            <IconArrow size={15} className="rotate-180" /> See the work
+            <IconArrow size={15} className="rotate-180" /> {t("hero.work")}
           </Link>
         </div>
       </div>
