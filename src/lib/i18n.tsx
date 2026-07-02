@@ -30,6 +30,23 @@ export const LANGS: LangMeta[] = [
 const RTL: Lang[] = ["ar", "yi"];
 
 /**
+ * Per-locale digit glyphs, index 0–9. Only locales whose script uses its own
+ * numerals are listed; everything else keeps Western digits (0-9). `num()`
+ * rewrites the digits in any string so counters, clocks, prices, phone
+ * numbers, etc. read natively.
+ */
+const NUMERALS: Partial<Record<Lang, string[]>> = {
+  bn: ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"],
+  ar: ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"],
+};
+
+export function localizeDigits(input: string | number, lang: Lang): string {
+  const s = String(input);
+  const g = NUMERALS[lang];
+  return g ? s.replace(/[0-9]/g, (d) => g[+d]) : s;
+}
+
+/**
  * Brand wordmark per language. Latin-script languages keep "WebDev".
  * Non-Latin scripts get a phonetic transliteration that *sounds* like
  * "WebDev" rather than a translation of the words.
@@ -46,8 +63,8 @@ export const BRAND: Record<Lang, string> = {
 };
 
 
-interface Ctx { lang: Lang; setLang: (l: Lang) => void; t: (key: string) => string; brand: string; rtl: boolean }
-const LangContext = createContext<Ctx>({ lang: "en", setLang: () => {}, t: (k) => k, brand: "WebDev", rtl: false });
+interface Ctx { lang: Lang; setLang: (l: Lang) => void; t: (key: string) => string; num: (v: string | number) => string; brand: string; rtl: boolean }
+const LangContext = createContext<Ctx>({ lang: "en", setLang: () => {}, t: (k) => k, num: (v) => String(v), brand: "WebDev", rtl: false });
 
 export function LangProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>(() => {
@@ -68,8 +85,9 @@ export function LangProvider({ children }: { children: React.ReactNode }) {
     if (!e) return key;
     return e[lang] ?? e.en;
   }, [lang]);
+  const num = useCallback((v: string | number) => localizeDigits(v, lang), [lang]);
   return (
-    <LangContext.Provider value={{ lang, setLang, t, brand: BRAND[lang], rtl: RTL.includes(lang) }}>
+    <LangContext.Provider value={{ lang, setLang, t, num, brand: BRAND[lang], rtl: RTL.includes(lang) }}>
       {children}
     </LangContext.Provider>
   );

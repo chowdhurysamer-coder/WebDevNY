@@ -1,6 +1,7 @@
 import * as React from "react";
 import { motion, useInView, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useLang } from "@/lib/i18n";
 
 /* ---------------- 3D tilt card ---------------- */
 export function TiltCard({ children, className, max = 9 }: { children: React.ReactNode; className?: string; max?: number }) {
@@ -154,6 +155,7 @@ export function Counter({ to, suffix = "", prefix = "", duration = 1.6, classNam
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, [inView, to, duration]);
+  const { num } = useLang();
   const display = Number.isInteger(to) ? Math.round(val).toString() : val.toFixed(1);
-  return <span ref={ref} className={className}>{prefix}{display}{suffix}</span>;
+  return <span ref={ref} className={className}>{prefix}{num(display)}{suffix}</span>;
 }

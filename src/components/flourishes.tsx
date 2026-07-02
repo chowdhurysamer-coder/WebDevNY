@@ -1,6 +1,7 @@
 import * as React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useLang } from "@/lib/i18n";
 
 /* ---------------- Rotating circular stamp ---------------- */
 export function RotatingStamp({ text = "WEBDEV NY · WEB STUDIO · NYC · ", size = 130, className, reverse, children }: {
@@ -35,6 +36,7 @@ export function TapeStrip({ label = "WEBDEV NY", rotate = -1.4, className }: { l
 
 /* ---------------- Live NYC clock ---------------- */
 export function LiveClock() {
+  const { num } = useLang();
   const [time, setTime] = React.useState("");
   React.useEffect(() => {
     const tick = () => {
@@ -45,7 +47,7 @@ export function LiveClock() {
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
   }, []);
-  return <span className="tabular-nums">{time}</span>;
+  return <span className="tabular-nums">{num(time)}</span>;
 }
 
 /* ---------------- Wordmark marquee (fake client logos) ---------------- */
