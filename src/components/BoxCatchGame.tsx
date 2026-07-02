@@ -6,7 +6,7 @@ import { useLang } from "@/lib/i18n";
 type Bulb = { x: number; y: number; v: number; r: number; vr: number; missed?: boolean };
 
 export function BoxCatchGame() {
-  const { num } = useLang();
+  const { t, num } = useLang();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [running, setRunning] = useState(false);
   const [score, setScore] = useState(0);
@@ -127,8 +127,8 @@ export function BoxCatchGame() {
   return (
     <div className="card-paper overflow-hidden select-none" data-cursor-label={running ? "MOVE" : undefined}>
       <div className="flex items-center justify-between px-4 py-2.5 border-b border-line">
-        <span className="mono-label text-ink-soft">Catch the ideas, a little game while you're here</span>
-        <span className="mono-label text-ink-faint">Best {num(best)}</span>
+        <span className="mono-label text-ink-soft">{t("game.tagline")}</span>
+        <span className="mono-label text-ink-faint">{t("game.best")} {num(best)}</span>
       </div>
       <div className="relative" style={{ height: 320 }}>
         <canvas ref={canvasRef} className="w-full h-full block cursor-none-fine" />
@@ -145,14 +145,14 @@ export function BoxCatchGame() {
             <div className="text-center">
               {score > 0 ? (
                 <>
-                  <div className="display text-4xl font-semibold mb-1">{num(score)} caught</div>
-                  <div className="mono-label text-ink-faint mb-5">{score >= best && score > 0 ? "New best!" : `Best ${num(best)}`}</div>
+                  <div className="display text-4xl font-semibold mb-1">{num(score)} {t("game.caught")}</div>
+                  <div className="mono-label text-ink-faint mb-5">{score >= best && score > 0 ? t("game.newBest") : `${t("game.best")} ${num(best)}`}</div>
                 </>
               ) : (
-                <div className="mono-label text-ink-soft mb-5">Move the box · catch the falling light bulbs</div>
+                <div className="mono-label text-ink-soft mb-5">{t("game.instructions")}</div>
               )}
               <button onClick={start} data-cursor-label="PLAY" className="card-paper-kraft press px-6 py-3 mono-label">
-                {score > 0 ? "Play again" : "Play"}
+                {score > 0 ? t("game.playAgain") : t("game.play")}
               </button>
             </div>
           </div>
