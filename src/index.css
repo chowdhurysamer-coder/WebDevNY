@@ -216,4 +216,19 @@ a, button, [role="button"], input, select, textarea, label, summary {
      (e.g. iPad + keyboard, switch access). Only appears during keyboard
      navigation, never on tap, and never on the fine-pointer desktop UI. */
   :focus-visible { outline: 2px solid rgb(var(--c-kraft)); outline-offset: 2px; border-radius: 1px; }
+
+  /* Home "what we do" rows read as plain text on touch (their cue is a
+     hover bg + fading arrow). Give them a soft button surface and a solid
+     kraft arrow so each row is obviously tappable. Desktop is untouched. */
+  .svc-link { background: rgb(var(--c-paper-2) / 0.55); }
+  .svc-link:active { background: rgb(var(--c-paper-3) / 0.7); }
+  .svc-arrow { opacity: 1; color: rgb(var(--c-kraft)); }
+
+  /* Portfolio cards are hover-to-reveal on desktop; on touch swap the hidden
+     hover arrow for a persistent "View" cue so the tiles read as tappable. */
+  .no-touch { display: none !important; }
+  .touch-cta { display: inline-flex !important; }
 }
+
+/* Touch-only element, hidden by default (shown inside the hover:none block). */
+.touch-cta { display: none; }

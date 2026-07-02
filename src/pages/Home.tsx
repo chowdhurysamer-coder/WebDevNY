@@ -36,12 +36,12 @@ export default function Home() {
   return (
     <div className="bg-paper">
       {/* ───────── HERO ───────── */}
-      <section className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden">
+      <section className="relative min-h-[82svh] lg:min-h-[100svh] flex flex-col justify-end overflow-hidden">
         <Aurora className="aurora absolute inset-0 w-full h-full" />
         <div className="absolute inset-0 dotgrid opacity-40 pointer-events-none" />
         <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgb(var(--c-paper) / 0.55) 0%, rgb(var(--c-paper) / 0.15) 30%, rgb(var(--c-paper) / 0.4) 62%, rgb(var(--c-paper) / 0.9) 100%)" }} />
 
-        <div className="relative max-w-[1400px] w-full mx-auto px-5 sm:px-8 pb-14 pt-32">
+        <div className="relative max-w-[1400px] w-full mx-auto px-5 sm:px-8 pb-14 pt-24 lg:pt-32">
           <div className="flex items-center justify-between mb-8">
             <SectionLabel index="00">{t("hero.eyebrow")}</SectionLabel>
             <span className="mono-label text-ink-soft hidden sm:block">{num("Est. 2025")}</span>
@@ -116,11 +116,11 @@ export default function Home() {
         <div className="border-t border-ink">
           {services.map((s, i) => (
             <motion.div key={s.n} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
-              <Link to={s.to} className="group grid grid-cols-1 md:grid-cols-[80px_1fr_1.2fr_auto] gap-4 md:gap-8 items-baseline border-b border-line py-7 hover:bg-paper-2 transition-colors -mx-3 px-3">
+              <Link to={s.to} className="svc-link group grid grid-cols-1 md:grid-cols-[80px_1fr_1.2fr_auto] gap-4 md:gap-8 items-baseline border-b border-line py-7 hover:bg-paper-2 transition-colors -mx-3 px-3">
                 <span className="mono-label text-kraft">{num(s.n)}</span>
                 <h3 className="display text-[clamp(28px,3.5vw,46px)] font-semibold group-hover:text-kraft transition-colors">{t(s.tKey)}</h3>
                 <p className="text-ink-soft text-sm leading-relaxed max-w-md">{t(s.dKey)}</p>
-                <IconArrowUpRight size={24} className="justify-self-end opacity-30 group-hover:opacity-100 group-hover:text-kraft group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
+                <IconArrowUpRight size={24} className="svc-arrow justify-self-end opacity-30 group-hover:opacity-100 group-hover:text-kraft group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
               </Link>
             </motion.div>
           ))}

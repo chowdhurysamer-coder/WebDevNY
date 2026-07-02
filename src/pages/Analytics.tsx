@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Reveal, FadeUp, SectionLabel, Counter } from "@/components/primitives";
@@ -22,10 +23,22 @@ const tools: [string, string][] = [
   ["an.t6.t", "an.t6.d"],
 ];
 
-const bars = [40, 55, 35, 70, 85, 60, 90, 75, 88, 65, 92, 80];
+// The dashboard's Weekly / Monthly toggle swaps between these two datasets.
+const DASH = {
+  monthly: {
+    bars: [40, 55, 35, 70, 85, 60, 90, 75, 88, 65, 92, 80],
+    metrics: [["an.sessions", "12,481", "+24%"], ["an.conversions", "423", "+41%"], ["an.revenue", "$18,200", "+67%"], ["an.bounce", "28%", "−12%"]],
+  },
+  weekly: {
+    bars: [52, 44, 68, 60, 80, 72, 90],
+    metrics: [["an.sessions", "3,120", "+9%"], ["an.conversions", "112", "+15%"], ["an.revenue", "$4,750", "+22%"], ["an.bounce", "31%", "−6%"]],
+  },
+} as const;
+type Period = keyof typeof DASH;
 
 export default function Analytics() {
   const { t, num } = useLang();
+  const [period, setPeriod] = useState<Period>("monthly");
   return (
     <div className="bg-paper pt-16">
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 pt-20 pb-14 border-b border-line">
@@ -60,29 +73,33 @@ export default function Analytics() {
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
           <SectionLabel index="·" className="mb-8">{t("an.dashLook")}</SectionLabel>
           <div className="card-paper p-6 sm:p-8">
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-8 max-lg:flex-col max-lg:items-start max-lg:gap-4">
               <div>
                 <div className="display text-2xl font-semibold">{t("an.sitePerf")}</div>
-                <div className="mono-label text-ink-faint mt-1">{t("an.last30")}</div>
+                <div className="mono-label text-ink-faint mt-1">{t(period === "monthly" ? "an.last30" : "an.last7")}</div>
               </div>
               <div className="flex gap-2">
-                <span className="mono-label border border-line px-3 py-1.5 text-ink-faint">{t("an.weekly")}</span>
-                <span className="mono-label bg-kraft text-paper px-3 py-1.5">{t("an.monthly")}</span>
+                {(["weekly", "monthly"] as Period[]).map((pk) => (
+                  <button key={pk} onClick={() => setPeriod(pk)} data-cursor-label="VIEW" aria-pressed={period === pk}
+                    className={`mono-label px-3 py-1.5 max-lg:px-4 max-lg:py-2.5 transition-colors ${period === pk ? "bg-kraft text-paper" : "border border-line text-ink-faint"}`}>
+                    {t(pk === "weekly" ? "an.weekly" : "an.monthly")}
+                  </button>
+                ))}
               </div>
             </div>
             <div className="flex items-end gap-1.5 sm:gap-3 h-40 mb-8">
-              {bars.map((h, i) => (
+              {DASH[period].bars.map((h, i) => (
                 <motion.div
-                  key={i}
-                  initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true }}
-                  transition={{ delay: i * 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  key={period + "-" + i}
+                  initial={{ scaleY: 0 }} animate={{ scaleY: 1 }}
+                  transition={{ delay: i * 0.04, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                   style={{ height: `${h}%`, originY: 1 }}
                   className="flex-1 bg-gradient-to-t from-kraft to-kraft-soft"
                 />
               ))}
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border border-line">
-              {[["an.sessions", "12,481", "+24%"], ["an.conversions", "423", "+41%"], ["an.revenue", "$18,200", "+67%"], ["an.bounce", "28%", "−12%"]].map(([l, v, c]) => (
+              {DASH[period].metrics.map(([l, v, c]) => (
                 <div key={l} className="bg-paper p-5">
                   <div className="mono-label text-ink-faint mb-2">{t(l)}</div>
                   <div className="display text-2xl font-semibold">{num(v)}</div>

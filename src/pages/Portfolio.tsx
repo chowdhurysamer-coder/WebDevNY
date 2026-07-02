@@ -94,7 +94,10 @@ export default function Portfolio() {
                   <SiteMock variant={p.v} className="w-full" />
                   <div className="flex items-center justify-between px-4 py-3 border-t border-line">
                     <span className="mono-label text-ink-soft">{t(p.catKey)}</span>
-                    <IconArrowUpRight size={16} className="text-kraft opacity-0 group-hover:opacity-100 transition-opacity" />
+                    {/* desktop: hover-reveal arrow (unchanged) */}
+                    <IconArrowUpRight size={16} className="no-touch text-kraft opacity-0 group-hover:opacity-100 transition-opacity" />
+                    {/* touch: persistent "View" cue so the tile reads as tappable */}
+                    <span className="touch-cta items-center gap-1.5 mono-label text-kraft">{t("pf.view")} <IconArrowUpRight size={14} /></span>
                   </div>
                 </div>
                 <div className="flex items-baseline justify-between mt-3">

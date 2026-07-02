@@ -531,6 +531,7 @@ export const dict: Record<string, Entry> = {
   "pf.close": { en: "Close", es: "Cerrar", zh: "关闭", yue: "關閉", ru: "Закрыть", yi: "פֿאַרמאַכן", bn: "বন্ধ", ko: "닫기", ht: "Fèmen", it: "Chiudi", ar: "إغلاق", pl: "Zamknij" },
   "pf.outcome": { en: "Outcome", es: "Resultado", zh: "成果", yue: "成果", ru: "Результат", yi: "רעזולטאַט", bn: "ফলাফল", ko: "결과", ht: "Rezilta", it: "Risultato", ar: "النتيجة", pl: "Wynik" },
   "pf.readCase": { en: "Read the full case study", es: "Leer el caso completo", zh: "阅读完整案例研究", yue: "閱讀完整案例研究", ru: "Читать полный кейс", yi: "לייען דעם פֿולן פֿאַל-שטודיע", bn: "সম্পূর্ণ কেস স্টাডি পড়ুন", ko: "전체 사례 연구 보기", ht: "Li etid ka konplè a", it: "Leggi il caso studio completo", ar: "اقرأ دراسة الحالة كاملة", pl: "Przeczytaj pełne studium przypadku" },
+  "pf.view": { en: "View", es: "Ver", zh: "查看", yue: "睇", ru: "Открыть", yi: "זען", bn: "দেখুন", ko: "보기", ht: "Gade", it: "Vedi", ar: "عرض", pl: "Zobacz" },
 
   // ─────────────────────────── 404 ───────────────────────────
   "nf.error": { en: "Error 404", es: "Error 404", zh: "错误 404", yue: "錯誤 404", ru: "Ошибка 404", yi: "טעות 404", bn: "ত্রুটি ৪০৪", ko: "오류 404", ht: "Erè 404", it: "Errore 404", ar: "خطأ 404", pl: "Błąd 404" },
@@ -558,6 +559,7 @@ export const dict: Record<string, Entry> = {
   "an.dashLook": { en: "A look inside the dashboard", es: "Un vistazo al panel", zh: "仪表盘一览", yue: "儀表板一覽", ru: "Взгляд внутрь дашборда", yi: "אַ בליק אין דעם דאַשבאָרד", bn: "ড্যাশবোর্ডের ভেতরে এক ঝলক", ko: "대시보드 들여다보기", ht: "Yon gade anndan tablo debò a", it: "Uno sguardo dentro la dashboard", ar: "نظرة داخل لوحة المعلومات", pl: "Zajrzyj do pulpitu" },
   "an.sitePerf": { en: "Site Performance", es: "Rendimiento del sitio", zh: "网站表现", yue: "網站表現", ru: "Производительность сайта", yi: "וועבזייטל פּערפֿאָרמאַנס", bn: "সাইট পারফরম্যান্স", ko: "사이트 성능", ht: "Pèfòmans Sit", it: "Prestazioni del sito", ar: "أداء الموقع", pl: "Wydajność strony" },
   "an.last30": { en: "Last 30 days", es: "Últimos 30 días", zh: "最近 30 天", yue: "最近 30 日", ru: "Последние 30 дней", yi: "לעצטע 30 טעג", bn: "গত ৩০ দিন", ko: "최근 30일", ht: "Dènye 30 jou", it: "Ultimi 30 giorni", ar: "آخر 30 يومًا", pl: "Ostatnie 30 dni" },
+  "an.last7": { en: "Last 7 days", es: "Últimos 7 días", zh: "最近 7 天", yue: "最近 7 日", ru: "Последние 7 дней", yi: "לעצטע 7 טעג", bn: "গত ৭ দিন", ko: "최근 7일", ht: "Dènye 7 jou", it: "Ultimi 7 giorni", ar: "آخر 7 أيام", pl: "Ostatnie 7 dni" },
   "an.weekly": { en: "Weekly", es: "Semanal", zh: "每周", yue: "每週", ru: "Неделя", yi: "וועכנטלעך", bn: "সাপ্তাহিক", ko: "주간", ht: "Chak semèn", it: "Settimanale", ar: "أسبوعي", pl: "Tygodniowo" },
   "an.monthly": { en: "Monthly", es: "Mensual", zh: "每月", yue: "每月", ru: "Месяц", yi: "מאָנאַטלעך", bn: "মাসিক", ko: "월간", ht: "Chak mwa", it: "Mensile", ar: "شهري", pl: "Miesięcznie" },
   "an.sessions": { en: "Sessions", es: "Sesiones", zh: "会话", yue: "工作階段", ru: "Сессии", yi: "סעסיעס", bn: "সেশন", ko: "세션", ht: "Sesyon", it: "Sessioni", ar: "الجلسات", pl: "Sesje" },
