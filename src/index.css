@@ -32,9 +32,11 @@
   --c-ink: 247 241 229;
   --c-ink-soft: 214 203 184;
   --c-ink-faint: 168 155 136;
-  --c-kraft: 230 146 84;
-  --c-kraft-deep: 205 118 40;
-  --c-kraft-soft: 236 176 116;
+  /* Dark-mode kraft is deliberately darker/earthier than light mode so the
+     orange reads as part of a dark scheme instead of glowing off the page. */
+  --c-kraft: 165 88 40;
+  --c-kraft-deep: 128 66 26;
+  --c-kraft-soft: 188 108 56;
   --c-sky: 120 176 208;
   --c-blush: 228 158 126;
   --c-navy: 132 180 222;
