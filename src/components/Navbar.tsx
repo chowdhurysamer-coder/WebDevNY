@@ -75,7 +75,7 @@ export function Navbar() {
             <ThemeToggle />
             <SoundToggle />
             <Magnetic>
-              <Link to="/contact" data-cursor-label="GO" className="hidden sm:flex items-center gap-2 bg-ink text-paper px-4 py-2.5 mono-label hover:bg-kraft transition-colors">
+              <Link to="/contact" data-cursor-label="GO" className="hidden md:flex items-center gap-2 bg-ink text-paper px-4 py-2.5 mono-label hover:bg-kraft transition-colors">
                 {t("nav.start")} <IconArrowUpRight size={14} />
               </Link>
             </Magnetic>

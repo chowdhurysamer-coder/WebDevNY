@@ -129,9 +129,9 @@ export function CommandPalette() {
 
   return (
     <>
-      {/* trigger pill (desktop) */}
+      {/* trigger pill (desktop only — keeps the compact header uncramped below lg) */}
       <button onClick={() => { setOpen(true); sfx.tick(); }} data-cursor-label="⌘K"
-        className="hidden md:flex items-center gap-2 mono-label text-ink-faint border border-line px-3 py-2 hover:border-ink transition-colors">
+        className="hidden lg:flex items-center gap-2 mono-label text-ink-faint border border-line px-3 py-2 hover:border-ink transition-colors">
         <IconSearch size={13} /> {t("misc.search")}
         <span className="ml-1 px-1.5 py-0.5 bg-paper-3 text-ink/60 rounded text-[10px]">⌘K</span>
       </button>
