@@ -48,9 +48,9 @@ export default function Home() {
           </div>
 
           <h1 className="display text-[clamp(48px,12vw,180px)] font-semibold tracking-tightest">
-            <Reveal text={t("home.hlA")} />
-            <span className="italic text-sunset">
-              <Reveal text={t("home.hlB")} delay={0.2} />
+            <Reveal key={t("home.hlA")} text={t("home.hlA")} />
+            <span className="flex flex-wrap italic text-sunset">
+              <Reveal key={t("home.hlB")} text={t("home.hlB")} delay={0.2} />
             </span>
           </h1>
 
