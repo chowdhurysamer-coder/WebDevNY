@@ -138,7 +138,7 @@ export function Navbar() {
                         className={`display text-[clamp(18px,3.1vw,40px)] leading-none transition-all duration-300 ${active ? "text-kraft" : "text-ink group-hover:text-kraft group-hover:translate-x-3"}`}>
                         {t(l.key)}
                       </motion.span>
-                      <IconArrowUpRight size={20} className="ml-auto self-center opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-kraft" />
+                      <IconArrowUpRight size={20} className="menu-arrow ml-auto self-center opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-kraft" />
                     </Link>
                   </motion.div>
                 );

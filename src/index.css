@@ -174,3 +174,46 @@ body {
   .cursor-none-fine { cursor: none; }
 }
 @media (prefers-reduced-motion: reduce) { .box-float, .marquee, .text-sunset, .grain { animation: none !important; } }
+
+/* ============================================================
+   Touch & small-screen refinements.
+   Every rule below is gated to touch (hover: none) or narrow
+   viewports (max-width), so the desktop / fine-pointer UI is
+   never affected. Snappier taps, clearer affordances, and
+   comfortable tap targets on phones and tablets.
+   ============================================================ */
+
+/* Remove the 300ms tap delay / double-tap zoom on interactive elements.
+   `touch-action` only affects touch input — no effect on mouse/desktop. */
+a, button, [role="button"], input, select, textarea, label, summary {
+  touch-action: manipulation;
+}
+
+/* iOS Safari zooms the whole page when a focused field is < 16px. Bump the
+   real controls on phones only; desktop/tablet keep their existing sizing. */
+@media (max-width: 640px) {
+  input:not([type="range"]), textarea, select { font-size: 16px; }
+}
+
+@media (hover: none) {
+  /* No hover on touch — surface the hover-only link underline so text links
+     visibly read as tappable. */
+  .link-draw { background-size: 100% 2px; }
+
+  /* Swap the default grey tap flash for our own quick press feedback. */
+  a, button, [role="button"], summary, label { -webkit-tap-highlight-color: transparent; }
+  a:active, button:active, [role="button"]:active { opacity: 0.68; transition: opacity 0.06s ease; }
+
+  /* Comfortable 44px minimum tap targets for the compact chrome controls. */
+  header button, header > div a, footer a[aria-label] { min-height: 44px; }
+  header button, footer a[aria-label] { min-width: 44px; }
+
+  /* Full-screen menu rows carry a hover-revealed arrow — surface it on touch
+     so every row reads as an obvious, tappable destination. */
+  .menu-arrow { opacity: 1; transform: none; }
+
+  /* Visible keyboard focus for touch devices paired with a keyboard
+     (e.g. iPad + keyboard, switch access). Only appears during keyboard
+     navigation, never on tap, and never on the fine-pointer desktop UI. */
+  :focus-visible { outline: 2px solid rgb(var(--c-kraft)); outline-offset: 2px; border-radius: 1px; }
+}
