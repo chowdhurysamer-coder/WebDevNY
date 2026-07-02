@@ -44,35 +44,36 @@
       try { if (localStorage.getItem('webdevny_theme') === 'dark') document.documentElement.classList.add('dark'); } catch (e) {}
     </script>
     <!-- Self-heal: when a stale cached HTML points to a JS chunk hash that no
-         longer exists, the module script 404s and the app never mounts (white
-         screen). Two guards, both reload ONCE with a cache-buster:
-           1. Immediate — catch the failed <script> load itself (fires the
-              instant the chunk 404s; no waiting).
-           2. Fallback — if #root is still empty a couple seconds after load.
-         Deliberately ignores failed stylesheet/font/image loads — only a
-         SCRIPT with a src (the app bundle) may ever trigger a reload. -->
+         longer exists, the app's module 404s and never mounts (white screen).
+         Recovery reloads once with a cache-buster, but is strictly loop-proof:
+           - It ONLY reacts to the app's own bundle (same-origin /assets/*.js).
+             Third-party scripts (analytics, etc.) can never trigger a reload.
+           - A 30s time-throttle (stored across reloads) guarantees at most one
+             recovery per 30s, so nothing can rapid-reload the page. -->
     <script>
       (function () {
         function recover() {
           try {
-            if (sessionStorage.getItem('wdny_recover')) return;     // already tried once
-            sessionStorage.setItem('wdny_recover', '1');
-            location.replace(location.pathname + '?v=' + Date.now() + location.hash);
+            var now = Date.now();
+            var last = +(sessionStorage.getItem('wdny_recover_ts') || 0);
+            if (now - last < 30000) return;          // throttle: 1 reload / 30s max
+            sessionStorage.setItem('wdny_recover_ts', String(now));
+            location.replace(location.pathname + '?v=' + now + location.hash);
           } catch (e) {}
         }
-        // 1. Immediate: a module/script asset failed to load (stale chunk 404).
+        function isAppBundle(el) {
+          return el && el.tagName === 'SCRIPT' && el.src &&
+                 el.src.indexOf(location.origin) === 0 && el.src.indexOf('/assets/') !== -1;
+        }
+        // 1. Immediate: the app's own bundle failed to load (stale chunk 404).
         window.addEventListener('error', function (e) {
-          var t = e && e.target;
-          if (t && t.tagName === 'SCRIPT' && t.src) recover();
+          if (isAppBundle(e && e.target)) recover();
         }, true);
-        // 2. Fallback: app still hasn't mounted shortly after load.
+        // 2. Fallback: app still hasn't mounted a couple seconds after load.
         window.addEventListener('load', function () {
           setTimeout(function () {
             var root = document.getElementById('root');
-            if (root && root.childElementCount > 0) {
-              try { sessionStorage.removeItem('wdny_recover'); } catch (e) {} // mounted — clear guard
-              return;
-            }
+            if (root && root.childElementCount > 0) return;   // mounted — fine
             recover();
           }, 2500);
         });
