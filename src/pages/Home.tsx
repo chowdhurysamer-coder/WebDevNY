@@ -32,7 +32,7 @@ const niches: { key: string; to?: string }[] = [
 ];
 
 export default function Home() {
-  const { t } = useLang();
+  const { t, num } = useLang();
   return (
     <div className="bg-paper">
       {/* ───────── HERO ───────── */}
@@ -44,7 +44,7 @@ export default function Home() {
         <div className="relative max-w-[1400px] w-full mx-auto px-5 sm:px-8 pb-14 pt-32">
           <div className="flex items-center justify-between mb-8">
             <SectionLabel index="00">{t("hero.eyebrow")}</SectionLabel>
-            <span className="mono-label text-ink-soft hidden sm:block">Est. 2025</span>
+            <span className="mono-label text-ink-soft hidden sm:block">{num("Est. 2025")}</span>
           </div>
 
           <h1 className="display text-[clamp(48px,12vw,180px)] font-semibold tracking-tightest">
@@ -117,7 +117,7 @@ export default function Home() {
           {services.map((s, i) => (
             <motion.div key={s.n} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
               <Link to={s.to} className="group grid grid-cols-1 md:grid-cols-[80px_1fr_1.2fr_auto] gap-4 md:gap-8 items-baseline border-b border-line py-7 hover:bg-paper-2 transition-colors -mx-3 px-3">
-                <span className="mono-label text-kraft">{s.n}</span>
+                <span className="mono-label text-kraft">{num(s.n)}</span>
                 <h3 className="display text-[clamp(28px,3.5vw,46px)] font-semibold group-hover:text-kraft transition-colors">{t(s.tKey)}</h3>
                 <p className="text-ink-soft text-sm leading-relaxed max-w-md">{t(s.dKey)}</p>
                 <IconArrowUpRight size={24} className="justify-self-end opacity-30 group-hover:opacity-100 group-hover:text-kraft group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
@@ -129,7 +129,7 @@ export default function Home() {
 
       {/* ───────── SELECTED WORK (light) ───────── */}
       <section className="py-24 overflow-hidden border-y border-line bg-paper-2 relative">
-        <TapeStrip label={t("misc.selectedWork2025")} className="absolute top-6 left-1/2 -translate-x-1/2" />
+        <TapeStrip label={num(t("misc.selectedWork2025"))} className="absolute top-6 left-1/2 -translate-x-1/2" />
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8 mt-6">
           <div className="flex items-end justify-between mb-12">
             <div>
@@ -153,7 +153,7 @@ export default function Home() {
                 </TiltCard>
                 <div className="flex items-center justify-between mt-4 mono-label text-ink-soft">
                   <span>{["Trattoria", "BrightSmile", "IronWorks", "Park Ave Legal"][i]}</span>
-                  <span>0{i + 1}</span>
+                  <span>{num(`0${i + 1}`)}</span>
                 </div>
               </FadeUp>
             ))}

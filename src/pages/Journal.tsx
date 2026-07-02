@@ -5,7 +5,7 @@ import { IconArrowUpRight } from "@/components/icons";
 import { useLang } from "@/lib/i18n";
 
 export default function Journal() {
-  const { t } = useLang();
+  const { t, num } = useLang();
   return (
     <div className="bg-paper pt-16">
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 pt-20 pb-12 border-b border-line">
@@ -29,7 +29,7 @@ export default function Journal() {
                 <div>
                   <h2 className="display text-[clamp(24px,3.2vw,42px)] font-semibold group-hover:text-kraft transition-colors leading-tight">{t(p.titleKey)}</h2>
                   <p className="text-ink-soft mt-2 max-w-2xl">{t(p.excerptKey)}</p>
-                  <div className="mono-label text-ink-faint mt-3">{p.date} · {p.read} {t("jn.read")}</div>
+                  <div className="mono-label text-ink-faint mt-3">{num(p.date)} · {num(p.read)} {t("jn.read")}</div>
                 </div>
                 <IconArrowUpRight size={24} className="justify-self-end opacity-30 group-hover:opacity-100 group-hover:text-kraft group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
               </Link>

@@ -19,7 +19,7 @@ const plans = [
 ];
 
 export default function Plans() {
-  const { t } = useLang();
+  const { t, num } = useLang();
   return (
     <div className="bg-paper pt-16">
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 pt-20 pb-14 border-b border-line">
@@ -58,7 +58,7 @@ export default function Plans() {
                 </div>
                 <div className="flex items-baseline gap-1 mb-7">
                   <span className={`text-lg ${p.featured ? "text-paper/60" : "text-ink-faint"}`}>$</span>
-                  <span className="display text-6xl font-semibold">{p.price}</span>
+                  <span className="display text-6xl font-semibold">{num(p.price)}</span>
                   <span className={`mono-label ml-1 ${p.featured ? "text-paper/60" : "text-ink-faint"}`}>{t("pl.perMo")}</span>
                 </div>
                 <div className={`h-px mb-6 ${p.featured ? "bg-paper/20" : "bg-line"}`} />

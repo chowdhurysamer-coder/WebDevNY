@@ -18,7 +18,7 @@ const stats = [
 ];
 
 export default function About() {
-  const { t } = useLang();
+  const { t, num } = useLang();
   return (
     <div className="bg-paper pt-16">
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 pt-20 pb-14 border-b border-line">
@@ -55,7 +55,7 @@ export default function About() {
         <div className="grid md:grid-cols-2 border-t border-l border-line">
           {values.map((v, i) => (
             <FadeUp key={v.n} delay={(i % 2) * 0.08} className="border-r border-b border-line p-8 sm:p-10">
-              <span className="display text-kraft text-5xl font-semibold">{v.n}</span>
+              <span className="display text-kraft text-5xl font-semibold">{num(v.n)}</span>
               <h3 className="display text-2xl font-semibold mt-4 mb-2">{t(v.tKey)}</h3>
               <p className="text-ink-soft leading-relaxed max-w-md">{t(v.dKey)}</p>
             </FadeUp>

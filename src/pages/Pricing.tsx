@@ -20,7 +20,7 @@ const faqKeys = [
 ];
 
 export default function Pricing() {
-  const { t } = useLang();
+  const { t, num } = useLang();
   const [open, setOpen] = useState<number | null>(0);
   const faqs = faqKeys.map(([q, a]) => [t(q), t(a)] as const);
 
@@ -72,10 +72,10 @@ export default function Pricing() {
                 <p className={`text-sm mb-6 ${p.featured ? "text-paper/75" : "text-ink-soft"}`}>{t(p.descKey)}</p>
                 <div className="flex items-baseline gap-1 mb-1">
                   <span className={`text-lg ${p.featured ? "text-paper/60" : "text-ink-faint"}`}>$</span>
-                  <span className="display text-6xl font-semibold">{p.price}</span>
+                  <span className="display text-6xl font-semibold">{num(p.price)}</span>
                   <span className={`mono-label ml-1 ${p.featured ? "text-paper/60" : "text-ink-faint"}`}>{t("pr.flat")}</span>
                 </div>
-                <div className={`mono-label mb-6 ${p.featured ? "text-paper/70" : "text-kraft"}`}>{t("pr.or")} {t("pr.from")} ${p.monthlyPrice}{t("pr.perMo")}</div>
+                <div className={`mono-label mb-6 ${p.featured ? "text-paper/70" : "text-kraft"}`}>{t("pr.or")} {t("pr.from")} ${num(p.monthlyPrice)}{t("pr.perMo")}</div>
                 <div className={`h-px mb-6 ${p.featured ? "bg-paper/20" : "bg-line"}`} />
                 <ul className="flex flex-col gap-3 mb-8 flex-1">
                   {p.features.map((f) => (
@@ -113,7 +113,7 @@ export default function Pricing() {
               { pct: "50%", tKey: "pr.rev.c3.t", dKey: "pr.rev.c3.d" },
             ].map((r) => (
               <FadeUp key={r.tKey} className="bg-ink p-8">
-                <div className="display text-[clamp(40px,6vw,72px)] font-semibold text-kraft-soft leading-none">{r.pct}</div>
+                <div className="display text-[clamp(40px,6vw,72px)] font-semibold text-kraft-soft leading-none">{num(r.pct)}</div>
                 <div className="font-medium mt-3">{t(r.tKey)}</div>
                 <p className="mono-label text-paper/50 mt-2 leading-relaxed normal-case tracking-normal" style={{ letterSpacing: 0, textTransform: "none", fontSize: 12 }}>{t(r.dKey)}</p>
               </FadeUp>

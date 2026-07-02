@@ -32,7 +32,7 @@ const groups: Group[] = [
 ];
 
 export default function Explore() {
-  const { t } = useLang();
+  const { t, num } = useLang();
   const [q, setQ] = useState("");
   // Only the Studio/Company nodes use translation keys as labels; data-driven
   // nodes (cases, industries, journal) carry real text. tt() resolves keys and
@@ -73,7 +73,7 @@ export default function Explore() {
               <div className="flex items-baseline gap-3 mb-6">
                 <span className="mono-label text-kraft">{g.n}</span>
                 <h2 className="display text-3xl font-semibold">{t(g.hKey)}</h2>
-                <span className="mono-label text-ink-faint">,  {g.items.length}</span>
+                <span className="mono-label text-ink-faint">,  {num(g.items.length)}</span>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {g.items.map((it, i) => (

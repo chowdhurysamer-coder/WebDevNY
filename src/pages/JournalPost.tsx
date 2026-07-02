@@ -5,7 +5,7 @@ import { IconArrow, IconArrowUpRight } from "@/components/icons";
 import { useLang } from "@/lib/i18n";
 
 export default function JournalPost() {
-  const { t } = useLang();
+  const { t, num } = useLang();
   const { slug } = useParams();
   const post = postBySlug(slug);
   if (!post) return <Navigate to="/journal" replace />;
@@ -19,7 +19,7 @@ export default function JournalPost() {
           <IconArrow size={15} className="rotate-180" /> {t("jn.eyebrow")}
         </Link>
         <div className="flex items-center gap-3 mb-6 mono-label text-ink-faint">
-          <span className="text-kraft">{t(post.categoryKey)}</span><span>·</span><span>{post.date}</span><span>·</span><span>{post.read} {t("jn.read")}</span>
+          <span className="text-kraft">{t(post.categoryKey)}</span><span>·</span><span>{num(post.date)}</span><span>·</span><span>{num(post.read)} {t("jn.read")}</span>
         </div>
         <h1 className="display text-[clamp(32px,6vw,68px)] font-semibold tracking-tightest mb-10 leading-[0.95]">
           <Reveal text={t(post.titleKey)} />

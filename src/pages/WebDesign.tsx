@@ -23,8 +23,8 @@ const process = [
 ];
 
 export default function WebDesign() {
-  const { t } = useLang();
-  const localProcess = process.map((p) => ({ n: p.n, t: t(p.tKey), d: t(p.dKey) }));
+  const { t, num } = useLang();
+  const localProcess = process.map((p) => ({ n: num(p.n), t: t(p.tKey), d: t(p.dKey) }));
   return (
     <div className="bg-paper pt-16">
       {/* hero */}

@@ -18,7 +18,7 @@ const templates: { id: string; v: V; titleKey: string; catKey: string; cvr: stri
 ];
 
 function Card({ tpl, i }: { tpl: typeof templates[0]; i: number }) {
-  const { t } = useLang();
+  const { t, num } = useLang();
   const [hover, setHover] = useState(false);
   return (
     <FadeUp delay={(i % 3) * 0.08}>
@@ -39,7 +39,7 @@ function Card({ tpl, i }: { tpl: typeof templates[0]; i: number }) {
           <div className="grid grid-cols-3 border-t border-line pt-4">
             {[["pv.cvr", tpl.cvr], ["pv.load", tpl.load], ["pv.mobile", tpl.mobile]].map(([l, v], j) => (
               <div key={l} className={`text-center ${j !== 0 ? "border-l border-line" : ""}`}>
-                <div className="display text-2xl font-semibold text-kraft">{v}</div>
+                <div className="display text-2xl font-semibold text-kraft">{num(v)}</div>
                 <div className="mono-label text-ink-faint mt-1">{t(l)}</div>
               </div>
             ))}

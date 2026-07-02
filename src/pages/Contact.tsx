@@ -22,7 +22,7 @@ const stepKeys = ["ct.step1", "ct.step2", "ct.step3", "ct.step4"];
 interface Quote { tier: string; pages: number; addons: string[]; total: number; days: number }
 
 export default function Contact() {
-  const { t } = useLang();
+  const { t, num } = useLang();
   const quote = (useLocation().state as { quote?: Quote } | null)?.quote;
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
@@ -105,7 +105,7 @@ export default function Contact() {
                 <span className="w-10 h-10 bg-ink text-paper flex items-center justify-center shrink-0"><c.icon size={18} /></span>
                 <span>
                   <span className="mono-label text-ink-faint block">{t(c.labelKey)}</span>
-                  <span className="text-sm font-medium">{c.value}</span>
+                  <span className="text-sm font-medium" dir="ltr">{num(c.value)}</span>
                 </span>
               </a>
             ))}
@@ -114,7 +114,7 @@ export default function Contact() {
             <div className="mono-label text-paper/80 mb-4">{t("ct.next")}</div>
             {stepKeys.map((s, i) => (
               <div key={s} className="flex items-center gap-3 mb-3 last:mb-0">
-                <span className="w-6 h-6 border border-paper/50 flex items-center justify-center mono-label shrink-0">{i + 1}</span>
+                <span className="w-6 h-6 border border-paper/50 flex items-center justify-center mono-label shrink-0">{num(i + 1)}</span>
                 <span className="text-sm text-paper/90">{t(s)}</span>
               </div>
             ))}
@@ -140,8 +140,8 @@ export default function Contact() {
                 <div className="card-paper-kraft p-5">
                   <div className="mono-label text-paper/80 mb-2">{t("ct.quote.carried")}</div>
                   <div className="flex items-baseline gap-3">
-                    <span className="display text-3xl font-semibold">${quote.total.toLocaleString()}</span>
-                    <span className="mono-label text-paper/80">{quote.tier} · {quote.pages} {t("ct.quote.pages")} · ~{quote.days} {t("ct.quote.days")}</span>
+                    <span className="display text-3xl font-semibold">${num(quote.total.toLocaleString())}</span>
+                    <span className="mono-label text-paper/80">{quote.tier} · {num(quote.pages)} {t("ct.quote.pages")} · ~{num(quote.days)} {t("ct.quote.days")}</span>
                   </div>
                   {quote.addons.length > 0 && <div className="mono-label text-paper/70 mt-2">+ {quote.addons.join(" · ")}</div>}
                 </div>

@@ -8,7 +8,7 @@ import { IconArrow, IconArrowUpRight, IconCheck, IconStar } from "@/components/i
 import { useLang } from "@/lib/i18n";
 
 export default function CaseStudy() {
-  const { t } = useLang();
+  const { t, num } = useLang();
   const { slug } = useParams();
   const study = caseBySlug(slug);
   if (!study) return <Navigate to="/portfolio" replace />;
@@ -25,7 +25,7 @@ export default function CaseStudy() {
         </Link>
         <div className="flex flex-wrap items-center gap-3 mb-6">
           <span className="mono-label px-3 py-1.5 border" style={{ color: study.accent, borderColor: study.accent }}>{t(study.categoryKey)}</span>
-          <span className="mono-label text-ink-faint">{study.year}</span>
+          <span className="mono-label text-ink-faint">{num(study.year)}</span>
         </div>
         <h1 className="display text-[clamp(40px,8vw,120px)] font-semibold tracking-tightest mb-6">
           <Reveal text={study.name} />
@@ -76,7 +76,7 @@ export default function CaseStudy() {
         <div className="relative max-w-[1400px] mx-auto px-5 sm:px-8 grid sm:grid-cols-3 gap-px bg-paper/10 border border-paper/10">
           {study.metrics.map((m, i) => (
             <FadeUp key={m.labelKey} delay={i * 0.1} className="bg-ink p-8 text-center">
-              <div className="display text-[clamp(40px,6vw,72px)] font-semibold" style={{ color: study.accent }}>{m.value}</div>
+              <div className="display text-[clamp(40px,6vw,72px)] font-semibold" style={{ color: study.accent }}>{num(m.value)}</div>
               <div className="text-sm font-medium mt-2">{t(m.labelKey)}</div>
               <div className="mono-label text-paper/40 mt-1">{t(m.subKey)}</div>
             </FadeUp>
@@ -95,7 +95,7 @@ export default function CaseStudy() {
           <div className="border-t border-line">
             {study.approachKeys.map((a, i) => (
               <FadeUp key={i} delay={i * 0.08} className="flex gap-5 border-b border-line py-6">
-                <span className="mono-label text-kraft shrink-0 mt-1">{String(i + 1).padStart(2, "0")}</span>
+                <span className="mono-label text-kraft shrink-0 mt-1">{num(String(i + 1).padStart(2, "0"))}</span>
                 <p className="text-ink-soft leading-relaxed">{t(a)}</p>
               </FadeUp>
             ))}

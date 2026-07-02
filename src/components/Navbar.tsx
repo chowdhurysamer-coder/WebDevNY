@@ -31,7 +31,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
   const location = useLocation();
-  const { t, brand } = useLang();
+  const { t, num, brand } = useLang();
 
   // menu spotlight
   const mx = useMotionValue(0), my = useMotionValue(0);
@@ -133,7 +133,7 @@ export function Navbar() {
                     <Link to={l.to} onClick={() => { setOpen(false); sfx.tick(); }} className="group relative flex items-baseline gap-4 border-b border-line py-[0.6vh] sm:py-[0.9vh]">
                       {/* accent slide bar */}
                       <span className="absolute left-0 bottom-0 h-px bg-kraft w-0 group-hover:w-full transition-all duration-500" />
-                      <span className="mono-label text-ink-faint group-hover:text-kraft transition-colors">{l.n}</span>
+                      <span className="mono-label text-ink-faint group-hover:text-kraft transition-colors">{num(l.n)}</span>
                       <motion.span
                         className={`display text-[clamp(18px,3.1vw,40px)] leading-none transition-all duration-300 ${active ? "text-kraft" : "text-ink group-hover:text-kraft group-hover:translate-x-3"}`}>
                         {t(l.key)}

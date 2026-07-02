@@ -39,9 +39,10 @@ export function ScrollProgress() {
 
 /* ---------------- Section label (numbered, mono) ---------------- */
 export function SectionLabel({ index, children, className }: { index?: string; children: React.ReactNode; className?: string }) {
+  const { num } = useLang();
   return (
     <div className={cn("flex items-center gap-3 mono-label text-ink-soft", className)}>
-      {index && <span className="text-kraft">[{index}]</span>}
+      {index && <span className="text-kraft">[{num(index)}]</span>}
       <span className="h-px w-8 bg-ink/30" />
       <span>{children}</span>
     </div>

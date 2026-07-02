@@ -25,7 +25,7 @@ const tools: [string, string][] = [
 const bars = [40, 55, 35, 70, 85, 60, 90, 75, 88, 65, 92, 80];
 
 export default function Analytics() {
-  const { t } = useLang();
+  const { t, num } = useLang();
   return (
     <div className="bg-paper pt-16">
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 pt-20 pb-14 border-b border-line">
@@ -85,8 +85,8 @@ export default function Analytics() {
               {[["an.sessions", "12,481", "+24%"], ["an.conversions", "423", "+41%"], ["an.revenue", "$18,200", "+67%"], ["an.bounce", "28%", "−12%"]].map(([l, v, c]) => (
                 <div key={l} className="bg-paper p-5">
                   <div className="mono-label text-ink-faint mb-2">{t(l)}</div>
-                  <div className="display text-2xl font-semibold">{v}</div>
-                  <div className="mono-label text-kraft mt-1">{c}</div>
+                  <div className="display text-2xl font-semibold">{num(v)}</div>
+                  <div className="mono-label text-kraft mt-1">{num(c)}</div>
                 </div>
               ))}
             </div>
@@ -101,7 +101,7 @@ export default function Analytics() {
           {tools.map(([tk, dk], i) => (
             <motion.div key={tk} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}
               className="flex gap-6 items-baseline border-b border-line py-7 md:odd:pr-8 md:even:pl-8 md:even:border-l">
-              <span className="mono-label text-kraft shrink-0">{String(i + 1).padStart(2, "0")}</span>
+              <span className="mono-label text-kraft shrink-0">{num(String(i + 1).padStart(2, "0"))}</span>
               <div>
                 <h3 className="display text-2xl font-semibold mb-1">{t(tk)}</h3>
                 <p className="text-ink-soft text-sm leading-relaxed">{t(dk)}</p>

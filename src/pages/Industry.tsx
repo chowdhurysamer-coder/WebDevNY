@@ -6,7 +6,7 @@ import { IconArrowUpRight, IconCheck, IconStar } from "@/components/icons";
 import { useLang } from "@/lib/i18n";
 
 export default function Industry() {
-  const { t } = useLang();
+  const { t, num } = useLang();
   const { slug } = useParams();
   const ind = industryBySlug(slug);
   if (!ind) return <Navigate to="/capabilities" replace />;
@@ -45,7 +45,7 @@ export default function Industry() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {ind.painKeys.map((p, i) => (
               <FadeUp key={p} delay={i * 0.07} className="card-paper p-6">
-                <div className="display text-4xl font-semibold mb-3" style={{ color: ind.accent }}>0{i + 1}</div>
+                <div className="display text-4xl font-semibold mb-3" style={{ color: ind.accent }}>{num(`0${i + 1}`)}</div>
                 <p className="text-ink-soft text-sm leading-relaxed">{t(p)}</p>
               </FadeUp>
             ))}
@@ -73,13 +73,13 @@ export default function Industry() {
           <div className="mono-label text-white/80 mb-10">{t("in.realResults")}</div>
           <div className="grid sm:grid-cols-3 gap-8">
             {ind.result.map((r, i) => {
-              const num = parseFloat(r.value.replace(/[^0-9.]/g, "")) || 0;
+              const val = parseFloat(r.value.replace(/[^0-9.]/g, "")) || 0;
               const pre = r.value.match(/^[^0-9]*/)?.[0] || "";
               const suf = r.value.replace(/^[^0-9]*[0-9.]*/, "");
               return (
                 <FadeUp key={r.labelKey} delay={i * 0.1}>
                   <div className="display text-[clamp(48px,8vw,96px)] font-semibold text-white leading-none">
-                    {num ? <Counter to={num} prefix={pre} suffix={suf} /> : r.value}
+                    {val ? <Counter to={val} prefix={pre} suffix={num(suf)} /> : num(r.value)}
                   </div>
                   <div className="mono-label text-white/80 mt-2">{t(r.labelKey)}</div>
                 </FadeUp>

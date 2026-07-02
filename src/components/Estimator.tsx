@@ -28,7 +28,7 @@ function useAnimatedNumber(value: number) {
 }
 
 export function Estimator() {
-  const { t } = useLang();
+  const { t, num } = useLang();
   const [tier, setTier] = useState<Tier>("Growth");
   const [pages, setPages] = useState(8);
   const [selected, setSelected] = useState<string[]>(["seo"]);
@@ -44,7 +44,7 @@ export function Estimator() {
       {/* controls */}
       <div>
         {/* tier */}
-        <div className="mono-label text-ink-faint mb-3">01, {t("es.package")}</div>
+        <div className="mono-label text-ink-faint mb-3">{num("01")}, {t("es.package")}</div>
         <div className="grid grid-cols-3 gap-2 mb-8">
           {(Object.keys(tiers) as Tier[]).map((tk) => (
             <button key={tk} onClick={() => setTier(tk)} data-cursor-label="PICK"
@@ -56,14 +56,14 @@ export function Estimator() {
 
         {/* pages */}
         <div className="flex items-center justify-between mb-3">
-          <span className="mono-label text-ink-faint">02, {t("es.pages")}</span>
-          <span className="display text-2xl font-semibold">{pages}</span>
+          <span className="mono-label text-ink-faint">{num("02")}, {t("es.pages")}</span>
+          <span className="display text-2xl font-semibold">{num(pages)}</span>
         </div>
         <input type="range" min={1} max={40} value={pages} onChange={(e) => setPages(+e.target.value)}
           className="w-full accent-kraft mb-8 cursor-pointer" style={{ accentColor: "#C66E22" }} />
 
         {/* add-ons */}
-        <div className="mono-label text-ink-faint mb-3">03, {t("es.addons")}</div>
+        <div className="mono-label text-ink-faint mb-3">{num("03")}, {t("es.addons")}</div>
         <div className="grid sm:grid-cols-2 gap-2">
           {addons.map((a) => {
             const on = selected.includes(a.id);
@@ -87,21 +87,21 @@ export function Estimator() {
           <div className="flex items-center justify-between mono-label text-paper/50 border-b border-paper/15 pb-3 mb-4">
             <span>{t("es.estimate")}</span><span>WEBDEV NY</span>
           </div>
-          <div className="flex justify-between text-sm mb-2"><span className="text-paper/60">{t(TIER_KEY[tier])} {t("es.pkgSuffix")}</span><span>${tiers[tier].base.toLocaleString()}</span></div>
+          <div className="flex justify-between text-sm mb-2"><span className="text-paper/60">{t(TIER_KEY[tier])} {t("es.pkgSuffix")}</span><span>${num(tiers[tier].base.toLocaleString())}</span></div>
           {pages > tiers[tier].pagesIncl && (
-            <div className="flex justify-between text-sm mb-2"><span className="text-paper/60">+{pages - tiers[tier].pagesIncl} {t("es.extraPages")}</span><span>${((pages - tiers[tier].pagesIncl) * 220).toLocaleString()}</span></div>
+            <div className="flex justify-between text-sm mb-2"><span className="text-paper/60">+{num(pages - tiers[tier].pagesIncl)} {t("es.extraPages")}</span><span>${num(((pages - tiers[tier].pagesIncl) * 220).toLocaleString())}</span></div>
           )}
           {addons.filter((a) => selected.includes(a.id)).map((a) => (
-            <div key={a.id} className="flex justify-between text-sm mb-2"><span className="text-paper/60">{t(ADDON_KEY[a.id])}</span><span>${a.price.toLocaleString()}</span></div>
+            <div key={a.id} className="flex justify-between text-sm mb-2"><span className="text-paper/60">{t(ADDON_KEY[a.id])}</span><span>${num(a.price.toLocaleString())}</span></div>
           ))}
         </div>
 
         <div className="relative mt-6">
           <div className="border-t border-dashed border-paper/25 pt-4">
             <div className="mono-label text-paper/50 mb-1">{t("es.total")}</div>
-            <div className="display text-5xl font-semibold tabular-nums">${animTotal.toLocaleString()}</div>
+            <div className="display text-5xl font-semibold tabular-nums">${num(animTotal.toLocaleString())}</div>
             <motion.div key={days} initial={{ opacity: 0.4 }} animate={{ opacity: 1 }} className="mono-label text-kraft-soft mt-2">
-              ≈ {days} {t("es.daysLaunch")}
+              ≈ {num(days)} {t("es.daysLaunch")}
             </motion.div>
           </div>
           <Magnetic className="mt-6 block">
