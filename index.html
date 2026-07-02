@@ -43,22 +43,38 @@
     <script>
       try { if (localStorage.getItem('webdevny_theme') === 'dark') document.documentElement.classList.add('dark'); } catch (e) {}
     </script>
-    <!-- Self-heal: if a stale cached HTML points to a missing JS chunk, the app
-         never mounts. If #root is still empty a few seconds after load, reload
-         once with a cache-buster. Deliberately does NOT react to failed
-         stylesheet/font/image loads (those must never trigger a reload). -->
+    <!-- Self-heal: when a stale cached HTML points to a JS chunk hash that no
+         longer exists, the module script 404s and the app never mounts (white
+         screen). Two guards, both reload ONCE with a cache-buster:
+           1. Immediate — catch the failed <script> load itself (fires the
+              instant the chunk 404s; no waiting).
+           2. Fallback — if #root is still empty a couple seconds after load.
+         Deliberately ignores failed stylesheet/font/image loads — only a
+         SCRIPT with a src (the app bundle) may ever trigger a reload. -->
     <script>
       (function () {
+        function recover() {
+          try {
+            if (sessionStorage.getItem('wdny_recover')) return;     // already tried once
+            sessionStorage.setItem('wdny_recover', '1');
+            location.replace(location.pathname + '?v=' + Date.now() + location.hash);
+          } catch (e) {}
+        }
+        // 1. Immediate: a module/script asset failed to load (stale chunk 404).
+        window.addEventListener('error', function (e) {
+          var t = e && e.target;
+          if (t && t.tagName === 'SCRIPT' && t.src) recover();
+        }, true);
+        // 2. Fallback: app still hasn't mounted shortly after load.
         window.addEventListener('load', function () {
           setTimeout(function () {
-            try {
-              var root = document.getElementById('root');
-              if (!root || root.childElementCount > 0) return;      // app mounted — fine
-              if (sessionStorage.getItem('wdny_recover')) return;    // already tried once
-              sessionStorage.setItem('wdny_recover', '1');
-              location.replace(location.pathname + '?v=' + Date.now() + location.hash);
-            } catch (e) {}
-          }, 5000);
+            var root = document.getElementById('root');
+            if (root && root.childElementCount > 0) {
+              try { sessionStorage.removeItem('wdny_recover'); } catch (e) {} // mounted — clear guard
+              return;
+            }
+            recover();
+          }, 2500);
         });
       })();
     </script>
