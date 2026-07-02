@@ -26,6 +26,11 @@ export function BeamReveal({ onComplete }: { onComplete: () => void }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [phase]);
 
+  // Touch devices can't move a cursor to light the box, so we light it
+  // statically instead (see the lighting layers below). Initialised from
+  // matchMedia so there's no first-paint flash of the desktop torch.
+  const [isTouch] = useState(() => typeof window !== "undefined" && window.matchMedia("(hover: none)").matches);
+
   // mouse-follow spotlight
   const mx = useMotionValue(typeof window !== "undefined" ? window.innerWidth / 2 : 0);
   const my = useMotionValue(typeof window !== "undefined" ? window.innerHeight / 2 : 0);
@@ -51,8 +56,11 @@ export function BeamReveal({ onComplete }: { onComplete: () => void }) {
       {/* faint light dot grid */}
       <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "radial-gradient(rgba(255,255,255,0.5) 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
 
-      {/* mouse torch glow (warm) */}
-      {phase === "idle" && <motion.div className="absolute inset-0 pointer-events-none" style={{ background: glow, mixBlendMode: "screen" }} />}
+      {/* warm glow — follows the cursor on desktop, static & centered on touch */}
+      {phase === "idle" && (isTouch
+        ? <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle 360px at 50% 50%, rgba(255,214,150,0.30), rgba(255,180,90,0.09) 42%, transparent 72%)", mixBlendMode: "screen" }} />
+        : <motion.div className="absolute inset-0 pointer-events-none" style={{ background: glow, mixBlendMode: "screen" }} />
+      )}
 
       {/* floating ambient motes (light) */}
       {[...Array(14)].map((_, i) => (
@@ -159,11 +167,15 @@ export function BeamReveal({ onComplete }: { onComplete: () => void }) {
         </svg>
       </motion.div>
 
-      {/* torch darkening, reveals the scene only around the cursor */}
-      {phase === "idle" && <motion.div className="absolute inset-0 z-20 pointer-events-none" style={{ background: torch }} exit={{ opacity: 0 }} />}
+      {/* darkening vignette — cursor-tracked on desktop, static & centered on
+          touch so the box stays lit without a pointer */}
+      {phase === "idle" && (isTouch
+        ? <div className="absolute inset-0 z-20 pointer-events-none" style={{ background: "radial-gradient(circle 340px at 50% 50%, transparent 0%, transparent 44%, rgba(0,0,0,0.5) 74%, rgba(0,0,0,0.82) 100%)" }} />
+        : <motion.div className="absolute inset-0 z-20 pointer-events-none" style={{ background: torch }} exit={{ opacity: 0 }} />
+      )}
 
-      {/* torch cursor dot */}
-      {phase === "idle" && (
+      {/* torch cursor dot (desktop only — no fake cursor on touch) */}
+      {phase === "idle" && !isTouch && (
         <motion.div className="absolute z-40 pointer-events-none -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full"
           style={{ left: sx, top: sy, background: "radial-gradient(circle, rgba(255,235,190,0.9), rgba(255,200,120,0.2))", boxShadow: "0 0 18px rgba(255,210,140,0.8)" }} />
       )}
@@ -175,7 +187,7 @@ export function BeamReveal({ onComplete }: { onComplete: () => void }) {
             initial={{ opacity: 0, y: 8 }} animate={{ opacity: hovered ? 1 : 0.75, y: 0 }} exit={{ opacity: 0 }}
             className="absolute z-40 font-mono text-[11px] tracking-[0.35em] uppercase text-[rgb(226,226,226)] select-none"
             style={{ bottom: "calc(50% - 130px)" }}>
-            {hovered ? "open it →" : "move the light · click to unbox"}
+            {hovered ? "open it →" : isTouch ? "tap to unbox" : "move the light · click to unbox"}
           </motion.p>
         )}
       </AnimatePresence>
