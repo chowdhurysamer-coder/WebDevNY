@@ -64,10 +64,10 @@ export function BeamReveal({ onComplete }: { onComplete: () => void }) {
       ))}
 
       {/* corner ship marks (light) */}
-      <motion.div animate={{ opacity: lidOpen ? 0 : 0.4 }} className="absolute top-7 left-7 font-mono text-[10px] text-paper/60 leading-relaxed hidden sm:block z-30">
+      <motion.div animate={{ opacity: lidOpen ? 0 : 0.4 }} className="absolute top-7 left-7 font-mono text-[10px] text-white/60 leading-relaxed hidden sm:block z-30">
         PKG 01 / 01<br />HANDLE WITH CARE<br />WEBDEV NY · NYC
       </motion.div>
-      <motion.div animate={{ opacity: lidOpen ? 0 : 0.4 }} className="absolute top-7 right-7 font-mono text-[10px] text-paper/60 text-right leading-relaxed hidden sm:block z-30">
+      <motion.div animate={{ opacity: lidOpen ? 0 : 0.4 }} className="absolute top-7 right-7 font-mono text-[10px] text-white/60 text-right leading-relaxed hidden sm:block z-30">
         EST. 2025<br />HANDLE WITH CARE<br />████ ██ ████
       </motion.div>
 
@@ -172,8 +172,8 @@ export function BeamReveal({ onComplete }: { onComplete: () => void }) {
       <AnimatePresence>
         {phase === "idle" && (
           <motion.p
-            initial={{ opacity: 0, y: 8 }} animate={{ opacity: hovered ? 1 : 0.6, y: 0 }} exit={{ opacity: 0 }}
-            className="absolute z-40 font-mono text-[11px] tracking-[0.35em] uppercase text-paper/70 select-none"
+            initial={{ opacity: 0, y: 8 }} animate={{ opacity: hovered ? 1 : 0.75, y: 0 }} exit={{ opacity: 0 }}
+            className="absolute z-40 font-mono text-[11px] tracking-[0.35em] uppercase text-[rgb(226,226,226)] select-none"
             style={{ bottom: "calc(50% - 130px)" }}>
             {hovered ? "open it →" : "move the light · click to unbox"}
           </motion.p>
