@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://chowdhurysamer-coder.github.io/WebDevNY/sitemap.xml
+Sitemap: https://webdevny.com/sitemap.xml

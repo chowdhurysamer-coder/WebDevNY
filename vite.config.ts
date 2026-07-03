@@ -3,7 +3,9 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 
 export default defineConfig({
-  base: '/WebDevNY/',
+  // Served from the apex custom domain (webdevny.com), so assets live at the
+  // site root. (github.io/WebDevNY/ auto-redirects to the custom domain.)
+  base: '/',
   plugins: [react()],
   resolve: {
     alias: {

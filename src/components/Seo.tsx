@@ -8,7 +8,7 @@ import { dict } from "@/lib/translations";
 const en = (key: string) => dict[key]?.en ?? key;
 
 const BASE = "WebDev NY";
-const SITE = "https://chowdhurysamer-coder.github.io/WebDevNY";
+const SITE = "https://webdevny.com";
 const DEFAULT_OG = `${SITE}/og.png`;
 
 const staticMeta: Record<string, { t: string; d: string }> = {
