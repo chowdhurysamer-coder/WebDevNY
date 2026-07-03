@@ -1,13 +1,19 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useSpring } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export function CustomCursor() {
   const [hovering, setHovering] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [label, setLabel] = useState<string | null>(null);
-  const x = useSpring(0, { stiffness: 500, damping: 40, mass: 0.4 });
-  const y = useSpring(0, { stiffness: 500, damping: 40, mass: 0.4 });
+  // Dot tracks the pointer 1:1 (no smoothing — any spring here reads as lag).
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  // Ring trails just barely, on a very tight spring.
+  const rx = useSpring(x, { stiffness: 1200, damping: 70, mass: 0.15 });
+  const ry = useSpring(y, { stiffness: 1200, damping: 70, mass: 0.15 });
   const ring = useRef<HTMLDivElement>(null);
+  // Cache last state so mousemove doesn't re-render React every frame.
+  const prev = useRef<{ hovering: boolean; label: string | null }>({ hovering: false, label: null });
 
   useEffect(() => {
     // Only on fine pointers
@@ -16,14 +22,14 @@ export function CustomCursor() {
       x.set(e.clientX);
       y.set(e.clientY);
       const t = e.target as HTMLElement;
-      const interactive = t.closest("a, button, [data-cursor], input, textarea, select, summary, [role=button]");
-      setHovering(!!interactive);
-      const l = (t.closest("[data-cursor-label]") as HTMLElement)?.dataset.cursorLabel;
-      setLabel(l ?? null);
+      const interactive = !!t.closest("a, button, [data-cursor], input, textarea, select, summary, [role=button]");
+      const l = (t.closest("[data-cursor-label]") as HTMLElement)?.dataset.cursorLabel ?? null;
+      if (interactive !== prev.current.hovering) { prev.current.hovering = interactive; setHovering(interactive); }
+      if (l !== prev.current.label) { prev.current.label = l; setLabel(l); }
     };
     const leave = () => setHidden(true);
     const enter = () => setHidden(false);
-    window.addEventListener("mousemove", move);
+    window.addEventListener("mousemove", move, { passive: true });
     document.addEventListener("mouseleave", leave);
     document.addEventListener("mouseenter", enter);
     return () => {
@@ -48,11 +54,11 @@ export function CustomCursor() {
       <motion.div
         ref={ring}
         className="fixed top-0 left-0 z-[9999] pointer-events-none"
-        style={{ x, y }}
+        style={{ x: rx, y: ry }}
       >
         <motion.div
           animate={{ width: hovering ? 56 : 30, height: hovering ? 56 : 30, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          transition={{ type: "spring", stiffness: 500, damping: 30 }}
           className="-translate-x-1/2 -translate-y-1/2 rounded-full border border-ink flex items-center justify-center"
           style={{ mixBlendMode: hovering ? "normal" : "difference", borderColor: hovering ? "#BE6A24" : "#fff", background: hovering && label ? "#BE6A24" : "transparent" }}
         >

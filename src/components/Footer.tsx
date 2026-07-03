@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { IconArrowUpRight, IconX, IconInstagram, IconLinkedin, IconDribbble } from "@/components/icons";
+import { IconArrowUpRight, IconX, IconInstagram, IconLinkedin } from "@/components/icons";
 import { LogoMark } from "@/components/Logo";
 import { Marquee } from "@/components/primitives";
 import { useLang } from "@/lib/i18n";
@@ -8,7 +8,6 @@ const socials = [
   { icon: IconX, label: "X", href: "https://x.com/" },
   { icon: IconInstagram, label: "Instagram", href: "https://instagram.com/" },
   { icon: IconLinkedin, label: "LinkedIn", href: "https://linkedin.com/" },
-  { icon: IconDribbble, label: "Dribbble", href: "https://dribbble.com/" },
 ];
 
 export function Footer() {

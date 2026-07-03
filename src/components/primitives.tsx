@@ -97,7 +97,8 @@ export function Marquee({ items, reverse, className }: { items: string[]; revers
     <div className={cn("overflow-hidden w-full", className)}>
       <div className={cn("marquee", reverse && "marquee-rev")}>
         {doubled.map((it, i) => (
-          <span key={i} className="flex items-center gap-6 pr-6 display text-[clamp(28px,5vw,64px)] whitespace-nowrap">
+          <span key={i} className="flex items-center gap-6 pr-6 display text-[clamp(28px,5vw,64px)] whitespace-nowrap"
+            style={{ lineHeight: 1.25, paddingTop: "0.06em", paddingBottom: "0.06em" }}>
             {it}
             <span className="text-kraft text-[0.6em]">✦</span>
           </span>

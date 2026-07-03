@@ -41,7 +41,9 @@ function useLenis(active: boolean) {
   const ref = useRef<Lenis | null>(null);
   useEffect(() => {
     if (!active) return;
-    const lenis = new Lenis({ duration: 1.15, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
+    // Short duration + a higher wheel multiplier keeps the smoothing but makes
+    // scrolling feel immediate instead of syrupy.
+    const lenis = new Lenis({ duration: 0.65, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true, wheelMultiplier: 1.4 });
     ref.current = lenis;
     (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
     let raf = 0;

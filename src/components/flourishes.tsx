@@ -68,7 +68,7 @@ export function WordmarkMarquee({ reverse }: { reverse?: boolean }) {
       <div className={cn("marquee", reverse && "marquee-rev")}>
         {items.map((w, i) => (
           <span key={i} className="flex items-center gap-10 pr-10">
-            <span className={cn("display text-[clamp(22px,3vw,40px)] text-ink/35 whitespace-nowrap", w.cls)}>{w.name}</span>
+            <span className={cn("display text-[clamp(22px,3vw,40px)] text-ink/35 whitespace-nowrap", w.cls)} style={{ lineHeight: 1.25 }}>{w.name}</span>
             <span className="w-1.5 h-1.5 rounded-full bg-kraft/50" />
           </span>
         ))}
