@@ -10,8 +10,12 @@ import { useLang } from "@/lib/i18n";
 // Set VITE_FORMSPREE_ID to your Formspree form id (e.g. "xmyzabcd") to receive submissions.
 const FORMSPREE_ID = (import.meta.env.VITE_FORMSPREE_ID as string) || "";
 const ENDPOINT = FORMSPREE_ID ? `https://formspree.io/f/${FORMSPREE_ID}` : "";
-// Every inquiry lands here — either via Formspree above, or the mailto fallback below.
+// Every inquiry lands here.
 const INBOX = "contact@webdevny.com";
+// Web3Forms access key — the website POSTs the brief straight to their API, which
+// emails it to INBOX server-side. The key is public/safe to ship in frontend code.
+// Get a free key (no account) at https://web3forms.com and paste it here or set VITE_WEB3FORMS_KEY.
+const WEB3FORMS_KEY = (import.meta.env.VITE_WEB3FORMS_KEY as string) || "";
 
 const info = [
   { icon: IconMail, labelKey: "ct.info.email", value: "contact@webdevny.com", href: "mailto:contact@webdevny.com" },
@@ -66,35 +70,67 @@ export default function Contact() {
       if (Date.now() - last < 30000) { setError(t("ct.err.rate")); return; }
     } catch { /* ignore */ }
 
-    // No Formspree backend configured → hand the inquiry to the visitor's mail
-    // client, pre-addressed to contact@webdevny.com so it genuinely gets delivered.
-    if (!ENDPOINT) {
-      const subject = `New project inquiry, ${form.business || form.name}`;
-      const body =
-        `Name: ${form.name}\n` +
-        `Email: ${form.email}\n` +
-        `Business: ${form.business || "—"}\n` +
-        `Budget: ${form.budget || "—"}\n\n` +
-        `${form.message}`;
-      window.location.href = `mailto:${INBOX}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      markSent();
-      succeed();
+    const subject = `New project inquiry, ${form.business || form.name}`;
+
+    // Preferred path — the website sends the email itself (no visitor mail client).
+    // Web3Forms delivers server-side to INBOX; Formspree is the alternative if set.
+    if (WEB3FORMS_KEY) {
+      setSending(true);
+      try {
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject,
+            from_name: form.name || "WebDev NY inquiry",
+            replyto: form.email,
+            name: form.name,
+            email: form.email,
+            business: form.business,
+            budget: form.budget,
+            message: form.message,
+          }),
+        });
+        const d = await res.json().catch(() => ({}));
+        if (res.ok && d?.success) { markSent(); succeed(); }
+        else { setError(d?.message || t("ct.err.generic")); }
+      } catch {
+        setError(t("ct.err.network"));
+      } finally {
+        setSending(false);
+      }
       return;
     }
-    setSending(true);
-    try {
-      const res = await fetch(ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ ...form, _subject: `New project inquiry, ${form.business || form.name}` }),
-      });
-      if (res.ok) { markSent(); succeed(); }
-      else { const d = await res.json().catch(() => ({})); setError(d?.errors?.[0]?.message || t("ct.err.generic")); }
-    } catch {
-      setError(t("ct.err.network"));
-    } finally {
-      setSending(false);
+
+    if (ENDPOINT) {
+      setSending(true);
+      try {
+        const res = await fetch(ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({ ...form, _subject: subject }),
+        });
+        if (res.ok) { markSent(); succeed(); }
+        else { const d = await res.json().catch(() => ({})); setError(d?.errors?.[0]?.message || t("ct.err.generic")); }
+      } catch {
+        setError(t("ct.err.network"));
+      } finally {
+        setSending(false);
+      }
+      return;
     }
+
+    // No backend configured yet → last-resort mailto so the brief still reaches INBOX.
+    const body =
+      `Name: ${form.name}\n` +
+      `Email: ${form.email}\n` +
+      `Business: ${form.business || "—"}\n` +
+      `Budget: ${form.budget || "—"}\n\n` +
+      `${form.message}`;
+    window.location.href = `mailto:${INBOX}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    markSent();
+    succeed();
   };
 
   const field = "w-full bg-paper-2 border border-line px-4 py-3 text-sm outline-none focus:border-ink transition-colors placeholder:text-ink-faint";
