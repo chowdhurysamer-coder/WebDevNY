@@ -10,9 +10,11 @@ import { useLang } from "@/lib/i18n";
 // Set VITE_FORMSPREE_ID to your Formspree form id (e.g. "xmyzabcd") to receive submissions.
 const FORMSPREE_ID = (import.meta.env.VITE_FORMSPREE_ID as string) || "";
 const ENDPOINT = FORMSPREE_ID ? `https://formspree.io/f/${FORMSPREE_ID}` : "";
+// Every inquiry lands here — either via Formspree above, or the mailto fallback below.
+const INBOX = "contact@webdevny.com";
 
 const info = [
-  { icon: IconMail, labelKey: "ct.info.email", value: "hello@webdevny.com", href: "mailto:hello@webdevny.com" },
+  { icon: IconMail, labelKey: "ct.info.email", value: "contact@webdevny.com", href: "mailto:contact@webdevny.com" },
   { icon: IconPhone, labelKey: "ct.info.phone", value: "(212) 555-0190", href: "tel:+12125550190" },
   { icon: IconPin, labelKey: "ct.info.studio", value: "New York, NY", href: "#" },
 ];
@@ -64,7 +66,21 @@ export default function Contact() {
       if (Date.now() - last < 30000) { setError(t("ct.err.rate")); return; }
     } catch { /* ignore */ }
 
-    if (!ENDPOINT) { markSent(); succeed(); return; } // no backend configured → optimistic success
+    // No Formspree backend configured → hand the inquiry to the visitor's mail
+    // client, pre-addressed to contact@webdevny.com so it genuinely gets delivered.
+    if (!ENDPOINT) {
+      const subject = `New project inquiry, ${form.business || form.name}`;
+      const body =
+        `Name: ${form.name}\n` +
+        `Email: ${form.email}\n` +
+        `Business: ${form.business || "—"}\n` +
+        `Budget: ${form.budget || "—"}\n\n` +
+        `${form.message}`;
+      window.location.href = `mailto:${INBOX}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      markSent();
+      succeed();
+      return;
+    }
     setSending(true);
     try {
       const res = await fetch(ENDPOINT, {
