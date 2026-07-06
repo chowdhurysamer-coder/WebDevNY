@@ -15,7 +15,7 @@ const INBOX = "contact@webdevny.com";
 // Web3Forms access key — the website POSTs the brief straight to their API, which
 // emails it to INBOX server-side. The key is public/safe to ship in frontend code.
 // Get a free key (no account) at https://web3forms.com and paste it here or set VITE_WEB3FORMS_KEY.
-const WEB3FORMS_KEY = (import.meta.env.VITE_WEB3FORMS_KEY as string) || "";
+const WEB3FORMS_KEY = (import.meta.env.VITE_WEB3FORMS_KEY as string) || "487c3ffa-fecc-4864-b349-77872a76ad98";
 
 const info = [
   { icon: IconMail, labelKey: "ct.info.email", value: "contact@webdevny.com", href: "mailto:contact@webdevny.com" },
