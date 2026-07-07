@@ -3,34 +3,37 @@ import { motion } from "framer-motion";
 import { Aurora } from "@/components/Aurora";
 // Placeholder website-example mockups & fake client logos — hidden until we have real client work to show.
 // import { SiteMock } from "@/components/SiteMock";
-import { Reveal, FadeUp, SectionLabel, Marquee, Magnetic, Counter } from "@/components/primitives";
+import { Reveal, SectionLabel, Marquee, Magnetic } from "@/components/primitives";
 // import { WordmarkMarquee, TapeStrip } from "@/components/flourishes";
 import { IconArrowUpRight } from "@/components/icons";
 import { useLang } from "@/lib/i18n";
 
-const stats = [
-  { to: 150, suffix: "+", key: "home.stat.sites" },
-  { to: 98, suffix: "%", key: "home.stat.retention" },
-  { to: 3.2, suffix: "×", key: "home.stat.lift" },
-  { to: 11, suffixKey: "home.stat.days", key: "home.stat.launch" },
-];
+// Fabricated clientele metrics — hidden until we have real numbers to show.
+// const stats = [
+//   { to: 150, suffix: "+", key: "home.stat.sites" },
+//   { to: 98, suffix: "%", key: "home.stat.retention" },
+//   { to: 3.2, suffix: "×", key: "home.stat.lift" },
+//   { to: 11, suffixKey: "home.stat.days", key: "home.stat.launch" },
+// ];
 
 const services = [
   { n: "01", tKey: "home.svc.webdesign", dKey: "home.svc.webdesign.d", to: "/web-design" },
   { n: "02", tKey: "term.development", dKey: "home.svc.dev.d", to: "/web-design" },
   { n: "03", tKey: "home.svc.seo", dKey: "home.svc.seo.d", to: "/capabilities" },
-  { n: "04", tKey: "term.analytics", dKey: "home.svc.analytics.d", to: "/analytics" },
+  // Analytics page hidden — point the discipline at Capabilities for now.
+  { n: "04", tKey: "term.analytics", dKey: "home.svc.analytics.d", to: "/capabilities" },
 ];
 
-const niches: { key: string; to?: string }[] = [
-  { key: "term.restaurants", to: "/for/restaurants" },
-  { key: "term.dental", to: "/for/dentists" },
-  { key: "term.fitness", to: "/for/gyms" },
-  { key: "term.salons", to: "/for/salons" },
-  { key: "term.legal", to: "/for/lawyers" },
-  { key: "term.realestate", to: "/for/real-estate" },
-  { key: "term.medical" }, { key: "term.ecommerce" }, { key: "term.homeservices" }, { key: "term.hospitality" },
-];
+// Per-industry landing pages — hidden until we have more clientele to show.
+// const niches: { key: string; to?: string }[] = [
+//   { key: "term.restaurants", to: "/for/restaurants" },
+//   { key: "term.dental", to: "/for/dentists" },
+//   { key: "term.fitness", to: "/for/gyms" },
+//   { key: "term.salons", to: "/for/salons" },
+//   { key: "term.legal", to: "/for/lawyers" },
+//   { key: "term.realestate", to: "/for/real-estate" },
+//   { key: "term.medical" }, { key: "term.ecommerce" }, { key: "term.homeservices" }, { key: "term.hospitality" },
+// ];
 
 export default function Home() {
   const { t, num } = useLang();
@@ -85,7 +88,7 @@ export default function Home() {
         <Marquee items={[t("term.design"), t("term.development"), t("term.seo"), t("term.analytics"), t("term.branding"), t("term.maintenance")]} />
       </section>
 
-      {/* ───────── STATS ───────── */}
+      {/* ───────── STATS (fabricated clientele metrics) — hidden until we have real numbers to show ─────────
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-20 grid grid-cols-2 lg:grid-cols-4 border-b border-line">
         {stats.map((s, i) => (
           <FadeUp key={s.key} delay={i * 0.08} className={`px-2 py-6 ${i !== 0 ? "lg:border-l border-line" : ""}`}>
@@ -96,6 +99,7 @@ export default function Home() {
           </FadeUp>
         ))}
       </section>
+      ───────── */}
 
       {/* ───────── TRUSTED BY (fake client logos) — hidden until we have real clients to show ─────────
       <section className="py-12 border-b border-line overflow-hidden">
@@ -165,7 +169,7 @@ export default function Home() {
       </section>
       ───────── */}
 
-      {/* ───────── NICHES ───────── */}
+      {/* ───────── NICHES (per-industry landing pages) — hidden until we have more clientele to show ─────────
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-24">
         <SectionLabel index="03" className="mb-6">{t("home.industriesCold")}</SectionLabel>
         <div className="flex flex-wrap gap-3">
@@ -186,6 +190,7 @@ export default function Home() {
           {t("home.nichesNote")}
         </p>
       </section>
+      ───────── */}
 
       {/* ───────── CTA ───────── */}
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 pb-28">

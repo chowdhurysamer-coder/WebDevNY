@@ -16,13 +16,14 @@ import Capabilities from "@/pages/Capabilities";
 // import Portfolio from "@/pages/Portfolio";
 // import CaseStudy from "@/pages/CaseStudy";
 // import Previews from "@/pages/Previews";
-import Analytics from "@/pages/Analytics";
+// Analytics dashboard & per-industry landing pages — hidden until we have more clientele to show.
+// import Analytics from "@/pages/Analytics";
 import Pricing from "@/pages/Pricing";
 import Plans from "@/pages/Plans";
 import Contact from "@/pages/Contact";
 import Journal from "@/pages/Journal";
 import JournalPost from "@/pages/JournalPost";
-import Industry from "@/pages/Industry";
+// import Industry from "@/pages/Industry";
 import Privacy from "@/pages/Privacy";
 import Terms from "@/pages/Terms";
 import About from "@/pages/About";
@@ -100,12 +101,14 @@ function SiteLayout() {
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/work/:slug" element={<CaseStudy />} />
             <Route path="/previews" element={<Previews />} /> */}
-            <Route path="/analytics" element={<Analytics />} />
+            {/* Analytics dashboard — hidden until we have more clientele to show.
+            <Route path="/analytics" element={<Analytics />} /> */}
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/plans" element={<Plans />} />
             <Route path="/journal" element={<Journal />} />
             <Route path="/journal/:slug" element={<JournalPost />} />
-            <Route path="/for/:slug" element={<Industry />} />
+            {/* Per-industry landing pages — hidden until we have more clientele to show.
+            <Route path="/for/:slug" element={<Industry />} /> */}
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/about" element={<About />} />

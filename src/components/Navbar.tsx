@@ -20,7 +20,8 @@ const links = [
   // Placeholder example pages — hidden until we have real client work to show.
   // { key: "link.portfolio", to: "/portfolio", n: "04" },
   // { key: "link.previews", to: "/previews", n: "05" },
-  { key: "link.analytics", to: "/analytics", n: "06" },
+  // Analytics dashboard — hidden until we have more clientele to show.
+  // { key: "link.analytics", to: "/analytics", n: "06" },
   { key: "link.pricing", to: "/pricing", n: "07" },
   { key: "link.plans", to: "/plans", n: "08" },
   { key: "link.journal", to: "/journal", n: "09" },

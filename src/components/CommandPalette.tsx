@@ -17,7 +17,8 @@ const commands: Cmd[] = [
   // Placeholder example pages — hidden until we have real client work to show.
   // { labelKey: "link.portfolio", hintKey: "search.hint.portfolio", to: "/portfolio", keys: "work projects portfolio" },
   // { labelKey: "link.previews", hintKey: "search.hint.previews", to: "/previews", keys: "templates demo previews" },
-  { labelKey: "link.analytics", hintKey: "search.hint.analytics", to: "/analytics", keys: "metrics data analytics results" },
+  // Analytics dashboard — hidden until we have more clientele to show.
+  // { labelKey: "link.analytics", hintKey: "search.hint.analytics", to: "/analytics", keys: "metrics data analytics results" },
   { labelKey: "link.pricing", hintKey: "search.hint.pricing", to: "/pricing", keys: "cost quote estimate pricing" },
   { labelKey: "link.plans", hintKey: "search.hint.plans", to: "/plans", keys: "maintenance support plans care" },
   { labelKey: "link.journal", hintKey: "search.hint.journal", to: "/journal", keys: "blog articles journal writing" },

@@ -6,7 +6,8 @@ import { IconArrowUpRight, IconSearch } from "@/components/icons";
 // Placeholder example case studies — hidden until we have real client work to show.
 // import { cases } from "@/data/cases";
 import { posts } from "@/data/journal";
-import { industries } from "@/data/industries";
+// Per-industry landing pages — hidden until we have more clientele to show.
+// import { industries } from "@/data/industries";
 import { useLang } from "@/lib/i18n";
 
 type Node = { label: string; to: string; hint?: string };
@@ -17,8 +18,7 @@ const groups: Group[] = [
     { label: "ex.link.home", to: "/", hint: "ex.hint.intro" },
     { label: "ex.link.webdesign", to: "/web-design", hint: "ex.hint.whatMake" },
     { label: "link.capabilities", to: "/capabilities", hint: "ex.hint.whatBring" },
-    // Placeholder example page (previews) hidden until we have real client work to show.
-    { label: "link.analytics", to: "/analytics", hint: "ex.hint.results" },
+    // Placeholder example page (previews) and analytics dashboard — hidden until we have more clientele to show.
   ]},
   { hKey: "ex.g.company", n: "02", items: [
     { label: "link.about", to: "/about", hint: "ex.hint.whoWeAre" },
@@ -29,7 +29,8 @@ const groups: Group[] = [
   ]},
   // Placeholder example case studies — hidden until we have real client work to show.
   // { hKey: "ex.g.cases", n: "03", items: cases.map((c) => ({ label: c.name, to: `/work/${c.slug}`, hint: c.categoryKey })) },
-  { hKey: "ex.g.industries", n: "04", items: industries.map((i) => ({ label: i.nameKey, to: `/for/${i.slug}`, hint: "ex.hint.landing" })) },
+  // Per-industry landing pages — hidden until we have more clientele to show.
+  // { hKey: "ex.g.industries", n: "04", items: industries.map((i) => ({ label: i.nameKey, to: `/for/${i.slug}`, hint: "ex.hint.landing" })) },
   { hKey: "ex.g.journal", n: "05", items: posts.map((p) => ({ label: p.titleKey, to: `/journal/${p.slug}`, hint: p.categoryKey })) },
 ];
 

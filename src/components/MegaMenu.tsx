@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { IconArrowUpRight } from "@/components/icons";
-import { industries } from "@/data/industries";
+// Per-industry landing pages — hidden until we have more clientele to show.
+// import { industries } from "@/data/industries";
 import { sfx } from "@/lib/sfx";
 import { useLang } from "@/lib/i18n";
 
@@ -17,7 +18,8 @@ const cols = [
   },
   {
     hKey: "mm.grow", items: [
-      ["link.analytics", "mm.analytics.d", "/analytics"],
+      // Analytics dashboard — hidden until we have more clientele to show.
+      // ["link.analytics", "mm.analytics.d", "/analytics"],
       ["link.pricing", "mm.pricing.d", "/pricing"],
       ["link.plans", "mm.plans.d", "/plans"],
       ["link.journal", "mm.journal.d", "/journal"],
@@ -53,7 +55,7 @@ export function MegaMenu() {
             initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="absolute left-0 right-0 top-[calc(100%+1px)] px-5 sm:px-8">
-            <div className="max-w-[1400px] mx-auto card-paper p-8 grid grid-cols-[1fr_1fr_1.3fr_1fr] gap-8">
+            <div className="max-w-[1400px] mx-auto card-paper p-8 grid grid-cols-[1fr_1fr_1.4fr] gap-8">
               {cols.map((col) => (
                 <div key={col.hKey}>
                   <div className="mono-label text-kraft mb-4">{t(col.hKey)}</div>
@@ -70,7 +72,7 @@ export function MegaMenu() {
                 </div>
               ))}
 
-              {/* industries */}
+              {/* industries — per-industry landing pages hidden until we have more clientele to show.
               <div>
                 <div className="mono-label text-kraft mb-4">{t("mm.industries")}</div>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-2.5">
@@ -81,6 +83,7 @@ export function MegaMenu() {
                   ))}
                 </div>
               </div>
+              */}
 
               {/* featured CTA */}
               <Link to="/contact" onClick={() => { close(); sfx.tick(); }} data-cursor-label="GO" className="card-paper-kraft press p-5 flex flex-col justify-between">
