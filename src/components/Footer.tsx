@@ -14,8 +14,9 @@ export function Footer() {
   const year = new Date().getFullYear();
   const { t, num, brand } = useLang();
   const cols = [
-    { h: t("foot.studio"), items: [[t("link.about"), "/about"], [t("link.design"), "/web-design"], [t("link.capabilities"), "/capabilities"], [t("link.portfolio"), "/portfolio"]] },
-    { h: t("foot.work"), items: [[t("link.previews"), "/previews"], [t("link.analytics"), "/analytics"], [t("link.pricing"), "/pricing"], [t("link.journal"), "/journal"], [t("foot.exploreAll"), "/explore"]] },
+    // Placeholder example links (portfolio, previews) hidden until we have real client work to show.
+    { h: t("foot.studio"), items: [[t("link.about"), "/about"], [t("link.design"), "/web-design"], [t("link.capabilities"), "/capabilities"]] },
+    { h: t("foot.work"), items: [[t("link.analytics"), "/analytics"], [t("link.pricing"), "/pricing"], [t("link.journal"), "/journal"], [t("foot.exploreAll"), "/explore"]] },
   ];
   return (
     <footer className="bg-paper-3 text-ink relative overflow-hidden border-t border-ink">

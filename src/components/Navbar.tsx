@@ -17,8 +17,9 @@ const links = [
   { key: "link.about", to: "/about", n: "01" },
   { key: "link.design", to: "/web-design", n: "02" },
   { key: "link.capabilities", to: "/capabilities", n: "03" },
-  { key: "link.portfolio", to: "/portfolio", n: "04" },
-  { key: "link.previews", to: "/previews", n: "05" },
+  // Placeholder example pages — hidden until we have real client work to show.
+  // { key: "link.portfolio", to: "/portfolio", n: "04" },
+  // { key: "link.previews", to: "/previews", n: "05" },
   { key: "link.analytics", to: "/analytics", n: "06" },
   { key: "link.pricing", to: "/pricing", n: "07" },
   { key: "link.plans", to: "/plans", n: "08" },

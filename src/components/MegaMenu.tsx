@@ -11,7 +11,8 @@ const cols = [
     hKey: "mm.build", items: [
       ["mm.webdesign", "mm.webdesign.d", "/web-design"],
       ["link.capabilities", "mm.capabilities.d", "/capabilities"],
-      ["mm.previews", "mm.previews.d", "/previews"],
+      // Placeholder example page — hidden until we have real client work to show.
+      // ["mm.previews", "mm.previews.d", "/previews"],
     ],
   },
   {

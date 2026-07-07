@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Reveal, SectionLabel } from "@/components/primitives";
 import { IconArrowUpRight, IconSearch } from "@/components/icons";
-import { cases } from "@/data/cases";
+// Placeholder example case studies — hidden until we have real client work to show.
+// import { cases } from "@/data/cases";
 import { posts } from "@/data/journal";
 import { industries } from "@/data/industries";
 import { useLang } from "@/lib/i18n";
@@ -16,7 +17,7 @@ const groups: Group[] = [
     { label: "ex.link.home", to: "/", hint: "ex.hint.intro" },
     { label: "ex.link.webdesign", to: "/web-design", hint: "ex.hint.whatMake" },
     { label: "link.capabilities", to: "/capabilities", hint: "ex.hint.whatBring" },
-    { label: "link.previews", to: "/previews", hint: "ex.hint.liveDemos" },
+    // Placeholder example page (previews) hidden until we have real client work to show.
     { label: "link.analytics", to: "/analytics", hint: "ex.hint.results" },
   ]},
   { hKey: "ex.g.company", n: "02", items: [
@@ -26,7 +27,8 @@ const groups: Group[] = [
     { label: "link.plans", to: "/plans", hint: "ex.hint.maintenance" },
     { label: "ex.link.privacy", to: "/privacy" }, { label: "ex.link.terms", to: "/terms" },
   ]},
-  { hKey: "ex.g.cases", n: "03", items: cases.map((c) => ({ label: c.name, to: `/work/${c.slug}`, hint: c.categoryKey })) },
+  // Placeholder example case studies — hidden until we have real client work to show.
+  // { hKey: "ex.g.cases", n: "03", items: cases.map((c) => ({ label: c.name, to: `/work/${c.slug}`, hint: c.categoryKey })) },
   { hKey: "ex.g.industries", n: "04", items: industries.map((i) => ({ label: i.nameKey, to: `/for/${i.slug}`, hint: "ex.hint.landing" })) },
   { hKey: "ex.g.journal", n: "05", items: posts.map((p) => ({ label: p.titleKey, to: `/journal/${p.slug}`, hint: p.categoryKey })) },
 ];

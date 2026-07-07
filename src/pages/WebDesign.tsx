@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { Reveal, FadeUp, SectionLabel, Magnetic } from "@/components/primitives";
 import { ScrollTimeline } from "@/components/flourishes";
-import { SiteMock } from "@/components/SiteMock";
+// Placeholder website-example mockups — hidden until we have real client work to show.
+// import { motion } from "framer-motion";
+// import { SiteMock } from "@/components/SiteMock";
 import { IconArrowUpRight, IconCode, IconPen, IconBolt, IconShield, IconChart, IconPhone } from "@/components/icons";
 import { useLang } from "@/lib/i18n";
 
@@ -75,7 +76,7 @@ export default function WebDesign() {
         </div>
       </section>
 
-      {/* showcase */}
+      {/* showcase (placeholder website examples) — hidden until we have real client work to show
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-24">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
@@ -94,6 +95,7 @@ export default function WebDesign() {
           </motion.div>
         </div>
       </section>
+      */}
     </div>
   );
 }

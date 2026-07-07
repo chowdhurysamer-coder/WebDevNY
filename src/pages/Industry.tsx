@@ -1,7 +1,8 @@
 import { useParams, Link, Navigate } from "react-router-dom";
 import { industryBySlug, industries } from "@/data/industries";
-import { SiteMock } from "@/components/SiteMock";
-import { Reveal, FadeUp, SectionLabel, Magnetic, Counter, TiltCard } from "@/components/primitives";
+// Placeholder website-example mockup — hidden until we have real client work to show.
+// import { SiteMock } from "@/components/SiteMock";
+import { Reveal, FadeUp, SectionLabel, Magnetic, Counter } from "@/components/primitives";
 import { IconArrowUpRight, IconCheck, IconStar } from "@/components/icons";
 import { useLang } from "@/lib/i18n";
 
@@ -33,9 +34,10 @@ export default function Industry() {
             <Link to="/pricing" className="mono-label hover:text-kraft transition-colors link-draw">{t("in.seePricing")}</Link>
           </div>
         </div>
+        {/* Placeholder website-example mockup — hidden until we have real client work to show.
         <TiltCard>
           <div className="card-paper overflow-hidden"><SiteMock variant={ind.variant} className="w-full" /></div>
-        </TiltCard>
+        </TiltCard> */}
       </section>
 
       {/* pains */}

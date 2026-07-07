@@ -12,9 +12,10 @@ import { ScrollProgress } from "@/components/primitives";
 import Home from "@/pages/Home";
 import WebDesign from "@/pages/WebDesign";
 import Capabilities from "@/pages/Capabilities";
-import Portfolio from "@/pages/Portfolio";
-import CaseStudy from "@/pages/CaseStudy";
-import Previews from "@/pages/Previews";
+// Placeholder example pages — hidden until we have real client work to show.
+// import Portfolio from "@/pages/Portfolio";
+// import CaseStudy from "@/pages/CaseStudy";
+// import Previews from "@/pages/Previews";
 import Analytics from "@/pages/Analytics";
 import Pricing from "@/pages/Pricing";
 import Plans from "@/pages/Plans";
@@ -95,9 +96,10 @@ function SiteLayout() {
             <Route path="/" element={<Home />} />
             <Route path="/web-design" element={<WebDesign />} />
             <Route path="/capabilities" element={<Capabilities />} />
+            {/* Placeholder example pages — hidden until we have real client work to show.
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/work/:slug" element={<CaseStudy />} />
-            <Route path="/previews" element={<Previews />} />
+            <Route path="/previews" element={<Previews />} /> */}
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/plans" element={<Plans />} />

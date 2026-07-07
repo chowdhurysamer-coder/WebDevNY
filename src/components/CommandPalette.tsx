@@ -14,15 +14,17 @@ const commands: Cmd[] = [
   { labelKey: "search.explore", hintKey: "search.hint.explore", to: "/explore", keys: "sitemap map all pages explore everything" },
   { labelKey: "link.design", hintKey: "search.hint.webdesign", to: "/web-design", keys: "design dev build development" },
   { labelKey: "link.capabilities", hintKey: "search.hint.capabilities", to: "/capabilities", keys: "services skills capabilities" },
-  { labelKey: "link.portfolio", hintKey: "search.hint.portfolio", to: "/portfolio", keys: "work projects portfolio" },
-  { labelKey: "link.previews", hintKey: "search.hint.previews", to: "/previews", keys: "templates demo previews" },
+  // Placeholder example pages — hidden until we have real client work to show.
+  // { labelKey: "link.portfolio", hintKey: "search.hint.portfolio", to: "/portfolio", keys: "work projects portfolio" },
+  // { labelKey: "link.previews", hintKey: "search.hint.previews", to: "/previews", keys: "templates demo previews" },
   { labelKey: "link.analytics", hintKey: "search.hint.analytics", to: "/analytics", keys: "metrics data analytics results" },
   { labelKey: "link.pricing", hintKey: "search.hint.pricing", to: "/pricing", keys: "cost quote estimate pricing" },
   { labelKey: "link.plans", hintKey: "search.hint.plans", to: "/plans", keys: "maintenance support plans care" },
   { labelKey: "link.journal", hintKey: "search.hint.journal", to: "/journal", keys: "blog articles journal writing" },
   { labelKey: "link.contact", hintKey: "cta.start", to: "/contact", keys: "email quote hire book contact" },
-  { labelKey: "search.case1", hintKey: "search.hint.restaurant", to: "/work/trattoria-bella", keys: "restaurant trattoria bella case" },
-  { labelKey: "search.case2", hintKey: "search.hint.fitness", to: "/work/ironworks-gym", keys: "gym fitness ironworks case" },
+  // Placeholder example case studies — hidden until we have real client work to show.
+  // { labelKey: "search.case1", hintKey: "search.hint.restaurant", to: "/work/trattoria-bella", keys: "restaurant trattoria bella case" },
+  // { labelKey: "search.case2", hintKey: "search.hint.fitness", to: "/work/ironworks-gym", keys: "gym fitness ironworks case" },
 ];
 
 export function CommandPalette() {

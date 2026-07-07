@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Aurora } from "@/components/Aurora";
-import { SiteMock } from "@/components/SiteMock";
-import { Reveal, FadeUp, SectionLabel, Marquee, Magnetic, Counter, Parallax, TiltCard } from "@/components/primitives";
-import { WordmarkMarquee, TapeStrip } from "@/components/flourishes";
-import { IconArrowUpRight, IconArrow } from "@/components/icons";
+// Placeholder website-example mockups & fake client logos — hidden until we have real client work to show.
+// import { SiteMock } from "@/components/SiteMock";
+import { Reveal, FadeUp, SectionLabel, Marquee, Magnetic, Counter } from "@/components/primitives";
+// import { WordmarkMarquee, TapeStrip } from "@/components/flourishes";
+import { IconArrowUpRight } from "@/components/icons";
 import { useLang } from "@/lib/i18n";
 
 const stats = [
@@ -65,9 +66,10 @@ export default function Home() {
                   {t("hero.start")} <IconArrowUpRight size={15} />
                 </Link>
               </Magnetic>
+              {/* Placeholder link to hidden Portfolio page — restore when we have real client work to show.
               <Link to="/portfolio" className="inline-flex items-center gap-2 mono-label text-ink hover:text-kraft transition-colors link-draw">
                 {t("hero.work")} <IconArrow size={15} />
-              </Link>
+              </Link> */}
             </motion.div>
           </div>
         </div>
@@ -95,13 +97,14 @@ export default function Home() {
         ))}
       </section>
 
-      {/* ───────── TRUSTED BY ───────── */}
+      {/* ───────── TRUSTED BY (fake client logos) — hidden until we have real clients to show ─────────
       <section className="py-12 border-b border-line overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8 mb-6">
           <SectionLabel index="·">{t("hero.trusted")}</SectionLabel>
         </div>
         <WordmarkMarquee />
       </section>
+      ───────── */}
 
       {/* ───────── SERVICES ───────── */}
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-24">
@@ -127,7 +130,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ───────── SELECTED WORK (light) ───────── */}
+      {/* ───────── SELECTED WORK (placeholder website examples) — hidden until we have real client work to show ─────────
       <section className="py-24 overflow-hidden border-y border-line bg-paper-2 relative">
         <TapeStrip label={num(t("misc.selectedWork2025"))} className="absolute top-6 left-1/2 -translate-x-1/2" />
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8 mt-6">
@@ -160,6 +163,7 @@ export default function Home() {
           </div>
         </Parallax>
       </section>
+      ───────── */}
 
       {/* ───────── NICHES ───────── */}
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-24">

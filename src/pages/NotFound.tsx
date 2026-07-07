@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Magnetic } from "@/components/primitives";
 import { BoxCatchGame } from "@/components/BoxCatchGame";
-import { IconArrowUpRight, IconArrow } from "@/components/icons";
+import { IconArrowUpRight } from "@/components/icons";
 import { useLang } from "@/lib/i18n";
 
 export default function NotFound() {
@@ -36,9 +36,10 @@ export default function NotFound() {
               {t("nf.home")} <IconArrowUpRight size={15} />
             </Link>
           </Magnetic>
+          {/* Placeholder link to hidden Portfolio page — restore when we have real client work to show.
           <Link to="/portfolio" className="inline-flex items-center gap-2 mono-label hover:text-kraft transition-colors link-draw">
             <IconArrow size={15} className="rotate-180" /> {t("hero.work")}
-          </Link>
+          </Link> */}
         </div>
       </div>
 
