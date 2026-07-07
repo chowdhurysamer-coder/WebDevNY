@@ -7,7 +7,7 @@ import { dict } from "@/lib/translations";
  * back to English (never the raw key), so partially-wired pages stay readable.
  */
 export type Lang =
-  | "en" | "es" | "zh" | "yue" | "ru" | "yi"
+  | "en" | "es" | "zh" | "yue" | "ru" | "fr"
   | "bn" | "ko" | "ht" | "it" | "ar" | "pl";
 
 export interface LangMeta { code: Lang; label: string; native: string; rtl?: boolean }
@@ -18,8 +18,8 @@ export const LANGS: LangMeta[] = [
   { code: "zh", label: "Chinese (Mandarin)", native: "中文（普通话）" },
   { code: "yue", label: "Chinese (Cantonese)", native: "中文（廣東話）" },
   { code: "ru", label: "Russian", native: "Русский" },
-  { code: "yi", label: "Yiddish", native: "ייִדיש", rtl: true },
-  { code: "bn", label: "Bengali", native: "বাংলা" },
+  { code: "fr", label: "French", native: "Français" },
+  { code: "bn", label: "Bangla", native: "বাংলা" },
   { code: "ko", label: "Korean", native: "한국어" },
   { code: "ht", label: "Haitian Creole", native: "Kreyòl Ayisyen" },
   { code: "it", label: "Italian", native: "Italiano" },
@@ -27,7 +27,7 @@ export const LANGS: LangMeta[] = [
   { code: "pl", label: "Polish", native: "Polski" },
 ];
 
-const RTL: Lang[] = ["ar", "yi"];
+const RTL: Lang[] = ["ar"];
 
 /**
  * Per-locale digit glyphs, index 0–9. Only locales whose script uses its own
@@ -52,9 +52,8 @@ export function localizeDigits(input: string | number, lang: Lang): string {
  * "WebDev" rather than a translation of the words.
  */
 export const BRAND: Record<Lang, string> = {
-  en: "WebDev", es: "WebDev", it: "WebDev", pl: "WebDev", ht: "WebDev",
+  en: "WebDev", es: "WebDev", it: "WebDev", pl: "WebDev", ht: "WebDev", fr: "WebDev",
   ru: "ВебДев",
-  yi: "וועבדעוו",
   zh: "韦伯戴夫",
   yue: "韋伯戴夫",
   bn: "ওয়েবডেভ",
