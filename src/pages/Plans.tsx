@@ -9,14 +9,10 @@ const features = [
   { icon: IconHeadset, tKey: "pl.f3.t", dKey: "pl.f3.d" },
 ];
 
-const plans = [
-  { nameKey: "pl.plan.basic", price: "199", featured: false,
-    features: ["pl.bf.monthlyUpdates", "pl.bf.uptime", "pl.bf.scans", "pl.bf.report", "pl.bf.emailSupport"] },
-  { nameKey: "pl.plan.pro", price: "499", featured: true,
-    features: ["pl.pf.everythingBasic", "pl.pf.content2", "pl.pf.abtest", "pl.pf.seoFixes", "pl.pf.phoneSlack", "pl.pf.quarterlyCall"] },
-  { nameKey: "pl.plan.elite", price: "999", featured: false,
-    features: ["pl.ef.everythingPro", "pl.ef.dev8", "pl.ef.newFeatures", "pl.ef.customReport", "pl.ef.dedicated", "pl.ef.monthlyStrategy"] },
-];
+// One flat maintenance fee, included with every build ($50/mo). Feature
+// add-ons each carry their own small monthly fee on top (see Pricing).
+const MAINT_PRICE = "50";
+const maintFeatureKeys = ["pl.bf.monthlyUpdates", "pl.bf.uptime", "pl.bf.scans", "pl.bf.report", "pl.bf.emailSupport"];
 
 export default function Plans() {
   const { t, num } = useLang();
@@ -46,37 +42,36 @@ export default function Plans() {
         </div>
       </section>
 
-      {/* plans */}
+      {/* the one maintenance plan — included with every build */}
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-8 pb-20">
-        <div className="grid md:grid-cols-3 gap-6 items-stretch">
-          {plans.map((p, i) => (
-            <FadeUp key={p.nameKey} delay={i * 0.1} className="flex">
-              <div className={`flex flex-col w-full p-8 ${p.featured ? "card-paper-kraft" : "card-paper"}`}>
-                <div className="flex items-center justify-between mb-5">
-                  <h2 className="display text-3xl font-semibold">{t(p.nameKey)}</h2>
-                  {p.featured && <span className="mono-label bg-ink text-paper px-2.5 py-1">{t("pl.popular")}</span>}
-                </div>
-                <div className="flex items-baseline gap-1 mb-7">
-                  <span className={`text-lg ${p.featured ? "text-paper/60" : "text-ink-faint"}`}>$</span>
-                  <span className="display text-6xl font-semibold">{num(p.price)}</span>
-                  <span className={`mono-label ml-1 ${p.featured ? "text-paper/60" : "text-ink-faint"}`}>{t("pl.perMo")}</span>
-                </div>
-                <div className={`h-px mb-6 ${p.featured ? "bg-paper/20" : "bg-line"}`} />
-                <ul className="flex flex-col gap-3 mb-8 flex-1">
-                  {p.features.map((f) => (
-                    <li key={f} className="flex items-center gap-3 text-sm">
-                      <IconCheck size={16} className={p.featured ? "text-paper" : "text-kraft"} /> {t(f)}
-                    </li>
-                  ))}
-                </ul>
-                <Magnetic>
-                  <Link to="/contact" data-cursor-label="GO" className={`press inline-flex items-center justify-center gap-2 w-full py-4 mono-label ${p.featured ? "bg-ink text-paper" : "card-paper-kraft"}`}>
-                    {t("pl.get")} {t(p.nameKey)} <IconArrowUpRight size={14} />
-                  </Link>
-                </Magnetic>
+        <div className="max-w-xl mx-auto">
+          <FadeUp className="flex">
+            <div className="flex flex-col w-full p-8 sm:p-10 card-paper-kraft">
+              <div className="flex items-center justify-between mb-5">
+                <h2 className="display text-3xl font-semibold">{t("term.maintenance")}</h2>
+                <span className="mono-label bg-ink text-paper px-2.5 py-1">{t("pl.popular")}</span>
               </div>
-            </FadeUp>
-          ))}
+              <div className="flex items-baseline gap-1 mb-7">
+                <span className="text-lg text-paper/60">$</span>
+                <span className="display text-6xl font-semibold">{num(MAINT_PRICE)}</span>
+                <span className="mono-label ml-1 text-paper/60">{t("pl.perMo")}</span>
+              </div>
+              <div className="h-px mb-6 bg-paper/20" />
+              <ul className="flex flex-col gap-3 mb-8 flex-1">
+                {maintFeatureKeys.map((f) => (
+                  <li key={f} className="flex items-center gap-3 text-sm">
+                    <IconCheck size={16} className="text-paper" /> {t(f)}
+                  </li>
+                ))}
+              </ul>
+              <Magnetic>
+                <Link to="/contact" data-cursor-label="GO" className="press inline-flex items-center justify-center gap-2 w-full py-4 mono-label bg-ink text-paper">
+                  {t("pl.get")} {t("term.maintenance")} <IconArrowUpRight size={14} />
+                </Link>
+              </Magnetic>
+            </div>
+          </FadeUp>
+          <p className="text-ink-soft text-sm leading-relaxed text-center mt-8 max-w-md mx-auto">{t("pl.addonNote")}</p>
         </div>
       </section>
 

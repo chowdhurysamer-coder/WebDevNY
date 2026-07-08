@@ -1,28 +1,41 @@
-export type Tier = "Starter" | "Growth" | "Elite";
+/**
+ * WebDev NY pricing model.
+ *
+ * One base package + stackable add-ons. Every item has a one-time fee
+ * (adds to the flat build fee) and a monthly fee (adds to maintenance) —
+ * the two never mix. Domain registration is billed to the client directly
+ * and never appears in these numbers.
+ */
 
-export const TIERS: Record<Tier, { base: number; pagesIncl: number; days: number }> = {
-  Starter: { base: 1490, pagesIncl: 5, days: 7 },
-  Growth: { base: 3490, pagesIncl: 12, days: 12 },
-  Elite: { base: 6990, pagesIncl: 30, days: 24 },
+export const BASE = {
+  oneTime: 500,   // flat build fee
+  monthly: 50,    // mandatory monthly maintenance
+  pagesIncl: 4,   // pages included in the base package
+  days: 7,        // typical days to launch for the base site
 };
 
+/** 4 included + up to 21 extra. */
+export const MAX_PAGES = 25;
+
+export const EXTRA_PAGE = { oneTime: 50, monthly: 5 };
+
 export const ADDONS = [
-  { id: "ecom", label: "E-commerce / store", price: 1800, days: 6 },
-  { id: "booking", label: "Booking / scheduling", price: 900, days: 3 },
-  { id: "cms", label: "Blog / CMS", price: 700, days: 2 },
-  { id: "seo", label: "Advanced SEO package", price: 600, days: 2 },
-  { id: "brand", label: "Brand & logo design", price: 1500, days: 5 },
-  { id: "copy", label: "Copywriting", price: 800, days: 3 },
+  { id: "cms", label: "Blog / CMS", oneTime: 100, monthly: 10, days: 2 },
+  { id: "booking", label: "Booking / scheduling", oneTime: 50, monthly: 15, days: 2 },
+  { id: "seo", label: "Advanced SEO", oneTime: 75, monthly: 20, days: 2 },
+  { id: "multilang", label: "Multi-lingual support", oneTime: 95, monthly: 10, days: 2 },
+  { id: "gallery", label: "Photo / video gallery", oneTime: 50, monthly: 5, days: 1 },
 ] as const;
 
-export const PER_EXTRA_PAGE = 220;
-
 /** Pure quote calculation used by the estimator (and unit-tested). */
-export function computeQuote(tier: Tier, pages: number, selectedIds: string[]) {
-  const t = TIERS[tier];
-  const extraPages = Math.max(0, pages - t.pagesIncl);
-  let total = t.base + extraPages * PER_EXTRA_PAGE;
-  let days = t.days + Math.ceil(extraPages / 3);
-  for (const a of ADDONS) if (selectedIds.includes(a.id)) { total += a.price; days += a.days; }
-  return { total, days, extraPages };
+export function computeQuote(pages: number, selectedIds: string[]) {
+  const clamped = Math.min(MAX_PAGES, Math.max(BASE.pagesIncl, Math.round(pages)));
+  const extraPages = clamped - BASE.pagesIncl;
+  let oneTime = BASE.oneTime + extraPages * EXTRA_PAGE.oneTime;
+  let monthly = BASE.monthly + extraPages * EXTRA_PAGE.monthly;
+  let days = BASE.days + Math.ceil(extraPages / 4);
+  for (const a of ADDONS) {
+    if (selectedIds.includes(a.id)) { oneTime += a.oneTime; monthly += a.monthly; days += a.days; }
+  }
+  return { oneTime, monthly, days, extraPages, pages: clamped };
 }

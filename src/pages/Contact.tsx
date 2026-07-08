@@ -25,7 +25,7 @@ const info = [
 
 const stepKeys = ["ct.step1", "ct.step2", "ct.step3", "ct.step4"];
 
-interface Quote { tier: string; pages: number; addons: string[]; total: number; days: number }
+interface Quote { pages: number; addons: string[]; oneTime: number; monthly: number; days: number }
 
 export default function Contact() {
   const { t, num } = useLang();
@@ -38,11 +38,10 @@ export default function Contact() {
   const [form, setForm] = useState(() => {
     if (quote) {
       const addons = quote.addons.length ? `\nAdd-ons: ${quote.addons.join(", ")}` : "";
-      const budgetMap: Record<string, string> = { Starter: "$1,490, Starter", Growth: "$3,490, Growth", Elite: "$6,990, Elite" };
       return {
         name: "", email: "", business: "",
-        budget: budgetMap[quote.tier] || "Custom / Enterprise",
-        message: `I built an estimate on your site:\n\nPackage: ${quote.tier}\nPages: ${quote.pages}${addons}\nEstimated total: $${quote.total.toLocaleString()}\nEstimated timeline: ~${quote.days} days\n\nA bit about my project: `,
+        budget: `$${quote.oneTime.toLocaleString()} + $${quote.monthly}/mo`,
+        message: `I built an estimate on your site:\n\nPackage: Base ($500 + $50/mo)\nPages: ${quote.pages}${addons}\nEstimated: $${quote.oneTime.toLocaleString()} one-time + $${quote.monthly}/mo maintenance\nEstimated timeline: ~${quote.days} days\n\nA bit about my project: `,
       };
     }
     return { name: "", email: "", business: "", budget: "", message: "" };
@@ -191,9 +190,9 @@ export default function Contact() {
               {quote && (
                 <div className="card-paper-kraft p-5">
                   <div className="mono-label text-paper/80 mb-2">{t("ct.quote.carried")}</div>
-                  <div className="flex items-baseline gap-3">
-                    <span className="display text-3xl font-semibold">${num(quote.total.toLocaleString())}</span>
-                    <span className="mono-label text-paper/80">{quote.tier} · {num(quote.pages)} {t("ct.quote.pages")} · ~{num(quote.days)} {t("ct.quote.days")}</span>
+                  <div className="flex items-baseline gap-3 flex-wrap">
+                    <span className="display text-3xl font-semibold" dir="ltr">${num(quote.oneTime.toLocaleString())} + ${num(quote.monthly)}{t("pr.perMo")}</span>
+                    <span className="mono-label text-paper/80">{num(quote.pages)} {t("ct.quote.pages")} · ~{num(quote.days)} {t("ct.quote.days")}</span>
                   </div>
                   {quote.addons.length > 0 && <div className="mono-label text-paper/70 mt-2">+ {quote.addons.join(" · ")}</div>}
                 </div>
@@ -216,9 +215,11 @@ export default function Contact() {
                 <span className="mono-label text-ink-faint block mb-2">{t("ct.f.budget")}</span>
                 <select value={form.budget} onChange={(e) => setForm({ ...form, budget: e.target.value })} className={field}>
                   <option value="">{t("ct.f.budgetPh")}</option>
-                  <option>$1,490, {t("pr.plan.starter")}</option>
-                  <option>$3,490, {t("pr.plan.growth")}</option>
-                  <option>$6,990, {t("pr.plan.elite")}</option>
+                  {/* carried-over estimate needs a matching option or the select renders blank */}
+                  {quote && <option>{`$${quote.oneTime.toLocaleString()} + $${quote.monthly}/mo`}</option>}
+                  <option>$500, {t("es.base")}</option>
+                  <option>$500 – $1,000</option>
+                  <option>$1,000+</option>
                   <option>{t("ct.f.custom")}</option>
                 </select>
               </label>
