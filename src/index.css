@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+/* Fonts load via <link> in index.html (preconnect + stylesheet) — a CSS
+   @import here would block first paint in every browser. */
 
 @tailwind base;
 @tailwind components;
@@ -20,8 +21,7 @@
   --c-card-hi: 255 253 248;
   --line: rgba(33,27,21,0.12);
   --shadow: rgba(33,27,21,0.88);
-  --grain-blend: multiply;
-  --grain-opacity: 0.04;
+  --grain-opacity: 0.035;
   color-scheme: light;
 }
 
@@ -43,8 +43,7 @@
   --c-card-hi: 50 40 29;
   --line: rgba(247,241,229,0.18);
   --shadow: rgba(0,0,0,0.55);
-  --grain-blend: screen;
-  --grain-opacity: 0.03;
+  --grain-opacity: 0.05;
   color-scheme: dark;
 }
 
@@ -69,17 +68,19 @@ body {
 ::selection { background: rgb(var(--c-kraft)); color: #fff; }
 
 ::-webkit-scrollbar { width: 0px; }
+html { scrollbar-width: none; } /* Firefox: same hidden-scrollbar look as WebKit */
 
 /* ---------- Grain (subtle, light) ---------- */
 /* The noise tile repeats, so the layer only needs to be a little bigger than
-   the viewport (the shift animation moves it at most ~2.4vw). Keeping it small
-   + will-change makes the blend far cheaper to composite while scrolling. */
+   the viewport (the shift animation moves it at most ~2.4vw). No blend mode:
+   plain low-opacity noise looks identical but composites fast on every
+   engine — Safari and Firefox are far slower than Chrome at full-page
+   mix-blend-mode layers. */
 .grain {
   position: fixed; inset: -8%; width: 116%; height: 116%;
   z-index: 9998; pointer-events: none; opacity: var(--grain-opacity);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
   animation: grainShift 0.5s steps(2) infinite;
-  mix-blend-mode: var(--grain-blend);
   will-change: transform;
 }
 @keyframes grainShift {
@@ -143,6 +144,15 @@ body {
 
 /* scroll progress */
 .progress-bar { transform-origin: 0 50%; }
+
+/* Home hero height: vh fallback for browsers without svh (Safari ≤ 15.3),
+   svh where supported so mobile URL bars don't cause jumps. */
+.hero-vh { min-height: 82vh; }
+@supports (min-height: 1svh) { .hero-vh { min-height: 82svh; } }
+@media (min-width: 1024px) {
+  .hero-vh { min-height: 100vh; }
+  @supports (min-height: 1svh) { .hero-vh { min-height: 100svh; } }
+}
 
 /* dotted hero grid */
 .dotgrid {

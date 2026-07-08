@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <div className="bg-paper">
       {/* ───────── HERO ───────── */}
-      <section className="relative min-h-[82svh] lg:min-h-[100svh] flex flex-col justify-end overflow-hidden">
+      <section className="hero-vh relative flex flex-col justify-end overflow-hidden">
         <Aurora className="aurora absolute inset-0 w-full h-full" />
         <div className="absolute inset-0 dotgrid opacity-40 pointer-events-none" />
         <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgb(var(--c-paper) / 0.55) 0%, rgb(var(--c-paper) / 0.15) 30%, rgb(var(--c-paper) / 0.4) 62%, rgb(var(--c-paper) / 0.9) 100%)" }} />
