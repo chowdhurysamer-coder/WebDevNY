@@ -65,9 +65,18 @@ export const BRAND: Record<Lang, string> = {
 interface Ctx { lang: Lang; setLang: (l: Lang) => void; t: (key: string) => string; num: (v: string | number) => string; brand: string; rtl: boolean }
 const LangContext = createContext<Ctx>({ lang: "en", setLang: () => {}, t: (k) => k, num: (v) => String(v), brand: "WebDev", rtl: false });
 
+const isLang = (v: string | null): v is Lang => !!v && LANGS.some((l) => l.code === v);
+
 export function LangProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>(() => {
-    try { return (localStorage.getItem("webdevny_lang") as Lang) || "en"; } catch { return "en"; }
+    // Validate against the current language set so a removed code (e.g. the old
+    // "yi" Yiddish preference) cleanly falls back to English instead of sticking.
+    try {
+      const saved = localStorage.getItem("webdevny_lang");
+      if (isLang(saved)) return saved;
+      if (saved) localStorage.removeItem("webdevny_lang");
+    } catch { /* ignore */ }
+    return "en";
   });
   const apply = useCallback((l: Lang) => {
     const rtl = RTL.includes(l);
