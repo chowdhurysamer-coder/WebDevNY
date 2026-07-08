@@ -39,7 +39,8 @@ export function Estimator() {
 
   const toggle = (id: string) => setSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
 
-  const { oneTime, monthly, days, extraPages } = useMemo(() => computeQuote(pages, selected), [pages, selected]);
+  const { oneTime, monthly, daysLow, daysHigh, extraPages } = useMemo(() => computeQuote(pages, selected), [pages, selected]);
+  const daysLabel = daysLow === daysHigh ? num(daysLow) : `${num(daysLow)}–${num(daysHigh)}`;
 
   const animTotal = useAnimatedNumber(oneTime);
   const animMonthly = useAnimatedNumber(monthly);
@@ -111,8 +112,8 @@ export function Estimator() {
             <div className="mono-label text-paper/70 mt-2 tabular-nums">
               + ${num(animMonthly)}{t("pr.perMo")} · {t("es.monthly")}
             </div>
-            <motion.div key={days} initial={{ opacity: 0.4 }} animate={{ opacity: 1 }} className="mono-label text-kraft-soft mt-2">
-              ≈ {num(days)} {t("es.daysLaunch")}
+            <motion.div key={daysLabel} initial={{ opacity: 0.4 }} animate={{ opacity: 1 }} className="mono-label text-kraft-soft mt-2">
+              ≈ {daysLabel} {t("es.daysLaunch")}
             </motion.div>
           </div>
           <Magnetic className="mt-6 block">
@@ -120,7 +121,7 @@ export function Estimator() {
               state={{ quote: {
                 pages,
                 addons: addons.filter((a) => selected.includes(a.id)).map((a) => t(ADDON_KEY[a.id])),
-                oneTime, monthly, days,
+                oneTime, monthly, daysLow, daysHigh,
               } }}
               className="press inline-flex items-center justify-center gap-2 w-full py-3.5 bg-kraft text-paper mono-label">
               {t("es.lock")} <IconArrowUpRight size={14} />

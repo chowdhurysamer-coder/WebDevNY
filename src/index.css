@@ -146,6 +146,15 @@ html { scrollbar-width: none; } /* Firefox: same hidden-scrollbar look as WebKit
 }
 .link-draw:hover { background-size: 100% 2px; }
 
+/* underline that draws when the surrounding .group is hovered (used by the
+   expandable add-on rows on the pricing page) */
+.link-draw-group {
+  background-image: linear-gradient(rgb(var(--c-kraft)), rgb(var(--c-kraft)));
+  background-size: 0% 2px; background-position: 0 100%; background-repeat: no-repeat;
+  transition: background-size 0.3s ease;
+}
+.group:hover .link-draw-group { background-size: 100% 2px; }
+
 /* spotlight follow */
 .spotlight { transition: background 0.2s; }
 

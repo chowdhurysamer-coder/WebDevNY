@@ -147,7 +147,7 @@ export function Navbar() {
               })}
               <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 mono-label text-ink-faint">
                 <a href="mailto:contact@webdevny.com" className="hover:text-ink transition-colors">contact@webdevny.com</a>
-                <a href="tel:+12125550190" className="hover:text-ink transition-colors">(212) 555-0190</a>
+                {/* Phone hidden until we have a business line. */}
                 <span>New York, NY</span>
               </div>
             </nav>

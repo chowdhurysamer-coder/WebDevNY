@@ -65,7 +65,7 @@ export function Footer() {
             <div className="mono-label text-kraft mb-4">{t("link.contact")}</div>
             <div className="flex flex-col gap-2.5 text-sm">
               <a href="mailto:contact@webdevny.com" className="text-ink-soft hover:text-ink link-draw w-fit">contact@webdevny.com</a>
-              <a href="tel:+12125550190" dir="ltr" className="text-ink-soft hover:text-ink link-draw w-fit">{num("(212) 555-0190")}</a>
+              {/* Phone hidden until we have a business line. */}
               <span className="text-ink-faint">{t("foot.location")}</span>
             </div>
             <Link to="/contact" className="mt-5 inline-flex items-center gap-1.5 text-kraft text-sm hover:gap-2.5 transition-all">

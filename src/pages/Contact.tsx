@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Reveal, SectionLabel, Magnetic } from "@/components/primitives";
-import { IconMail, IconPhone, IconPin, IconArrowUpRight, IconCheck } from "@/components/icons";
+import { IconMail, IconPin, IconArrowUpRight, IconCheck } from "@/components/icons";
 import { burstConfetti } from "@/components/Confetti";
 import { sfx } from "@/lib/sfx";
 import { useLang } from "@/lib/i18n";
@@ -19,13 +19,14 @@ const WEB3FORMS_KEY = (import.meta.env.VITE_WEB3FORMS_KEY as string) || "487c3ff
 
 const info = [
   { icon: IconMail, labelKey: "ct.info.email", value: "contact@webdevny.com", href: "mailto:contact@webdevny.com" },
-  { icon: IconPhone, labelKey: "ct.info.phone", value: "(212) 555-0190", href: "tel:+12125550190" },
+  // Phone hidden until we have a business line.
+  // { icon: IconPhone, labelKey: "ct.info.phone", value: "(212) 555-0190", href: "tel:+12125550190" },
   { icon: IconPin, labelKey: "ct.info.studio", value: "New York, NY", href: "#" },
 ];
 
 const stepKeys = ["ct.step1", "ct.step2", "ct.step3", "ct.step4"];
 
-interface Quote { pages: number; addons: string[]; oneTime: number; monthly: number; days: number }
+interface Quote { pages: number; addons: string[]; oneTime: number; monthly: number; daysLow: number; daysHigh: number }
 
 export default function Contact() {
   const { t, num } = useLang();
@@ -41,7 +42,7 @@ export default function Contact() {
       return {
         name: "", email: "", business: "",
         budget: `$${quote.oneTime.toLocaleString()} + $${quote.monthly}/mo`,
-        message: `I built an estimate on your site:\n\nPackage: Base ($500 + $50/mo)\nPages: ${quote.pages}${addons}\nEstimated: $${quote.oneTime.toLocaleString()} one-time + $${quote.monthly}/mo maintenance\nEstimated timeline: ~${quote.days} days\n\nA bit about my project: `,
+        message: `I built an estimate on your site:\n\nPackage: Base ($500 + $50/mo)\nPages: ${quote.pages}${addons}\nEstimated: $${quote.oneTime.toLocaleString()} one-time + $${quote.monthly}/mo maintenance\nEstimated timeline: ~${quote.daysLow}–${quote.daysHigh} business days\n\nA bit about my project: `,
       };
     }
     return { name: "", email: "", business: "", budget: "", message: "" };
@@ -192,7 +193,7 @@ export default function Contact() {
                   <div className="mono-label text-paper/80 mb-2">{t("ct.quote.carried")}</div>
                   <div className="flex items-baseline gap-3 flex-wrap">
                     <span className="display text-3xl font-semibold" dir="ltr">${num(quote.oneTime.toLocaleString())} + ${num(quote.monthly)}{t("pr.perMo")}</span>
-                    <span className="mono-label text-paper/80">{num(quote.pages)} {t("ct.quote.pages")} · ~{num(quote.days)} {t("ct.quote.days")}</span>
+                    <span className="mono-label text-paper/80">{num(quote.pages)} {t("ct.quote.pages")} · ~{num(quote.daysLow)}–{num(quote.daysHigh)} {t("ct.quote.days")}</span>
                   </div>
                   {quote.addons.length > 0 && <div className="mono-label text-paper/70 mt-2">+ {quote.addons.join(" · ")}</div>}
                 </div>

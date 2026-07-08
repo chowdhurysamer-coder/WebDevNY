@@ -19,23 +19,43 @@ export const MAX_PAGES = 25;
 
 export const EXTRA_PAGE = { oneTime: 50, monthly: 5 };
 
+// `heavy` add-ons each add 2 business days on their own; the rest are counted
+// together (every 2 of them adds 1 day). See computeQuote for the timeline math.
 export const ADDONS = [
-  { id: "cms", label: "Blog / CMS", oneTime: 100, monthly: 10, days: 2 },
-  { id: "booking", label: "Booking / scheduling", oneTime: 50, monthly: 15, days: 2 },
-  { id: "seo", label: "Advanced SEO", oneTime: 75, monthly: 20, days: 2 },
-  { id: "multilang", label: "Multi-lingual support", oneTime: 95, monthly: 10, days: 2 },
-  { id: "gallery", label: "Photo / video gallery", oneTime: 50, monthly: 5, days: 1 },
+  { id: "cms", label: "Blog / CMS", oneTime: 100, monthly: 10, heavy: false },
+  { id: "booking", label: "Booking / scheduling", oneTime: 50, monthly: 15, heavy: false },
+  { id: "seo", label: "Advanced SEO", oneTime: 75, monthly: 20, heavy: true },
+  { id: "multilang", label: "Multilingual translation", oneTime: 95, monthly: 10, heavy: true },
+  { id: "gallery", label: "Photo / video gallery", oneTime: 50, monthly: 5, heavy: false },
 ] as const;
+
+// Base build takes 1–2 business days.
+const BASE_DAYS_LOW = 1;
+const BASE_DAYS_HIGH = 2;
 
 /** Pure quote calculation used by the estimator (and unit-tested). */
 export function computeQuote(pages: number, selectedIds: string[]) {
   const clamped = Math.min(MAX_PAGES, Math.max(BASE.pagesIncl, Math.round(pages)));
   const extraPages = clamped - BASE.pagesIncl;
+
   let oneTime = BASE.oneTime + extraPages * EXTRA_PAGE.oneTime;
   let monthly = BASE.monthly + extraPages * EXTRA_PAGE.monthly;
-  let days = BASE.days + Math.ceil(extraPages / 4);
-  for (const a of ADDONS) {
-    if (selectedIds.includes(a.id)) { oneTime += a.oneTime; monthly += a.monthly; days += a.days; }
-  }
-  return { oneTime, monthly, days, extraPages, pages: clamped };
+
+  const selected = ADDONS.filter((a) => selectedIds.includes(a.id));
+  for (const a of selected) { oneTime += a.oneTime; monthly += a.monthly; }
+
+  // Timeline (business days):
+  //  · every 5 extra pages adds a day
+  //  · each "heavy" add-on (Advanced SEO, Multilingual) adds 2 days
+  //  · the remaining add-ons add 1 day per 2 selected
+  const pageDays = Math.ceil(extraPages / 5);
+  const heavyDays = selected.filter((a) => a.heavy).length * 2;
+  const lightDays = Math.ceil(selected.filter((a) => !a.heavy).length / 2);
+  const extraDays = pageDays + heavyDays + lightDays;
+
+  return {
+    oneTime, monthly, extraPages, pages: clamped,
+    daysLow: BASE_DAYS_LOW + extraDays,
+    daysHigh: BASE_DAYS_HIGH + extraDays,
+  };
 }

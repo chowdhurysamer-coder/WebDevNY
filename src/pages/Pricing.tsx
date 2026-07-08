@@ -28,10 +28,15 @@ export default function Pricing() {
   const [open, setOpen] = useState<number | null>(0);
   const faqs = faqKeys.map(([q, a]) => [t(q), t(a)] as const);
 
+  const ADDON_DESC: Record<string, string> = {
+    cms: "es.addon.cms.d", booking: "es.addon.booking.d", seo: "es.addon.seo.d",
+    multilang: "es.addon.multilang.d", gallery: "es.addon.gallery.d",
+  };
   const addonRows = [
-    { labelKey: "pr.f.extraPage", oneTime: EXTRA_PAGE.oneTime, monthly: EXTRA_PAGE.monthly },
-    ...ADDONS.map((a) => ({ labelKey: ADDON_KEY[a.id], oneTime: a.oneTime, monthly: a.monthly })),
+    { labelKey: "pr.f.extraPage", descKey: "es.addon.extra.d", oneTime: EXTRA_PAGE.oneTime, monthly: EXTRA_PAGE.monthly },
+    ...ADDONS.map((a) => ({ labelKey: ADDON_KEY[a.id], descKey: ADDON_DESC[a.id], oneTime: a.oneTime, monthly: a.monthly })),
   ];
+  const [openAddon, setOpenAddon] = useState<number | null>(null);
 
   // FAQ rich-snippet structured data
   useEffect(() => {
@@ -115,13 +120,26 @@ export default function Pricing() {
                 <span className="text-right">{t("pr.t.mo")}</span>
               </div>
               <div className="flex-1">
-                {addonRows.map((r) => (
-                  <div key={r.labelKey} className="grid grid-cols-[1.6fr_0.7fr_0.7fr] gap-x-3 items-baseline py-3.5 border-b border-line text-sm">
-                    <span>{t(r.labelKey)}</span>
-                    <span className="text-right display text-lg font-semibold" dir="ltr">${num(r.oneTime)}</span>
-                    <span className="text-right text-ink-soft" dir="ltr">${num(r.monthly)}{t("pr.perMo")}</span>
-                  </div>
-                ))}
+                {addonRows.map((r, i) => {
+                  const isOpen = openAddon === i;
+                  return (
+                    <div key={r.labelKey} className="border-b border-line">
+                      <button onClick={() => setOpenAddon(isOpen ? null : i)} data-cursor-label={isOpen ? "CLOSE" : "WHAT'S THIS"}
+                        className="group w-full grid grid-cols-[1.6fr_0.7fr_0.7fr] gap-x-3 items-baseline py-3.5 text-left">
+                        <span className="text-sm group-hover:text-kraft transition-colors link-draw-group w-fit">{t(r.labelKey)}</span>
+                        <span className="text-right display text-lg font-semibold group-hover:text-kraft transition-colors" dir="ltr">${num(r.oneTime)}</span>
+                        <span className="text-right text-ink-soft" dir="ltr">${num(r.monthly)}{t("pr.perMo")}</span>
+                      </button>
+                      <AnimatePresence initial={false}>
+                        {isOpen && (
+                          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                            <p className="text-ink-soft text-sm leading-relaxed pb-4 pr-2">{t(r.descKey)}</p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                })}
               </div>
               <p className="mono-label text-ink-faint mt-6" style={{ fontSize: 9 }}>{t("pr.maxPages")}</p>
               <p className="mono-label text-ink-faint mt-2" style={{ fontSize: 9 }}>{t("es.domainNote")}</p>

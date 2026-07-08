@@ -6,7 +6,8 @@ describe("computeQuote", () => {
     const q = computeQuote(4, []);
     expect(q.oneTime).toBe(BASE.oneTime);   // $500
     expect(q.monthly).toBe(BASE.monthly);   // $50
-    expect(q.days).toBe(BASE.days);
+    expect(q.daysLow).toBe(1);
+    expect(q.daysHigh).toBe(2);
     expect(q.extraPages).toBe(0);
   });
 
@@ -21,6 +22,19 @@ describe("computeQuote", () => {
     const q = computeQuote(4, ["cms", "seo"]);
     expect(q.oneTime).toBe(500 + 100 + 75);
     expect(q.monthly).toBe(50 + 10 + 20);
+  });
+
+  it("timeline: every 5 extra pages adds a business day", () => {
+    expect(computeQuote(9, []).daysHigh).toBe(2 + 1);   // 5 extra -> +1
+    expect(computeQuote(10, []).daysHigh).toBe(2 + 2);  // 6 extra -> +2
+  });
+
+  it("timeline: heavy add-ons add 2 days, light add-ons 1 day per pair", () => {
+    expect(computeQuote(4, ["seo"]).daysHigh).toBe(2 + 2);        // heavy = +2
+    expect(computeQuote(4, ["multilang"]).daysHigh).toBe(2 + 2);  // heavy = +2
+    expect(computeQuote(4, ["cms"]).daysHigh).toBe(2 + 1);        // 1 light -> +1
+    expect(computeQuote(4, ["cms", "booking"]).daysHigh).toBe(2 + 1); // 2 light -> +1
+    expect(computeQuote(4, ["cms", "booking", "gallery"]).daysHigh).toBe(2 + 2); // 3 light -> +2
   });
 
   it("clamps pages to the 4..25 range", () => {
