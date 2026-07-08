@@ -98,6 +98,13 @@ html { scrollbar-width: none; } /* Firefox: same hidden-scrollbar look as WebKit
   background-size: 200% 100%;
   -webkit-background-clip: text; background-clip: text; color: transparent;
   animation: huepan 8s ease infinite;
+  /* background-clip:text leaves any glyph ink outside the background box
+     transparent (invisible). The tight display line-height puts italic
+     swash descenders — the "y" in "actually" — below that box, so extend
+     it downward (and a hair upward) with compensating margins; the extra
+     background is invisible, layout is unchanged. */
+  padding-bottom: 0.25em; margin-bottom: -0.25em;
+  padding-top: 0.08em; margin-top: -0.08em;
 }
 @keyframes huepan { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
