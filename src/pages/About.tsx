@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Reveal, FadeUp, SectionLabel, Counter, Magnetic } from "@/components/primitives";
+import { Reveal, FadeUp, SectionLabel, Magnetic } from "@/components/primitives";
 import { IconArrowUpRight } from "@/components/icons";
 import { useLang } from "@/lib/i18n";
 
@@ -10,12 +10,13 @@ const values = [
   { n: "04", tKey: "about.val4.t", dKey: "about.val4.d" },
 ];
 
-const stats = [
-  { to: 150, suffix: "+", key: "home.stat.sites" },
-  { to: 11, suffixKey: "home.stat.days", key: "about.avgLaunch" },
-  { to: 98, suffix: "%", key: "about.retention" },
-  { to: 2025, suffix: "", key: "about.est" },
-];
+// Fabricated clientele metrics — hidden until we have real numbers to show.
+// const stats = [
+//   { to: 150, suffix: "+", key: "home.stat.sites" },
+//   { to: 11, suffixKey: "home.stat.days", key: "about.avgLaunch" },
+//   { to: 98, suffix: "%", key: "about.retention" },
+//   { to: 2025, suffix: "", key: "about.est" },
+// ];
 
 export default function About() {
   const { t, num } = useLang();
@@ -37,7 +38,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* stats */}
+      {/* stats (fabricated clientele metrics) — hidden until we have real numbers to show
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-16 grid grid-cols-2 lg:grid-cols-4 border-b border-line">
         {stats.map((s, i) => (
           <FadeUp key={s.key} delay={i * 0.08} className={`px-2 py-4 ${i !== 0 ? "lg:border-l border-line" : ""}`}>
@@ -48,6 +49,7 @@ export default function About() {
           </FadeUp>
         ))}
       </section>
+      */}
 
       {/* values */}
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-24">
