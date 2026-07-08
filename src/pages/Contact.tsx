@@ -125,8 +125,8 @@ export default function Contact() {
     const body =
       `Name: ${form.name}\n` +
       `Email: ${form.email}\n` +
-      `Business: ${form.business || "—"}\n` +
-      `Budget: ${form.budget || "—"}\n\n` +
+      `Business: ${form.business || "-"}\n` +
+      `Budget: ${form.budget || "-"}\n\n` +
       `${form.message}`;
     window.location.href = `mailto:${INBOX}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     markSent();

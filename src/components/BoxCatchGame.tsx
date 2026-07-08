@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { sfx } from "@/lib/sfx";
 import { burstConfetti } from "@/components/Confetti";
 import { useLang } from "@/lib/i18n";
+import { loadBest, loadBestFull, saveBest } from "@/lib/bestScore";
 
 type Bulb = { x: number; y: number; v: number; r: number; vr: number; missed?: boolean };
 
@@ -10,8 +11,17 @@ export function BoxCatchGame() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [running, setRunning] = useState(false);
   const [score, setScore] = useState(0);
-  const [best, setBest] = useState(() => { try { return +(localStorage.getItem("webdevny_game_best") || 0); } catch { return 0; } });
+  // Best score survives deploys and storage loss: it lives in localStorage,
+  // a ten-year cookie, and IndexedDB, and the highest surviving copy wins.
+  const [best, setBest] = useState(loadBest);
   const [lives, setLives] = useState(3);
+
+  // IndexedDB read is async; fold it in once it resolves.
+  useEffect(() => {
+    let live = true;
+    loadBestFull().then((b) => { if (live) setBest((prev) => Math.max(prev, b)); });
+    return () => { live = false; };
+  }, []);
 
   const state = useRef({ running: false, score: 0, lives: 3, box: 0.5, target: 0.5, bulbs: [] as Bulb[], spawn: 0, speed: 1, t: 0 });
 
@@ -103,7 +113,7 @@ export function BoxCatchGame() {
             if (s.score % 10 === 0) burstConfetti(boxX, boxY);
           } else if (!b.missed && b.y > H - 18) {
             b.missed = true; s.lives--; setLives(s.lives);
-            if (s.lives <= 0) { s.running = false; setRunning(false); if (s.score > best) { setBest(s.score); try { localStorage.setItem("webdevny_game_best", String(s.score)); } catch { /* ignore */ } } }
+            if (s.lives <= 0) { s.running = false; setRunning(false); if (s.score > best) { setBest(saveBest(s.score)); } }
           }
           if (b.y < H + 40) drawBulb(bx, b.y, 26, b.r);
         }
