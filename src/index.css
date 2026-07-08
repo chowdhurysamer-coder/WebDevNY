@@ -71,12 +71,16 @@ body {
 ::-webkit-scrollbar { width: 0px; }
 
 /* ---------- Grain (subtle, light) ---------- */
+/* The noise tile repeats, so the layer only needs to be a little bigger than
+   the viewport (the shift animation moves it at most ~2.4vw). Keeping it small
+   + will-change makes the blend far cheaper to composite while scrolling. */
 .grain {
-  position: fixed; inset: -150%; width: 400%; height: 400%;
+  position: fixed; inset: -8%; width: 116%; height: 116%;
   z-index: 9998; pointer-events: none; opacity: var(--grain-opacity);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
   animation: grainShift 0.5s steps(2) infinite;
   mix-blend-mode: var(--grain-blend);
+  will-change: transform;
 }
 @keyframes grainShift {
   0% { transform: translate(0,0); } 50% { transform: translate(-2%,1%); } 100% { transform: translate(1%,-1%); }
@@ -119,7 +123,7 @@ body {
 .press:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--shadow); }
 
 /* ---------- Marquee ---------- */
-.marquee { display: flex; width: max-content; animation: marquee 32s linear infinite; }
+.marquee { display: flex; width: max-content; animation: marquee 32s linear infinite; will-change: transform; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 .marquee-rev { animation-direction: reverse; }
 
@@ -174,6 +178,28 @@ body {
   .cursor-none-fine { cursor: none; }
 }
 @media (prefers-reduced-motion: reduce) { .box-float, .marquee, .text-sunset, .grain { animation: none !important; } }
+
+/* ============================================================
+   Perf-lite tier (html.perf-lite) — applied by src/lib/perf.ts on
+   weak/busy devices. Strips the effects that cost the most frames:
+   full-page blend layers, backdrop blurs, infinite repaints, and
+   the custom cursor (native pointer = zero-lag mouse movement).
+   ============================================================ */
+html.perf-lite .grain { display: none; }
+html.perf-lite .text-sunset,
+html.perf-lite .box-float,
+html.perf-lite .spin-slow,
+html.perf-lite .spin-rev { animation: none !important; }
+html.perf-lite .card-soft { backdrop-filter: none; background: rgba(255, 253, 248, 0.94); }
+html.perf-lite .backdrop-blur-md,
+html.perf-lite .backdrop-blur-sm { backdrop-filter: none !important; }
+/* navbar loses its blur in lite mode — make its background near-opaque instead */
+html.perf-lite header[class*="bg-paper/85"] { background-color: rgb(var(--c-paper) / 0.97); }
+/* restore the native pointer (the custom cursor unmounts in lite mode) */
+html.perf-lite, html.perf-lite body,
+html.perf-lite input, html.perf-lite textarea, html.perf-lite select { cursor: auto; }
+html.perf-lite a, html.perf-lite button, html.perf-lite summary, html.perf-lite label,
+html.perf-lite [role="button"], html.perf-lite [data-cursor], html.perf-lite [data-cursor-label] { cursor: pointer; }
 
 /* ============================================================
    Touch & small-screen refinements.

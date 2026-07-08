@@ -2,10 +2,13 @@ import * as React from "react";
 import { motion, useInView, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useLang } from "@/lib/i18n";
+import { usePerfLite } from "@/lib/perf";
 
 /* ---------------- 3D tilt card ---------------- */
 export function TiltCard({ children, className, max = 9 }: { children: React.ReactNode; className?: string; max?: number }) {
   const ref = React.useRef<HTMLDivElement>(null);
+  // Lite tier: skip the per-mousemove spring work; the card renders static.
+  const lite = usePerfLite();
   const rx = useSpring(0, { stiffness: 220, damping: 18 });
   const ry = useSpring(0, { stiffness: 220, damping: 18 });
   const gx = useMotionValue(50);
@@ -20,7 +23,7 @@ export function TiltCard({ children, className, max = 9 }: { children: React.Rea
   };
   const reset = () => { rx.set(0); ry.set(0); };
   return (
-    <motion.div ref={ref} onMouseMove={onMove} onMouseLeave={reset}
+    <motion.div ref={ref} onMouseMove={lite ? undefined : onMove} onMouseLeave={lite ? undefined : reset}
       style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d", transformPerspective: 900 }}
       className={cn("relative", className)}>
       <motion.div className="pointer-events-none absolute inset-0 z-10 opacity-0 hover:opacity-100 transition-opacity"
@@ -111,6 +114,8 @@ export function Marquee({ items, reverse, className }: { items: string[]; revers
 /* ---------------- Magnetic button ---------------- */
 export function Magnetic({ children, className, strength = 0.4 }: { children: React.ReactNode; className?: string; strength?: number }) {
   const ref = React.useRef<HTMLDivElement>(null);
+  // Lite tier: buttons stay put — no spring math on every mousemove.
+  const lite = usePerfLite();
   const x = useSpring(0, { stiffness: 200, damping: 15 });
   const y = useSpring(0, { stiffness: 200, damping: 15 });
   const onMove = (e: React.MouseEvent) => {
@@ -122,7 +127,7 @@ export function Magnetic({ children, className, strength = 0.4 }: { children: Re
   };
   const reset = () => { x.set(0); y.set(0); };
   return (
-    <motion.div ref={ref} onMouseMove={onMove} onMouseLeave={reset} style={{ x, y }} className={cn("inline-block", className)}>
+    <motion.div ref={ref} onMouseMove={lite ? undefined : onMove} onMouseLeave={lite ? undefined : reset} style={{ x, y }} className={cn("inline-block", className)}>
       {children}
     </motion.div>
   );

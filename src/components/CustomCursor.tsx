@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import { usePerfLite } from "@/lib/perf";
 
 export function CustomCursor() {
+  // Lite tier: unmount entirely — the OS cursor is the only truly lag-free
+  // pointer on a struggling device (CSS restores `cursor: auto/pointer`).
+  const lite = usePerfLite();
   const [hovering, setHovering] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [label, setLabel] = useState<string | null>(null);
@@ -16,8 +20,8 @@ export function CustomCursor() {
   const prev = useRef<{ hovering: boolean; label: string | null }>({ hovering: false, label: null });
 
   useEffect(() => {
-    // Only on fine pointers
-    if (!window.matchMedia("(pointer: fine)").matches) { setHidden(true); return; }
+    // Only on fine pointers, and never in lite mode
+    if (lite || !window.matchMedia("(pointer: fine)").matches) { setHidden(true); return; }
     const move = (e: MouseEvent) => {
       x.set(e.clientX);
       y.set(e.clientY);
@@ -37,9 +41,9 @@ export function CustomCursor() {
       document.removeEventListener("mouseleave", leave);
       document.removeEventListener("mouseenter", enter);
     };
-  }, [x, y]);
+  }, [x, y, lite]);
 
-  if (hidden) return null;
+  if (hidden || lite) return null;
 
   return (
     <>

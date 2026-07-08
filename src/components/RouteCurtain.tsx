@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { LogoMark } from "@/components/Logo";
+import { usePerfLite } from "@/lib/perf";
 
 const COLS = 5;
 
@@ -10,13 +11,18 @@ export function RouteCurtain() {
   const { pathname } = useLocation();
   const [playing, setPlaying] = useState(false);
   const first = useRef(true);
+  // Lite tier: skip the 5-panel sweep — route changes just crossfade.
+  const lite = usePerfLite();
 
   useEffect(() => {
     if (first.current) { first.current = false; return; }
+    if (lite) return;
     setPlaying(true);
     const t = setTimeout(() => setPlaying(false), 950);
     return () => clearTimeout(t);
-  }, [pathname]);
+  }, [pathname, lite]);
+
+  if (lite) return null;
 
   return (
     <AnimatePresence>

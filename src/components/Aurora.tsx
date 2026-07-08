@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { isLite, subscribeLite } from "@/lib/perf";
 
 /**
  * Hand-written WebGL flowing mesh-gradient ("aurora") in warm light tones.
@@ -80,7 +81,10 @@ export function Aurora({ className }: { className?: string }) {
     const uT = gl.getUniformLocation(prog, "t");
     const uM = gl.getUniformLocation(prog, "m");
     const mouse = { x: 0.5, y: 0.5 };
-    let dpr = Math.min(window.devicePixelRatio || 1, 1.6);
+    // The gradient is soft and sits under a paper-fade overlay — a lower
+    // render resolution is visually identical and much cheaper to shade.
+    const dprFor = () => Math.min(window.devicePixelRatio || 1, isLite() ? 0.8 : 1.25);
+    let dpr = dprFor();
 
     const resize = () => {
       canvas.width = canvas.offsetWidth * dpr; canvas.height = canvas.offsetHeight * dpr;
@@ -88,25 +92,42 @@ export function Aurora({ className }: { className?: string }) {
     };
     resize();
     window.addEventListener("resize", resize);
+    const unsubLite = subscribeLite(() => { dpr = dprFor(); resize(); });
     const onMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
       mouse.x = (e.clientX - rect.left) / rect.width;
       mouse.y = 1 - (e.clientY - rect.top) / rect.height;
     };
-    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mousemove", onMove, { passive: true });
 
-    let raf = 0, start = performance.now();
-    const render = () => {
-      const t = (performance.now() - start) / 1000;
+    // Only render while actually on screen — the aurora lives in the home
+    // hero, so once you scroll past it there's zero GPU work.
+    let raf = 0, running = false, lastDraw = 0;
+    const start = performance.now();
+    const render = (now: number) => {
+      if (!running) return;
+      raf = requestAnimationFrame(render);
+      // Lite tier: ~30fps is plenty for a slow-drifting gradient.
+      if (isLite() && now - lastDraw < 32) return;
+      lastDraw = now;
+      const t = (now - start) / 1000;
       gl.uniform2f(uR, canvas.width, canvas.height);
       gl.uniform1f(uT, t);
       gl.uniform2f(uM, mouse.x, mouse.y);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
-      raf = requestAnimationFrame(render);
     };
-    raf = requestAnimationFrame(render);
+    const play = () => { if (!running) { running = true; raf = requestAnimationFrame(render); } };
+    const pause = () => { running = false; cancelAnimationFrame(raf); };
+    const io = new IntersectionObserver(([entry]) => (entry.isIntersecting ? play() : pause()), { threshold: 0 });
+    io.observe(canvas);
 
-    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); window.removeEventListener("mousemove", onMove); };
+    return () => {
+      pause();
+      io.disconnect();
+      unsubLite();
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", onMove);
+    };
   }, []);
 
   return <canvas ref={ref} className={className} />;

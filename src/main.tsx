@@ -2,10 +2,14 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
+import { initPerf } from '@/lib/perf'
 
 // Always start pages at the top; never let the browser restore scroll on reload.
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
 window.scrollTo(0, 0)
+
+// Adaptive performance tier: weak or busy devices get a lighter site.
+initPerf()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

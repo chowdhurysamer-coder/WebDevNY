@@ -32,6 +32,7 @@ import NotFound from "@/pages/NotFound";
 import { CookieConsent } from "@/components/CookieConsent";
 import { Analytics as GAnalytics } from "@/components/Analytics";
 import { LangProvider } from "@/lib/i18n";
+import { usePerfLite } from "@/lib/perf";
 import { ConfettiLayer } from "@/components/Confetti";
 import { EasterEggs } from "@/components/EasterEggs";
 import { Seo } from "@/components/Seo";
@@ -51,7 +52,12 @@ function useLenis(active: boolean) {
     let raf = 0;
     const loop = (time: number) => { lenis.raf(time); raf = requestAnimationFrame(loop); };
     raf = requestAnimationFrame(loop);
-    return () => { cancelAnimationFrame(raf); lenis.destroy(); ref.current = null; };
+    return () => {
+      cancelAnimationFrame(raf);
+      lenis.destroy();
+      ref.current = null;
+      (window as unknown as { __lenis?: Lenis }).__lenis = undefined;
+    };
   }, [active]);
   return ref;
 }
@@ -68,11 +74,13 @@ function ScrollTop() {
 
 function PageTransition({ children }: { children: React.ReactNode }) {
   const location = useLocation();
+  // Lite tier: a quick crossfade instead of the slide — cheaper and snappier.
+  const lite = usePerfLite();
   return (
     <AnimatePresence mode="wait">
       <motion.div key={location.pathname}
-        initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
-        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}>
+        initial={{ opacity: 0, y: lite ? 0 : 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: lite ? 0 : -8 }}
+        transition={{ duration: lite ? 0.16 : 0.35, ease: [0.16, 1, 0.3, 1] }}>
         {children}
       </motion.div>
     </AnimatePresence>
@@ -126,7 +134,10 @@ function SiteLayout() {
 export default function App() {
   const [phase, setPhase] = useState<"intro" | "loader" | "site">(() => (sessionStorage.getItem(STORAGE_KEY) ? "loader" : "intro"));
   const [unblind, setUnblind] = useState(false);
-  useLenis(phase === "site");
+  // Lite tier: skip Lenis entirely — native scrolling is the smoothest thing
+  // a struggling device can do (no rAF-driven scroll work every frame).
+  const lite = usePerfLite();
+  useLenis(phase === "site" && !lite);
 
   const handleComplete = () => {
     sessionStorage.setItem(STORAGE_KEY, "1");
